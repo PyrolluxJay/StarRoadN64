@@ -39,10 +39,17 @@ void bhv_collect_star_init(void) {
     obj_set_hitbox(o, &sCollectStarHitbox);
 }
 
+extern const BehaviorScript bhvStarRoadIGT[];
+
 void bhv_collect_star_loop(void) {
     o->oFaceAngleYaw += 0x800;
 
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+        if (130 == gMarioStates->numStars)
+        {
+            spawn_object(o, 0, bhvStarRoadIGT);
+        }
+
         obj_mark_for_deletion(o);
         o->oInteractStatus = INT_STATUS_NONE;
     }

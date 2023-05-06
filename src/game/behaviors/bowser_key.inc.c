@@ -13,13 +13,9 @@ struct ObjectHitbox sBowserKeyHitbox = {
 };
 
 void bhv_bowser_key_loop(void) {
+    o->oFaceAngleYaw += 0x800;
     cur_obj_scale(0.5f);
 
-    if (o->oAngleVelYaw > 0x400) {
-        o->oAngleVelYaw -= 0x100;
-    }
-
-    o->oFaceAngleYaw += o->oAngleVelYaw;
     o->oFaceAngleRoll = -0x4000;
     o->oGraphYOffset = 165.0f;
 

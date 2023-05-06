@@ -33,6 +33,7 @@
 #include "debug.h"
 #include "fail_warp.h"
 #include "options_menu.h"
+#include "print.h"
 
 #include "config.h"
 
@@ -1462,7 +1463,50 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
 /**
  * Play the "thank you so much for to playing my game" sound.
  */
+extern void lvl_calc_igt();
 s32 lvl_play_the_end_screen_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) {
     play_sound(SOUND_MENU_THANK_YOU_PLAYING_MY_GAME, gGlobalSoundSource);
+    lvl_calc_igt();
     return TRUE;
+}
+
+extern struct SaveBuffer gSaveBuffer __attribute__((section(".bss.gSaveBuffer")));
+static char sGameTime[] = "Game Time  0 00 00.00";
+void lvl_calc_igt()
+{
+    gSaveFileModified = 1;
+    save_file_do_save(gCurrSaveFileNum - 1);
+    s32 timeLeft = gSaveBuffer.files[gCurrSaveFileNum - 1][0].timer;
+    s32 f = 3 * (timeLeft % 30);
+    s32 s = (timeLeft / 30) % 60;
+    s32 m = (timeLeft / 60 / 30) % 60;
+    s32 h = timeLeft / 60 / 30 / 60;
+
+    sprintf(sGameTime + 10, "%02d", h);
+    if (sGameTime[10] == '0')
+        sGameTime[10] = ' ';
+
+    sGameTime[12] = ':';
+    sprintf(sGameTime + 13, "%02d", m);
+    sGameTime[15] = ':';
+    sprintf(sGameTime + 16, "%02d", s);
+    sGameTime[18] = '.';
+    sprintf(sGameTime + 19, "%02d", f);
+}
+
+void lvl_show_time()
+{
+    print_text_aligned(160, 40, sGameTime, TEXT_ALIGN_CENTER);
+}
+
+void peach_init_igt()
+{
+    if (gCurrCourseNum == COURSE_END)
+        lvl_calc_igt();
+}
+
+void peach_show_igt()
+{
+    if (gCurrCourseNum == COURSE_END)
+        lvl_show_time();
 }

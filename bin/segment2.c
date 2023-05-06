@@ -331,6 +331,10 @@ ALIGNED8 static const Texture texture_hud_char_minus[] = {
 #include "textures/segment2/segment2.minus.rgba16.inc.c"
 };
 
+ALIGNED8 static const Texture texture_hud_char_colon[] = {
+#include "textures/segment2/segment2.colon.rgba16.inc.c"
+};
+
 ALIGNED8 static const Texture texture_hud_char_multiply[] = {
 #include "textures/segment2/segment2.05600.rgba16.inc.c"
 };
@@ -1723,7 +1727,7 @@ const struct AsciiCharLUTEntry main_hud_lut[] = {
     {texture_hud_char_7, 12}, // 55 "7"
     {texture_hud_char_8, 12}, // 56 "8"
     {texture_hud_char_9, 12}, // 57 "9"
-    {NULL, 0}, // 58 ":" (Unimplemented)
+    {texture_hud_char_colon, 12}, // 58 ":" (Unimplemented)
     {NULL, 0}, // 59 ";" (Unimplemented)
     {NULL, 0}, // 60 "<" (Unimplemented)
     {NULL, 0}, // 61 "=" (Unimplemented)
