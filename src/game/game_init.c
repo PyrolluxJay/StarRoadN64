@@ -770,6 +770,7 @@ void setup_game_memory(void) {
 /**
  * Main game loop thread. Runs forever as long as the game continues.
  */
+extern void set_vi_mode(int enabled);
 void thread5_game_loop(UNUSED void *arg) {
     setgp();
     setup_game_memory();
@@ -826,7 +827,17 @@ void thread5_game_loop(UNUSED void *arg) {
         {
             Hacktice_onFrame();
         }
-        const int ResetCombo = L_TRIG | Z_TRIG;
+
+#if TEST_VI_MODES
+        static int mode = 0;
+        if (gPlayer1Controller->buttonPressed & L_TRIG)
+        {
+            mode++;
+            set_vi_mode(mode & 7);
+        }
+        print_text_fmt_int(20, 20, "%d", mode & 7);
+#endif
+
         if (Hacktice_gConfig.softReset)
         {
             SoftReset_onFrame();

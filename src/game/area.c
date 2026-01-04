@@ -254,8 +254,20 @@ typedef struct
 } __OSViContext; // 0x30 bytes
 
 extern __OSViContext *__osViNext __attribute__((section(".data")));
+#define VI_STATE_XSCALE_UPDATED 0x02
+
+extern void __osRestoreInt(u32);
 extern u32 __osDisableInt();
-extern void __osRestoreInt();
+
+static void osViSetXScaleRaw(u32 scale) {
+    register u32 nomValue;
+    register u32 saveMask = __osDisableInt();
+    
+    __osViNext->x.factor = 0;
+    __osViNext->state |= VI_STATE_XSCALE_UPDATED;
+    __osViNext->x.scale = scale;
+    __osRestoreInt(saveMask);
+}
 
 void set_vi_mode(int enabled)
 {
@@ -263,6 +275,7 @@ void set_vi_mode(int enabled)
     if (enabled & 1)
     {
         __osViNext->control |= VI_CTRL_ANTIALIAS_MODE_1;
+        osViSetXScaleRaw(0x201);
     }
     else
     {
@@ -291,7 +304,7 @@ void set_vi_mode(int enabled)
 }
 
 void load_area(s32 index) {
-    int mode = 0;
+    int mode = 7;
     set_vi_mode(mode);
 
     if (gCurrentArea == NULL && gAreaData[index].graphNode != NULL) {
