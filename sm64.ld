@@ -631,7 +631,7 @@ SECTIONS
 #endif
 
 #ifdef DEBUG_MAP_STACKTRACE
-   BEGIN_SEG(mapData, (RAM_END - 0x00100000)) {
+   BEGIN_SEG(mapData, (RAM_END - 0x00100000 + 0x30000)) {
       KEEP(BUILD_DIR/asm/debug/map.o(.data*));
    }
    END_SEG(mapData)

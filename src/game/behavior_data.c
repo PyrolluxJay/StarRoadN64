@@ -388,11 +388,36 @@ enum BehaviorCommands {
 #define SPAWN_WATER_DROPLET(dropletParams) \
     BC_BPTR(BHV_CMD_SPAWN_WATER_DROPLET, dropletParams)
 
+// 0x07078E14 - 0x07078E80
+static const Collision inside_castle_seg7_collision_star_door_[] = {
+    COL_INIT(),
+    COL_VERTEX_INIT(0x8),
+    COL_VERTEX(-80, 0, -20),
+    COL_VERTEX(-80, 256, 20),
+    COL_VERTEX(-80, 256, -20),
+    COL_VERTEX(80, 256, 20),
+    COL_VERTEX(80, 256, -20),
+    COL_VERTEX(80, 0, -20),
+    COL_VERTEX(-80, 0, 20),
+    COL_VERTEX(80, 0, 20),
+    COL_TRI_INIT(SURFACE_DEFAULT, 8),
+    COL_TRI(2, 3, 4),
+    COL_TRI(2, 1, 3),
+    COL_TRI(5, 2, 4),
+    COL_TRI(5, 0, 2),
+    COL_TRI(6, 3, 1),
+    COL_TRI(6, 7, 3),
+    COL_TRI(5, 6, 0),
+    COL_TRI(5, 7, 6),
+    COL_TRI_STOP(),
+    COL_END(),
+};
+
 
 const BehaviorScript bhvStarDoor[] = {
     BEGIN(OBJ_LIST_SURFACE),
     SET_INT(oInteractType, INTERACT_DOOR),
-    LOAD_COLLISION_DATA(inside_castle_seg7_collision_star_door),
+    LOAD_COLLISION_DATA(inside_castle_seg7_collision_star_door_),
     SET_INT(oInteractionSubtype, INT_SUBTYPE_STAR_DOOR),
     OR_INT(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     SET_HITBOX(/*Radius*/ 80, /*Height*/ 100),
