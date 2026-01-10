@@ -115,7 +115,7 @@ SECTIONS
    END_SEG(boot)
 
    . = (RAM_START + 0x400);
-#if MEMORY_FRAGMENTATION_NO_FRAGMENTATION == MEMORY_FRAGMENTATION_LEVEL
+#if MEMORY_FRAGMENTATION_PIN_ZBUFFER == 0
    BEGIN_NOLOAD(zbuffer)
    {
       BUILD_DIR/src/buffers/zbuffer.o(.bss*);
@@ -334,31 +334,14 @@ SECTIONS
 
    _poolStart = .;
 
-#if MEMORY_FRAGMENTATION_NO_FRAGMENTATION == MEMORY_FRAGMENTATION_LEVEL
-   BEGIN_NOLOAD(framebuffer0)
-   {
-      BUILD_DIR/src/buffers/framebuffer0.o(.bss*);
-   }
-   END_NOLOAD(framebuffer0)
-
-   BEGIN_NOLOAD(framebuffer1)
-   {
-      BUILD_DIR/src/buffers/framebuffer1.o(.bss*);
-   }
-   END_NOLOAD(framebuffer1)
-
-   BEGIN_NOLOAD(framebuffer2)
-   {
-      BUILD_DIR/src/buffers/framebuffer2.o(.bss*);
-   }
-   END_NOLOAD(framebuffer2)
-#else
+#if MEMORY_FRAGMENTATION_PIN_ZBUFFER == 1
    . = ZBUFFER_START;
    BEGIN_NOLOAD(zbuffer)
    {
       BUILD_DIR/src/buffers/zbuffer.o(.bss*);
    }
    END_NOLOAD(zbuffer)
+#endif
 
    . = FRAMEBUFFER0_START;
    BEGIN_NOLOAD(framebuffer0)
@@ -380,7 +363,6 @@ SECTIONS
       BUILD_DIR/src/buffers/framebuffer2.o(.bss*);
    }
    END_NOLOAD(framebuffer2)
-#endif
 
    __expansionRamStart = (RAM_START + (RAM_1MB * 4));
 #ifndef USE_EXT_RAM

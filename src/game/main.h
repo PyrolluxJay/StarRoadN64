@@ -13,7 +13,7 @@ enum VIModes {
 #define THREAD2_STACK 0x800
 #define THREAD3_STACK 0x200
 #define THREAD4_STACK 0x2000
-#define THREAD5_STACK 0x2000
+#define THREAD5_STACK 0x2400
 #define THREAD6_STACK 0x400
 
 enum ThreadID {
@@ -85,9 +85,6 @@ extern struct RumbleData gRumbleDataQueue[3] __attribute__((section(".data")));
 extern struct RumbleSettings gCurrRumbleSettings __attribute__((section(".data")));
 #endif
 
-extern struct VblankHandler *gVblankHandler1 __attribute__((section(".data")));
-extern struct VblankHandler *gVblankHandler2 __attribute__((section(".data")));
-extern struct SPTask *gActiveSPTask __attribute__((section(".data")));
 extern s8 gAudioEnabled __attribute__((section(".data")));
 extern u32 gNumVblanks __attribute__((section(".data")));
 extern s8 gResetTimer __attribute__((section(".data")));
@@ -110,7 +107,6 @@ typedef struct {
 void set_vblank_handler(s32 index, struct VblankHandler *handler, OSMesgQueue *queue, OSMesg *msg);
 void dispatch_audio_sptask(struct SPTask *spTask);
 void exec_display_list(struct SPTask *spTask);
-void change_vi(OSViMode *mode, int width, int height);
 void setgp();
 
 #endif // MAIN_H

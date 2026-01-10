@@ -29,11 +29,11 @@ struct DmaHandlerList {
 
 #define EFFECTS_MEMORY_POOL 0x4000
 
-extern struct MemoryPool *gEffectsMemoryPool __attribute__((section(".data")));
+extern struct MemoryPool *gEffectsMemoryPool;
 
 uintptr_t set_segment_base_addr(s32 segment, void *addr);
-void *get_segment_base_addr(s32 segment);
-void *segmented_to_virtual(const void *addr);
+void *get_segment_base_addr(s32 segment)  __attribute__ ((pure));
+void *segmented_to_virtual(const void *addr) __attribute__ ((pure));
 void *virtual_to_segmented(u32 segment, const void *addr);
 void move_segment_table_to_dmem(void);
 
@@ -42,65 +42,31 @@ struct MainPoolRegion {
     u8* end;
 };
 
-#ifndef MAIN_POOL_SINGLE_REGION
-
-#if MEMORY_FRAGMENTATION_NO_FRAGMENTATION == MEMORY_FRAGMENTATION_LEVEL
-// One giant region encompassing all of the ram. Memory layout follows vanilla implementation
-// -zbuffer-|-game/engine data-|-framebuffers-|-main pool region-
-#define MAIN_POOL_REGIONS_COUNT 1
-#endif
-
-#if MEMORY_FRAGMENTATION_ZBUFFER_AND_FRAMEBUFFERS == MEMORY_FRAGMENTATION_LEVEL
-// Region before zbuffer and region after the framebuffer2
-// -game/engine data-|-main pool region 0-|-zbuffer-|-framebuffers-|-main pool region 1-
-//                                                  ^
-//                                       0x80300000 or 0x80700000
-#define MAIN_POOL_REGIONS_COUNT 2
-#endif
-
-#if MEMORY_FRAGMENTATION_ZBUFFER_AND_FRAMEBUFFERS_SPLIT == MEMORY_FRAGMENTATION_LEVEL
-// Region after 0x80600000, before zbuffer, after the framebuffer2
-// -game/engine data-|-main pool region 1-|-zbuffer-|-framebuffers-|-main pool region 1-|-main pool region 0-
-//                                                  ^                                   ^
-//                                             0x80500000                          0x80600000
 #define MAIN_POOL_REGIONS_COUNT 3
-#endif
-
-#if MEMORY_FRAGMENTATION_ZBUFFER_AND_EACH_FRAMEBUFFER == MEMORY_FRAGMENTATION_LEVEL
-// Region before zbuffer, between fb0/fb1, after fb2
-// -game/engine data-|-main pool region 0-|-zb-|-fb0-|-main pool region 1-|-fb1-|-fb2-|-main pool region 2-
-//                                             ^                                ^
-//                                        0x80500000                       0x80700000
-#define MAIN_POOL_REGIONS_COUNT 3
-#endif
-
-#else
-#define MAIN_POOL_REGIONS_COUNT 1
-#endif
 
 struct MainPoolContext {
     struct MainPoolRegion regions[MAIN_POOL_REGIONS_COUNT];
 };
 
-extern struct MainPoolContext sMainPool __attribute__((section(".bss.sMainPool")));
-#ifndef MAIN_POOL_SINGLE_REGION
-extern struct MainPoolRegion* gMainPoolCurrentRegion __attribute__((section(".data")));
-#else
-// There is only 1 region which is the first region
-#define gMainPoolCurrentRegion ((struct MainPoolRegion*) &sMainPool)
-#endif
+extern struct MainPoolContext sMainPool;
+#define gMainPoolCurrentRegion (&sMainPool.regions[0])
+
+#define MAIN_POOL_ALIGNMENT_DISABLE -1
+#define MAIN_POOL_ALLOC_TRY TRUE
+#define MAIN_POOL_ALLOC_FORCE FALSE
 
 // takes the first 'size' bytes from 'region'
-static inline void* main_pool_region_try_alloc_from_start(struct MainPoolRegion* region, u32 size) {
-    u8* buf = region->start;
-    u8* newStart = buf + size;
-#ifndef MAIN_POOL_SINGLE_REGION
-    if (__builtin_expect(newStart > region->end, 0))
-        return NULL;
-#endif
+static ALWAYS_INLINE void* main_pool_region_alloc_from_start(struct MainPoolRegion* region, u32 size, s32 alignment, int try) {
+    u8* ret = alignment < 0 ? region->start : (u8*) ALIGN(region->start, alignment);
+    u8* newStart = ret + size;
+    if (try) {
+        if (newStart > region->end)
+            return NULL;
+    }
 
     region->start = newStart;
-    return buf;
+    if (!ret) __builtin_unreachable();
+    return ret;
 }
 
 /*
@@ -111,51 +77,30 @@ static inline void* main_pool_region_try_alloc_from_start(struct MainPoolRegion*
  It behaves similarly to an array of AllocOnly pools from vanilla SM64 by
  "cutting" the start of the "region" when an allocation is made and returning the
  pointer to the start of the initial "region".
-
- Here is a simple visual example of how the memory is laid out in the main pool:
-
- Main pool initial state is a multiple regions of memory:
- |-------|   |----|  |-------------------|
- If alloc(sizeof(+++++)), first region is used and the state becomes:
- |+++++--|   |----|  |-------------------|
-  ^
-  returned pointer, no extra memory overhead
- If afterwards alloc(sizeof(+++)) is used, it does not fit in region 1, so region 2 is used:
- |+++++--|   |+++-|  |-------------------|
-              ^
-  returned pointer
  */
 void main_pool_init(void);
 
-/*
- When 'main_pool_alloc_slow' is used, regions are iterated till a region is found that
- can supply the necessary memory. Compared to vanilla SM64 main pool allocator,
- there is no extra cost in using 'main_pool_alloc' - it is has 0 bytes overhead.
- The only way to free memory returned by 'alloc' is to use 'main_pool_pop_state'.
- */
-void *main_pool_alloc_slow(u32 size);
-
-/*
- 'main_pool_alloc' is a faster version of 'main_pool_alloc_slow' that can be inlined for small allocations.
- Its fast path for small size basically looks like "(return *ptr += size)" making it
- very quick for common tiny allocs used, for example, in surface code.
- */
-static inline void *main_pool_alloc(u32 size) {
-#ifndef MAIN_POOL_SINGLE_REGION
-    size = ALIGN4(size);
-    if (size < MAIN_POOL_SMALL_ALLOC_LIMIT) {
-        void *buf = main_pool_region_try_alloc_from_start(gMainPoolCurrentRegion, size);
-        if (__builtin_expect(!!buf, 1))
-            return buf;
-    }
-
-    return main_pool_alloc_slow(size);
-#else
-    return main_pool_region_try_alloc_from_start(gMainPoolCurrentRegion, size);
-#endif
+static ALWAYS_INLINE void *main_pool_alloc(u32 size) {
+    void* buf = main_pool_region_alloc_from_start(gMainPoolCurrentRegion, ALIGN4(size), MAIN_POOL_ALIGNMENT_DISABLE, MAIN_POOL_ALLOC_FORCE);
+    if (!buf) __builtin_unreachable();
+    return buf;
 }
-void *main_pool_alloc_aligned(u32 size, u32 alignment);
 
+void *main_pool_alloc_ex(int region, u32 size, s32 alignment);
+static inline void *main_pool_alloc_aligned(int region, u32 size, s32 alignment)
+{
+    if (!alignment)
+        alignment = 16;
+
+    void* buf = main_pool_alloc_ex(region, ALIGN4(size), alignment);
+    if (!buf) __builtin_unreachable();
+    return buf;
+}
+
+static inline void* main_pool_alloc_lowprio(u32 size)
+{
+    return main_pool_alloc_ex(1, size, MAIN_POOL_ALIGNMENT_DISABLE);
+}
 
 /*
  Main pool also provides a way to free the latest allocated memory for temporary memory use.
@@ -165,8 +110,7 @@ void *main_pool_alloc_aligned(u32 size, u32 alignment);
  temporary buffer that is allocated, used and freed in the same function.
 */
 
-void *main_pool_alloc_freeable(u32 size);
-void *main_pool_alloc_aligned_freeable(u32 size, u32 alignment);
+void *main_pool_alloc_freeable(int region, u32 size, u32 alignment);
 void main_pool_free(void *addr);
 
 /*
@@ -187,11 +131,12 @@ void main_pool_pop_state(void);
  */
 u32 main_pool_available(void);
 
+void main_pool_cut_graphics_pool();
+
 #ifndef NO_SEGMENTED_MEMORY
 void *load_segment(s32 segment, u8 *srcStart, u8 *srcEnd, u8 *bssStart, u8 *bssEnd);
 void *load_to_fixed_pool_addr(u8 *destAddr, u8 *srcStart, u8 *srcEnd);
 void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd);
-void load_engine_code_segment(void);
 #else
 #define load_segment(...)
 #define load_to_fixed_pool_addr(...)
@@ -203,12 +148,17 @@ struct MemoryPool *mem_pool_init(u32 size);
 void *mem_pool_alloc(struct MemoryPool *pool, u32 size);
 void mem_pool_free(struct MemoryPool *pool, void *addr);
 
-void setup_dma_table_list(struct DmaHandlerList *list, void *srcAddr, void *buffer);
-s32 load_patchable_table(struct DmaHandlerList *list, s32 index);
-
-
-extern uintptr_t sSegmentROMTable[32] __attribute__((section(".bss.sSegmentROMTable")));
-
+extern u8 *gGfxPoolEnd;
+#if 0
+static inline void *alloc_display_list(u32 size) {
+    size = ALIGN8(size);
+    gGfxPoolEnd -= size;
+    void* ptr = gGfxPoolEnd;
+    if (!ptr) __builtin_unreachable();
+    return ptr;
+}
+#define main_pool_alloc_aligned_cde main_pool_alloc
+#else
 #define main_pool_alloc_aligned_cde(_size) ({ \
     struct MainPoolRegion* region = gMainPoolCurrentRegion; \
     u32 size = ALIGN16(_size); \
@@ -279,7 +229,6 @@ extern uintptr_t sSegmentROMTable[32] __attribute__((section(".bss.sSegmentROMTa
     (void*) ptr; \
 })
 
-extern u8 *gGfxPoolEnd __attribute__((section(".bss.gGfxPoolEnd")));
 #define alloc_display_list(_size) ({\
     u32 size = ALIGN16(_size); \
     void* ptr = gGfxPoolEnd - size; \
@@ -348,5 +297,9 @@ extern u8 *gGfxPoolEnd __attribute__((section(".bss.gGfxPoolEnd")));
     if (0 != (((uintptr_t) ptr) & 0xf)) __builtin_unreachable(); \
     (void*) ptr; \
 })
+#endif
+
+void setup_dma_table_list(struct DmaHandlerList *list, void *srcAddr, void *buffer);
+s32 load_patchable_table(struct DmaHandlerList *list, s32 index);
 
 #endif // MEMORY_H
