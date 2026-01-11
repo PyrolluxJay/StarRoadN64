@@ -22,6 +22,10 @@ extern const GeoLayout Geo_vcutm_1_0x1e41700[];
 #define vcutm_area_1 Geo_vcutm_1_0x1e41700
 
 extern const GeoLayout star_road_vc_light[];
+extern const GeoLayout star_road_vc_light1[];
+extern const GeoLayout star_road_vc_light2[];
+extern const GeoLayout star_road_vc_light3[];
+extern const GeoLayout star_road_vc_light4[];
 extern const GeoLayout star_road_vc_cog[];
 
 #define bhvClockMinuteHand bhvStarRoadStarReplica
@@ -65,8 +69,12 @@ const LevelScript level_vcutm_entry[] = {
 	JUMP_LINK(script_func_global_9),
 	JUMP_LINK(script_func_global_16),
 	JUMP_LINK(script_func_vo_rr),
-	LOAD_MODEL_FROM_GEO(65, star_road_vc_light),
 	LOAD_MODEL_FROM_GEO(19, star_road_vc_cog),
+	LOAD_MODEL_FROM_GEO(65, star_road_vc_light),
+    LOAD_MODEL_FROM_GEO(MODEL_RR_TRICKY_TRIANGLES_FRAME1, star_road_vc_light1),
+    LOAD_MODEL_FROM_GEO(MODEL_RR_TRICKY_TRIANGLES_FRAME2, star_road_vc_light2),
+    LOAD_MODEL_FROM_GEO(MODEL_RR_TRICKY_TRIANGLES_FRAME3, star_road_vc_light3),
+    LOAD_MODEL_FROM_GEO(MODEL_RR_TRICKY_TRIANGLES_FRAME4, star_road_vc_light4),
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
 
@@ -123,7 +131,6 @@ const LevelScript level_vcutm_entry[] = {
 		OBJECT_WITH_ACTS(101,-713,27,1718,0,180,0,0x0, bhvBoo,31),
 		OBJECT_WITH_ACTS(101,6733,526,1978,0,270,0,0x0, bhvBoo,31),
 		OBJECT_WITH_ACTS(0,0,0,0,0,0,0,0x0, bhvThiTinyIslandTop,31),
-
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),
 		WARP_NODE(12,9,1,11,0),
