@@ -5606,7 +5606,6 @@ const BehaviorScript bhvAnimatesOnFloorSwitchPress[] = {
     CALL_NATIVE(bhv_animates_on_floor_switch_press_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_animates_on_floor_switch_press_loop),
-        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
@@ -6293,5 +6292,18 @@ const BehaviorScript bhvStarRoadGGBoo[] = {
     CALL_NATIVE(bhv_toad_message_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_toad_message_loop),
+    END_LOOP(),
+};
+
+extern const Collision col_rr_geo_0007E8_0xfa72f1[];
+const BehaviorScript bhvStarRoadVCCog[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags,9),
+    LOAD_COLLISION_DATA(col_rr_geo_0007E8_0xfa72f1),
+    SET_HOME(),
+    BEGIN_LOOP(),
+    SET_INT(oAngleVelYaw,256),
+    ADD_INT(oMoveAngleYaw,256),
+    CALL_NATIVE( load_object_collision_model),
     END_LOOP(),
 };

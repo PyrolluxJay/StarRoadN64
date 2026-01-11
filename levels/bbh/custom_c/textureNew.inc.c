@@ -155,9 +155,6 @@ ALIGNED8 u8 rr_geo_0007D0__texture_09000000[] = {
 ALIGNED8 u8 rr_geo_0007D0__texture_09003800[] = {
 #include "levels/bbh/custom_textures/rr_geo_0007D0_0x9003800_custom.rgba16.inc.c"
 };
-ALIGNED8 u8 rr_geo_0007E8__texture_09000000[] = {
-#include "levels/bbh/custom_textures/rr_geo_0007E8_0x9000000_custom.rgba16.inc.c"
-};
 ALIGNED8 u8 rr_geo_0008C0__texture_09001800[] = {
 #include "levels/bbh/custom_textures/rr_geo_0008C0_0x9001800_custom.rgba16.inc.c"
 };
@@ -205,9 +202,6 @@ ALIGNED8 u8 rr_geo_000920__texture_09006800[] = {
 };
 ALIGNED8 u8 rr_geo_0008F0__texture_09007000[] = {
 #include "levels/bbh/custom_textures/rr_geo_0008F0_0x9007000_custom.rgba16.inc.c"
-};
-ALIGNED8 u8 rr_geo_000958__texture_09005800[] = {
-#include "levels/bbh/custom_textures/rr_geo_000958_0x9005800_custom.rgba16.inc.c"
 };
 ALIGNED8 u8 rr_geo_000970__texture_09005800[] = {
 #include "levels/bbh/custom_textures/rr_geo_000970_0x9005800_custom.rgba16.inc.c"
