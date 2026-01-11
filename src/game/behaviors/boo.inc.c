@@ -1,6 +1,6 @@
 // boo.inc.c
 
-#define SPAWN_CASTLE_BOO_STAR_REQUIREMENT 12
+#define SPAWN_CASTLE_BOO_STAR_REQUIREMENT 120
 
 static struct ObjectHitbox sBooGivingStarHitbox = {
     /* interactType:      */ 0,
@@ -713,8 +713,8 @@ void bhv_boo_with_cage_init(void) {
     } else
 #endif
     {
-        struct Object *cage = spawn_object(o, MODEL_HAUNTED_CAGE, bhvBooCage);
-        cage->oBehParams = o->oBehParams;
+        //struct Object *cage = spawn_object(o, MODEL_HAUNTED_CAGE, bhvBooCage);
+        //cage->oBehParams = o->oBehParams;
     }
 }
 

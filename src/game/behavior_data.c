@@ -6186,3 +6186,15 @@ const BehaviorScript bhvStarRoadCHWindow[] = {
     CALL_NATIVE( load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvStarRoadStarReplica[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags,1033),
+    CALL_NATIVE( bhv_init_room),
+    CALL_NATIVE( bhv_collect_star_init),
+    CALL_NATIVE( bhv_boo_with_cage_init),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_collect_star_loop),
+    BEGIN(OBJ_LIST_PLAYER),
+    END_LOOP(),
+};

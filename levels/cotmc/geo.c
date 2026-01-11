@@ -13,4 +13,5 @@
 
 #include "levels/cotmc/header.h"
 
-#include "levels/cotmc/geo.inc.c"
+#include "levels/cotmc/custom_c/custom.model.inc.h"
+#include "levels/cotmc/custom_c/custom.geo.inc.c"
