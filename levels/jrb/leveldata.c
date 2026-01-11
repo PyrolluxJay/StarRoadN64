@@ -10,3 +10,8 @@
 #include "levels/jrb/areas/2/movtext.inc.c"
 
 #include "levels/jrb/leveldata.inc.c"
+
+#include "levels/jrb/custom_c/textureNew.inc.c"
+#include "levels/jrb/custom_c/movtextNew.inc.c"
+#include "levels/jrb/custom_c/custom.modelopt.inc.c"
+
