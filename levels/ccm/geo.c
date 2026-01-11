@@ -14,3 +14,6 @@
 #include "levels/ccm/header.h"
 
 #include "levels/ccm/geo.inc.c"
+#include "levels/ccm/custom_c/custom.modelopt.inc.h"
+#include "levels/ccm/custom_c/custom.geo.inc.c"
+#include "levels/ccm/custom_c/custom_object.geo.inc.c"

@@ -899,7 +899,7 @@ This is an include meant to help with the addition of moving textures for water 
 To use this, simply place this file inside your source directory after exporting.
 */
 extern u8 bbh_1_Movtex_0[] = {};
-extern u8 ccm_1_Movtex_0[] = {};
+extern u8 ccm_1_Movtex_0[];
 extern u8 hmc_1_Movtex_0[] = {};
 extern u8 ssl_1_Movtex_0[] = {};
 extern u8 bob_1_Movtex_0[];

@@ -6173,3 +6173,16 @@ const BehaviorScript bhvStarRoadBOIPlatform[] = {
         CALL_NATIVE( load_object_collision_model),
     END_LOOP(),
 };
+
+extern const Collision col_wf_geo_000A00_0x10add0b[];
+const BehaviorScript bhvStarRoadCHWindow[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags,193),
+    LOAD_COLLISION_DATA(col_wf_geo_000A00_0x10add0b),
+    SET_HITBOX(200,200),
+    SET_INT(oIntangibleTimer,0),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_tower_door_loop),
+    CALL_NATIVE( load_object_collision_model),
+    END_LOOP(),
+};
