@@ -11,3 +11,7 @@
 #include "levels/hmc/areas/1/movtext.inc.c"
 
 #include "levels/hmc/leveldata.inc.c"
+#include "levels/hmc/custom_c/textureNew.inc.c"
+#include "levels/hmc/custom_c/movtextNew.inc.c"
+#include "levels/hmc/custom_c/custom.modelopt.inc.c"
+
