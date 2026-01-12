@@ -23,6 +23,18 @@ extern const GeoLayout Geo_hmc_1_0x14a1700[];
 #define bhvLargeFishGroup bhvTankFishGroup
 #define bhvFish3 bhvTankFishGroup
 #define bhvFish2 bhvTankFishGroup
+
+extern const BehaviorScript bhvStarRoadCCCoralBubble[];
+#define bhvThiHugeIslandTop bhvStarRoadCCCoralBubble
+extern const BehaviorScript bhvStarRoadCCCoralSquare[]; // 59 = 0x3B = MODEL_JRB_ROCK
+#define bhvShipPart3 bhvStarRoadCCCoralSquare
+extern const BehaviorScript bhvStarRoadCCCoralBombWeapon[];
+#define bhvSunkenShipPart bhvStarRoadCCCoralBombWeapon
+extern const BehaviorScript bhvStarRoadCCCoralBoat[]; // 53 = 0x35 = MODEL_JRB_SHIP_LEFT_HALF_PART
+#define bhvJetStreamRingSpawner bhvStarRoadCCCoralBoat
+
+extern const GeoLayout star_road_ccoral_square_geo[];
+extern const GeoLayout star_road_ccoral_boat_geo[];
 /* Fast64 end persistent block [scripts] */
 
 const LevelScript level_hmc_entry[] = {
@@ -62,6 +74,8 @@ const LevelScript level_hmc_entry[] = {
 	JUMP_LINK(script_func_global_1),
 	JUMP_LINK(script_func_global_5),
 	JUMP_LINK(script_func_global_14),
+	LOAD_MODEL_FROM_GEO(59, star_road_ccoral_square_geo),
+	LOAD_MODEL_FROM_GEO(53, star_road_ccoral_boat_geo),
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
 

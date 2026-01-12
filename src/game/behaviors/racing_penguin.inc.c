@@ -28,6 +28,7 @@ static void racing_penguin_act_wait_for_mario(void) {
     }
 }
 
+extern const Trajectory ccm_seg7_trajectory_penguin_race_RM2C_path[];
 static void racing_penguin_act_show_init_text(void) {
     s32 response = obj_update_race_proposition_dialog(sRacingPenguinData[o->oBehParams2ndByte].text);
 
@@ -41,7 +42,7 @@ static void racing_penguin_act_show_init_text(void) {
         child->parentObj = o;
 
         o->oPathedStartWaypoint = o->oPathedPrevWaypoint =
-            segmented_to_virtual(ccm_seg7_trajectory_penguin_race);
+            segmented_to_virtual(ccm_seg7_trajectory_penguin_race_RM2C_path);
         o->oPathedPrevWaypointFlags = 0;
 
         o->oAction = RACING_PENGUIN_ACT_PREPARE_FOR_RACE;

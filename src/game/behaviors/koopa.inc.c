@@ -64,9 +64,11 @@ struct KoopaTheQuickProperties {
 /**
  * Properties for the BoB race and the THI race.
  */
+extern const Trajectory KoopaBoB_path[];
+extern const Trajectory KoopaTHI_path[];
 static struct KoopaTheQuickProperties sKoopaTheQuickProperties[] = {
-    { DIALOG_005, DIALOG_007, bob_seg7_trajectory_koopa, { -2977, 1590, 3018 } },
-    { DIALOG_009, DIALOG_031, thi_seg7_trajectory_koopa, { -3438, 5559, 2656 } },
+    { DIALOG_005, DIALOG_007, KoopaBoB_path, { -2977, 1590, 3018 } },
+    { DIALOG_009, DIALOG_031, KoopaTHI_path, { -3438, 5559, 2656 } },
 };
 
 /**

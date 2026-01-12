@@ -14,4 +14,6 @@
 #include "levels/hmc/custom_c/textureNew.inc.c"
 #include "levels/hmc/custom_c/movtextNew.inc.c"
 #include "levels/hmc/custom_c/custom.modelopt.inc.c"
+#include "levels/hmc/custom_c/obj.collision.inc.c"
+#include "levels/hmc/custom_c/obj.model.inc.c"
 

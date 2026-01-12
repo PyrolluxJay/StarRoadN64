@@ -6328,3 +6328,54 @@ const BehaviorScript bhvStarRoadStarB1Box[] = {
     CALL_NATIVE( load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvStarRoadCCCoralBubble[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags,8257),
+    BILLBOARD(),
+    SCALE(0,1280),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_recovery_heart_loop),
+    END_LOOP(),
+};
+
+extern const Collision col_jrb_geo_000930_0xf4a1f1[];
+const BehaviorScript bhvStarRoadCCCoralSquare[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags,1),
+    LOAD_COLLISION_DATA(col_jrb_geo_000930_0xf4a1f1),
+    SET_FLOAT(oCollisionDistance,500),
+    CALL_NATIVE( bhv_init_room),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_breakable_box_loop),
+    CALL_NATIVE( load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvStarRoadCCCoralBombWeapon[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags,8267),
+    SET_HOME(),
+    SET_HITBOX_WITH_OFFSET(50,50,50),
+    SET_INTERACT_TYPE(8),
+    SET_INT(oDamageOrCoinValue,3),
+    SCALE(0,256),
+    SET_INT(oIntangibleTimer,0),
+    CALL_NATIVE( bhv_bullet_bill_init),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_bullet_bill_loop),
+    END_LOOP(),
+};
+
+extern const Collision col_jrb_geo_000978_0xf4be31[];
+const BehaviorScript bhvStarRoadCCCoralBoat[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags,8257),
+    CALL_NATIVE( bhv_init_room),
+    CALL_NATIVE( bhv_platform_on_track_init),
+    LOAD_COLLISION_DATA(col_jrb_geo_000978_0xf4be31),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_platform_on_track_update),
+    CALL_NATIVE( load_object_collision_model),
+    END_LOOP(),
+};
