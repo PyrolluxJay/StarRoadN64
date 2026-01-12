@@ -2038,8 +2038,15 @@ const BehaviorScript bhvBowser[] = {
     SET_HOME(),
     CALL_NATIVE(bhv_bowser_init),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_bowser_loop),
+        CALL_NATIVE( bhv_bowser_loop),
+        CALL_NATIVE( bhv_bowser_loop),
     END_LOOP(),
+};
+
+const BehaviorScript bhvStarRoadBowserStub[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    CALL_NATIVE(bhv_bowser_init),
+    BREAK(),
 };
 
 const BehaviorScript bhvBowserBodyAnchor[] = {
