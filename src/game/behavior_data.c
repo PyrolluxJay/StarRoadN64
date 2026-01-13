@@ -2362,7 +2362,7 @@ const BehaviorScript bhvSnowBall[] = {
 const BehaviorScript bhvLllRotatingBlockWithFireBars[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(lll_seg7_collision_rotating_fire_bars),
+    // LOAD_COLLISION_DATA(lll_seg7_collision_rotating_fire_bars),
     SET_FLOAT(oCollisionDistance, 4000),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_lll_rotating_block_fire_bars_loop),
@@ -6377,5 +6377,43 @@ const BehaviorScript bhvStarRoadCCCoralBoat[] = {
     BEGIN_LOOP(),
     CALL_NATIVE( bhv_platform_on_track_update),
     CALL_NATIVE( load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvStarRoadKCSun[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags,1),
+    SET_HOME(),
+    SCALE(0,28),
+    SET_INTERACT_TYPE(262144),
+    SET_HITBOX_WITH_OFFSET(50,25,25),
+    SET_INT(oIntangibleTimer,0),
+    BEGIN_LOOP(),
+    SET_INT(oInteractStatus,0),
+        CALL_NATIVE( bhv_butterfly_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvStarRoadYoshiCoin[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    BILLBOARD(),
+    OR_INT(oFlags,65),
+    SCALE(0,20),
+    CALL_NATIVE( bhv_init_room),
+    BEGIN_LOOP(),
+        CALL_NATIVE( bhv_red_coin_init),
+        CALL_NATIVE( bhv_yellow_coin_loop),
+        ADD_INT(oAnimState,1),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvStarRoadPiranhaPlant[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags,9417),
+    LOAD_ANIMATIONS(oAnimations, piranha_plant_seg6_anims_0601C31C),
+    ANIMATE(PIRANHA_PLANT_ANIM_BITE),
+    SET_INTERACT_TYPE(2097152),
+    SET_HITBOX(400,400),
+        BEGIN_LOOP(),
     END_LOOP(),
 };

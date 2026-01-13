@@ -11,8 +11,8 @@ VTX_FILTER = None
 VTX_SUFFIX = 'opt'
 
 # CCCoral
-VTX_FILTER = lambda vtx: vtx.pos.y < 373
-VTX_SUFFIX = 'opt_p'
+#VTX_FILTER = lambda vtx: vtx.pos.y < 373
+#VTX_SUFFIX = 'opt_p'
 
 HAS_EX3_COMMANDS = True
 HAS_TRI3 = False

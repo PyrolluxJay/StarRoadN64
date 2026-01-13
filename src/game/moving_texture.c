@@ -906,7 +906,7 @@ extern u8 bob_1_Movtex_0[];
 extern u8 sl_1_Movtex_0[] = {};
 extern u8 jrb_1_Movtex_0[];
 extern u8 castle_grounds_1_Movtex_0[];
-extern u8 lll_1_Movtex_0[] = {};
+extern u8 lll_1_Movtex_0[];
 extern u8 wf_1_Movtex_0[];
 extern u8 ending_1_Movtex_0[] = {};
 extern u8 castle_courtyard_1_Movtex_0[];
