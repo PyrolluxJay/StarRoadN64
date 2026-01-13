@@ -2045,6 +2045,8 @@ const BehaviorScript bhvBowser[] = {
 
 const BehaviorScript bhvStarRoadBowserStub[] = {
     BEGIN(OBJ_LIST_GENACTOR),
+    SET_INT(oInteractType, INTERACT_GRABBABLE),
+    SET_HITBOX(/*Radius*/ 400, /*Height*/ 400),
     CALL_NATIVE(bhv_bowser_init),
     BREAK(),
 };

@@ -38,6 +38,9 @@ extern const BehaviorScript bhvStarRoadPiranhaPlant[];
 
 extern const GeoLayout star_road_sun_geo[];
 extern const GeoLayout star_road_yoshi_coin_geo[];
+
+extern const BehaviorScript bhvStarRoadBowserStub[];
+#define bhvBowser bhvStarRoadBowserStub
 /* Fast64 end persistent block [scripts] */
 
 const LevelScript level_lll_entry[] = {
@@ -189,8 +192,8 @@ const LevelScript level_lll_entry[] = {
 		OBJECT_WITH_ACTS(137,-4086,-1804,-7000,0,0,0,0x60000, bhvExclamationBox,63),
 		OBJECT_WITH_ACTS(104,-3607,-1974,-4229,0,0,0,0x0, bhvTreasureChestsShip,63),
 		OBJECT_WITH_ACTS(104,-2128,1277,1525,0,0,0,0x0, bhvTreasureChestsShip,63),
-		//OBJECT_WITH_ACTS(0,-4579,1209,3708,0,0,0,0x0, bhvBowser,63),
-		//OBJECT_WITH_ACTS(0,-1906,-2004,-5774,0,0,0,0x0, bhvBowser,63),
+		OBJECT_WITH_ACTS(0,-4579,1209,3708,0,0,0,0x0, bhvBowser,63),
+		OBJECT_WITH_ACTS(0,-1906,-2004,-5774,0,0,0,0x0, bhvBowser,63),
 		OBJECT_WITH_ACTS(54,-6544,-2134,-201,0,0,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(54,-634,-1997,-345,0,0,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(54,5539,2360,510,0,0,0,0x0, bhvTree,63),
