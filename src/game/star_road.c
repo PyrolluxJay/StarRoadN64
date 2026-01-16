@@ -86,6 +86,14 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
             case 3:
                 active = gMarioStates->pos[1] >= 1783;
                 break;
+            
+            case 4:
+                active = 1;
+                if (gMarioStates->pos[1] > -400)
+                    active = 0;
+                if (gMarioStates->pos[2] < -4000)
+                    active = 0;
+                break;
         }
 
 

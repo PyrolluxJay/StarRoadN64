@@ -6563,3 +6563,26 @@ const BehaviorScript bhvStarRoadB2FightPlatform[] = {
     CALL_NATIVE( load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvStarRoadCCCandyStar[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags,1),
+    CALL_NATIVE( bhv_init_room),
+    CALL_NATIVE( bhv_collect_star_init),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_collect_star_loop),
+    CALL_NATIVE( bhv_ssl_moving_pyramid_wall_loop),
+    END_LOOP(),
+};
+
+extern Collision col_ttm_geo_000DF4_0x119e9b3[];
+const BehaviorScript bhvStarRoadCCCandyDomino[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags,1),
+    LOAD_COLLISION_DATA(col_ttm_geo_000DF4_0x119e9b3),
+    SET_HOME(),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_volcano_trap_loop),
+    CALL_NATIVE( load_object_collision_model),
+    END_LOOP(),
+};

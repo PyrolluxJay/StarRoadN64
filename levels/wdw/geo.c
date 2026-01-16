@@ -14,3 +14,7 @@
 #include "levels/wdw/header.h"
 
 #include "levels/wdw/geo.inc.c"
+
+#include "levels/wdw/custom_c/custom.modelopt.inc.h"
+#include "levels/wdw/custom_c/custom.geo.inc.c"
+#include "levels/wdw/custom_c/obj.geo.inc.c"
