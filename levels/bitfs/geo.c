@@ -14,3 +14,7 @@
 #include "levels/bitfs/header.h"
 
 #include "levels/bitfs/geo.inc.c"
+#include "levels/bitfs/custom_c/custom.modelopt.inc.h"
+#include "levels/bitfs/custom_c/custom.geo.inc.c"
+extern Gfx DL_ttm_geo_000920_0x700dda8[];
+#include "levels/bitfs/custom_c/obj.geo.inc.c"

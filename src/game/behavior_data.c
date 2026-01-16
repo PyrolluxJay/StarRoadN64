@@ -6534,3 +6534,15 @@ extern const BehaviorScript bhvStarRoadShyguy[] = {
     BEGIN(OBJ_LIST_PLAYER),
     END_LOOP(),
 };
+
+extern Collision col_ttm_geo_000920_0x117d853[];
+const BehaviorScript bhvStarRoadB2Skulls[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags,65),
+    ADD_FLOAT(oPosY,65486),
+    LOAD_COLLISION_DATA(col_ttm_geo_000920_0x117d853),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_lll_moving_octagonal_mesh_platform_loop),
+    CALL_NATIVE( load_object_collision_model),
+    END_LOOP(),
+};
