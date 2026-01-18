@@ -6714,3 +6714,16 @@ const BehaviorScript bhvStarRoadFFFSink[] = {
     CALL_NATIVE( load_object_collision_model),
     END_LOOP(),
 };
+
+extern const Collision col_hmc_geo_000548_0xeb0097[];
+const BehaviorScript bhvStarRoadBOFBarrel[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags,9),
+    LOAD_COLLISION_DATA(col_hmc_geo_000548_0xeb0097),
+    ADD_FLOAT(oPosY,65486),
+    SET_HOME(),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_lll_sinking_rock_block_loop),
+    CALL_NATIVE( load_object_collision_model),
+    END_LOOP(),
+};

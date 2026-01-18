@@ -14,3 +14,6 @@
 #include "levels/ttc/header.h"
 
 #include "levels/ttc/geo.inc.c"
+#include "levels/ttc/custom_c/custom.modelopt.inc.h"
+#include "levels/ttc/custom_c/custom.geo.inc.c"
+#include "levels/ttc/custom_c/obj.geo.inc.c"
