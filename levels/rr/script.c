@@ -152,7 +152,6 @@ const LevelScript level_rr_entry[] = {
 		OBJECT_WITH_ACTS(116,-2207,-1550,5675,0,0,0,0x0, bhvOneCoin,63),
 		OBJECT_WITH_ACTS(116,-807,-1566,5645,0,0,0,0x0, bhvOneCoin,63),
 		OBJECT_WITH_ACTS(116,-2207,-1558,4245,0,0,0,0x0, bhvOneCoin,63),
-#if 0
 		OBJECT_WITH_ACTS(116,-807,-1566,4245,0,0,0,0x0, bhvOneCoin,63),
 		OBJECT_WITH_ACTS(194,-5525,7738,5266,0,0,0,0x0, bhvCirclingAmp,63),
 		OBJECT_WITH_ACTS(194,3902,-4732,2787,0,0,0,0x0, bhvCirclingAmp,63),
@@ -239,7 +238,6 @@ const LevelScript level_rr_entry[] = {
 		OBJECT_WITH_ACTS(122,-186,-3269,-4125,0,0,0,0x5000000, bhvStar,63),
 		OBJECT_WITH_ACTS(0,3156,-5765,-6841,0,0,0,0x2000000, bhvEyerokBoss,63),
 		OBJECT_WITH_ACTS(118,-2126,-1000,-6033,0,0,0,0x0, bhvHiddenBlueCoin,63),
-#endif
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),
 		WARP_NODE(12,9,1,11,0),

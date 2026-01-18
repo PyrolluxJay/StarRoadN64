@@ -94,7 +94,7 @@ void chuckya_act_0(void) {
         o->oChuckyaSubActionTimer++;
     }
 
-    cur_obj_init_animation_with_sound(4);
+    if (o->oAnimations) cur_obj_init_animation_with_sound(4);
 
     if (o->oForwardVel > 1.0f) {
         cur_obj_play_sound_1(SOUND_AIR_CHUCKYA_MOVE);
@@ -120,7 +120,7 @@ void chuckya_act_1(void) {
                 o->oAction = 3;
                 o->oInteractStatus &= ~INT_STATUS_GRABBED_MARIO;
             } else {
-                cur_obj_init_animation_with_sound(1);
+                if (o->oAnimations) cur_obj_init_animation_with_sound(1);
                 o->oMoveAngleYaw += INT_STATUS_GRABBED_MARIO;
                 if (o->oChuckyaSubActionTimer-- < 0
                  && (check_if_moving_over_floor(50.0f, 150.0f) || o->oChuckyaSubActionTimer < -16)) {
@@ -128,7 +128,7 @@ void chuckya_act_1(void) {
                 }
             }
         } else {
-            cur_obj_init_animation_with_sound(3);
+            if (o->oAnimations) cur_obj_init_animation_with_sound(3);
             if (cur_obj_check_anim_frame(18)) {
                 cur_obj_play_sound_2(SOUND_OBJ_RELEASE_MARIO);
                 o->oCommonAnchorAction = 2;
@@ -142,7 +142,7 @@ void chuckya_act_1(void) {
 void chuckya_act_3(void) {
     o->oForwardVel = 0.0f;
     o->oVelY = 0.0f;
-    cur_obj_init_animation_with_sound(4);
+    if (o->oAnimations) cur_obj_init_animation_with_sound(4);
     if (o->oTimer > 100) {
         o->oAction = 0;
     }
