@@ -31,6 +31,9 @@ const LevelScript level_bowser_3_entry[] = {
 	/* Fast64 end persistent block [level commands] */
 
 	AREA(1, bowser_3_area_1),
+		WARP_NODE(0, LEVEL_ENDING, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xf1, LEVEL_BITS, 0x01, 101, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_BOWSER_BOMB, 3292, 328, 0, 0, 0, 0, 0x00000000, bhvBowserBomb),
 		OBJECT(MODEL_BOWSER_BOMB, 1029, 328, 3198, 0, 0, 0, 0x00000000, bhvBowserBomb),
 		OBJECT(MODEL_BOWSER_BOMB, -2695, 328, 1949, 0, 0, 0, 0x00000000, bhvBowserBomb),
