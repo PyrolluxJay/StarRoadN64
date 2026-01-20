@@ -45,4 +45,5 @@ extern const Collision bowser_3_seg7_collision_07005038[];
 // script
 extern const LevelScript level_bowser_3_entry[];
 
+#include "header.inc.h"
 #endif
