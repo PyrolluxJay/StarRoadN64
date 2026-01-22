@@ -687,9 +687,7 @@ void init_controllers(void) {
 #ifdef EEP
     // strangely enough, the EEPROM probe for save data is done in this function.
     // save pak detection?
-    gEepromProbe = (gEmulator & EMU_WIIVC)
-                 ? osEepromProbeVC(&gSIEventMesgQueue)
-                 : osEepromProbe  (&gSIEventMesgQueue);
+    gEepromProbe = osEepromProbe  (&gSIEventMesgQueue);
 #endif
 #ifdef SRAM
     gSramProbe = nuPiInitSram();
