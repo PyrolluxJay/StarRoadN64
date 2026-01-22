@@ -25,8 +25,8 @@ extern const GeoLayout Geo_ending_1_0x2461700[];
 extern const BehaviorScript bhvStarRoadLLFMips[];
 #define bhvUkikiCage bhvStarRoadLLFMips
 
-extern const BehaviorScript bhvStarRoadToad[];
-#define bhvRrCruiserWing bhvStarRoadToad
+extern const BehaviorScript bhvStarRoadPeach[];
+#define bhvRrCruiserWing bhvStarRoadPeach
 /* Fast64 end persistent block [scripts] */
 
 const LevelScript level_ending_entry[] = {

@@ -6525,7 +6525,7 @@ const BehaviorScript bhvStarRoadMMMCannon[] = {
     END_LOOP(),
 };
 
-extern const BehaviorScript bhvStarRoadShyguy[] = {
+const BehaviorScript bhvStarRoadShyguy[] = {
     BEGIN(OBJ_LIST_PUSHABLE),
     OR_INT(oFlags,8265),
     LOAD_ANIMATIONS(oAnimations, flyguy_seg8_anims_08011A64),
@@ -6821,7 +6821,7 @@ const BehaviorScript bhvStarRoadB3SlidingPlatform[] = {
     END_LOOP(),
 };
 
-const BehaviorScript bhvStarRoadToad[] = {
+const BehaviorScript bhvStarRoadPeach[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags,16457),
     LOAD_ANIMATIONS(oAnimations, peach_seg5_anims_0501C41C),
@@ -6833,5 +6833,33 @@ const BehaviorScript bhvStarRoadToad[] = {
     CALL_NATIVE( bhv_toad_message_init),
     BEGIN_LOOP(),
     CALL_NATIVE( bhv_toad_message_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvStarRoadHPYoshi[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags,9289),
+    LOAD_ANIMATIONS(oAnimations, yoshi_seg5_anims_05024100),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    SET_HITBOX(160,150),
+    ANIMATE(0),
+    SET_INT(oYoshiChosenHome,0),
+    SET_HOME(),
+    CALL_NATIVE( bhv_bobomb_buddy_init),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer,0),
+        CALL_NATIVE( bhv_bobomb_buddy_loop),
+    END_LOOP(),
+};
+
+extern const Collision col_geo_bitdw_000510_0xfeba67[];
+const BehaviorScript bhvStarRoadHPBlock[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags,17),
+    LOAD_COLLISION_DATA(col_geo_bitdw_000510_0xfeba67),
+    CALL_NATIVE( bhv_ssl_moving_pyramid_wall_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE( bhv_ssl_moving_pyramid_wall_loop),
+        CALL_NATIVE( load_object_collision_model),
     END_LOOP(),
 };

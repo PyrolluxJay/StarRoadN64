@@ -3,6 +3,7 @@
 #include "behavior_data.h"
 #include "model_ids.h"
 #include "seq_ids.h"
+#include "dialog_ids.h"
 #include "segment_symbols.h"
 #include "level_commands.h"
 
@@ -11,83 +12,151 @@
 #include "levels/scripts.h"
 
 #include "actors/common1.h"
-
 #include "make_const_nonconst.h"
 #include "levels/wmotr/header.h"
 
+/* Fast64 begin persistent block [scripts] */
+#include "levels/wmotr/custom_c/custom.collision.inc.c"
+#define wmotr_area_1_collision col_wmotr_1_0xe031238
+extern const GeoLayout Geo_wmotr_1_0x29a1700[];
+#define wmotr_area_1 Geo_wmotr_1_0x29a1700
 
-static const LevelScript script_wmotr_macro_objects[] = {
-    // Macro objects
-    OBJECT(/*model*/ MODEL_DL_CANNON_LID,   /*pos*/ -4456,   827,   191, /*angle*/ 0,   0, 0, /*behParam*/ (0x00 << 16), /*beh*/ bhvCannonClosed),
-    OBJECT(/*model*/ MODEL_DL_CANNON_LID,   /*pos*/  3712, -2740,  5200, /*angle*/ 0,   0, 0, /*behParam*/ (0x80 << 16), /*beh*/ bhvCannonClosed),
-    OBJECT(/*model*/ MODEL_BOBOMB_BUDDY,    /*pos*/  3684, -2712,  4660, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvBobombBuddyOpensCannon),
-    OBJECT(/*model*/ MODEL_NONE,            /*pos*/ -3050,  2100, -4200, /*angle*/ 0,   0, 0, /*behParam*/ ((COIN_FORMATION_FLAG_FLYING | COIN_FORMATION_FLAG_RING) << 16), /*beh*/ bhvCoinFormation),
-    OBJECT(/*model*/ MODEL_EXCLAMATION_BOX, /*pos*/ -2744,  4899, -4439, /*angle*/ 0,   0, 0, /*behParam*/ (EXCLAMATION_BOX_BP_1UP_WALKING << 16), /*beh*/ bhvExclamationBox),
-    OBJECT(/*model*/ MODEL_NONE,            /*pos*/  3995, -1850,  5478, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvHidden1upInPoleSpawner),
-    OBJECT(/*model*/ MODEL_RED_COIN,        /*pos*/ -2980,  3990, -4248, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvRedCoin),
-    OBJECT(/*model*/ MODEL_RED_COIN,        /*pos*/  2735,  3140, -3085, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvRedCoin),
-    OBJECT(/*model*/ MODEL_RED_COIN,        /*pos*/ -3640,  4600, -4200, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvRedCoin),
-    OBJECT(/*model*/ MODEL_RED_COIN,        /*pos*/  4400,   240,    80, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvRedCoin),
-    OBJECT(/*model*/ MODEL_RED_COIN,        /*pos*/  3440, -2680,  5240, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvRedCoin),
-    OBJECT(/*model*/ MODEL_RED_COIN,        /*pos*/  -600, -1360,  5040, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvRedCoin),
-    OBJECT(/*model*/ MODEL_EXCLAMATION_BOX, /*pos*/  -400,  1960,  -120, /*angle*/ 0,   0, 0, /*behParam*/ (EXCLAMATION_BOX_BP_WING_CAP << 16), /*beh*/ bhvExclamationBox),
-    OBJECT(/*model*/ MODEL_EXCLAMATION_BOX, /*pos*/  -240, -1080,  4520, /*angle*/ 0,   0, 0, /*behParam*/ (EXCLAMATION_BOX_BP_WING_CAP << 16), /*beh*/ bhvExclamationBox),
-    OBJECT(/*model*/ MODEL_EXCLAMATION_BOX, /*pos*/  3600, -2480,  5440, /*angle*/ 0,   0, 0, /*behParam*/ (EXCLAMATION_BOX_BP_WING_CAP << 16), /*beh*/ bhvExclamationBox),
-    OBJECT(/*model*/ MODEL_EXCLAMATION_BOX, /*pos*/  3960,   520,   440, /*angle*/ 0,   0, 0, /*behParam*/ (EXCLAMATION_BOX_BP_WING_CAP << 16), /*beh*/ bhvExclamationBox),
-    OBJECT(/*model*/ MODEL_EXCLAMATION_BOX, /*pos*/ -3200,  4880, -4040, /*angle*/ 0,   0, 0, /*behParam*/ (EXCLAMATION_BOX_BP_WING_CAP << 16), /*beh*/ bhvExclamationBox),
-    OBJECT(/*model*/ MODEL_EXCLAMATION_BOX, /*pos*/ -2760,  2320, -4080, /*angle*/ 0,   0, 0, /*behParam*/ (EXCLAMATION_BOX_BP_WING_CAP << 16), /*beh*/ bhvExclamationBox),
-    OBJECT(/*model*/ MODEL_1UP,             /*pos*/ -3630,  -430,  3180, /*angle*/ 0,   0, 0, /*behParam*/ (MUSHROOM_BP_REQUIRES_NONE << 16), /*beh*/ bhv1Up),
-    OBJECT(/*model*/ MODEL_RED_COIN,        /*pos*/   320,  1725,    40, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvRedCoin),
-    OBJECT(/*model*/ MODEL_RED_COIN,        /*pos*/ -2560,  4600, -4800, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvRedCoin),
-    OBJECT(/*model*/ MODEL_NONE,            /*pos*/   -50,  2180,  1900, /*angle*/ 0,   0, 0, /*behParam*/ ((COIN_FORMATION_FLAG_FLYING | COIN_FORMATION_FLAG_RING | COIN_FORMATION_FLAG_VERTICAL) << 16), /*beh*/ bhvCoinFormation),
-    OBJECT(/*model*/ MODEL_NONE,            /*pos*/ -2850,  1550,  2280, /*angle*/ 0,  40, 0, /*behParam*/ ((COIN_FORMATION_FLAG_FLYING | COIN_FORMATION_FLAG_RING | COIN_FORMATION_FLAG_VERTICAL) << 16), /*beh*/ bhvCoinFormation),
-    OBJECT(/*model*/ MODEL_NONE,            /*pos*/  1710,  -650,  4850, /*angle*/ 0,  85, 0, /*behParam*/ ((COIN_FORMATION_FLAG_FLYING | COIN_FORMATION_FLAG_RING | COIN_FORMATION_FLAG_VERTICAL) << 16), /*beh*/ bhvCoinFormation),
-    OBJECT(/*model*/ MODEL_NONE,            /*pos*/  2350,  2300,   240, /*angle*/ 0,   0, 0, /*behParam*/ ((COIN_FORMATION_FLAG_FLYING | COIN_FORMATION_FLAG_RING | COIN_FORMATION_FLAG_VERTICAL) << 16), /*beh*/ bhvCoinFormation),
-    OBJECT(/*model*/ MODEL_1UP,             /*pos*/ -3260,  3370, -3945, /*angle*/ 0,   0, 0, /*behParam*/ (MUSHROOM_BP_REQUIRES_NONE << 16), /*beh*/ bhv1Up),
-    RETURN(),
-};
+#define bhvFish3 bhvTankFishGroup
+#define bhvClockMinuteHand bhvStarRoadStarReplica
 
-static const LevelScript script_wmotr_objects_1[] = {
-    OBJECT(/*model*/ MODEL_NONE, /*pos*/  3996, -2739,  5477, /*angle*/ 0, 0, 0, /*behParam*/ 0x00520000, /*beh*/ bhvPoleGrabbing),
-    OBJECT(/*model*/ MODEL_NONE, /*pos*/ -2911,  3564, -3967, /*angle*/ 0, 0, 0, /*behParam*/ 0x00540000, /*beh*/ bhvPoleGrabbing),
-    OBJECT(/*model*/ MODEL_NONE, /*pos*/ -3258,  3359, -3946, /*angle*/ 0, 0, 0, /*behParam*/ 0x00690000, /*beh*/ bhvPoleGrabbing),
-    OBJECT(/*model*/ MODEL_NONE, /*pos*/ -2639,  3154, -4369, /*angle*/ 0, 0, 0, /*behParam*/ 0x007D0000, /*beh*/ bhvPoleGrabbing),
-    OBJECT(/*model*/ MODEL_NONE, /*pos*/ -2980,  4048, -4248, /*angle*/ 0, 0, 0, /*behParam*/ 0x00240000, /*beh*/ bhvPoleGrabbing),
-    OBJECT(/*model*/ MODEL_NONE, /*pos*/ -3290,  3636, -4477, /*angle*/ 0, 0, 0, /*behParam*/ 0x004D0000, /*beh*/ bhvPoleGrabbing),
-    RETURN(),
-};
+extern const BehaviorScript bhvStarRoadPeach[];
+#define bhvRrCruiserWing bhvStarRoadPeach
+extern const BehaviorScript bhvStarRoadHPYoshi[];
+#define bhvBetaTrampolineTop bhvStarRoadHPYoshi
 
-static const LevelScript script_wmotr_objects_2[] = {
-    OBJECT(/*model*/ MODEL_NONE, /*pos*/ -160, 1950, -470, /*angle*/ 0, 0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvHiddenRedCoinStar),
-    RETURN(),
-};
+extern const BehaviorScript bhvStarRoadHPBlock[];
+#define bhvHmcElevatorPlatform bhvStarRoadHPBlock
+
+extern const GeoLayout star_road_hf_geo[];
+/* Fast64 end persistent block [scripts] */
 
 const LevelScript level_wmotr_entry[] = {
-    INIT_LEVEL(),
-#include "levels/wmotr/areas/script_vanilla_load.inc.c"
-    ALLOC_LEVEL_POOL(),
-    MARIO(/*model*/ MODEL_MARIO, /*behParam*/ 0x00000001, /*beh*/ bhvMario),
-#include "levels/wmotr/areas/script_vanilla.inc.c"
+	INIT_LEVEL(),
+	LOAD_MIO0(0x07, _wmotr_segment_7SegmentRomStart, _wmotr_segment_7SegmentRomEnd), 
+	LOAD_MIO0(0xA,_cloud_floor_skybox_mio0SegmentRomStart,_cloud_floor_skybox_mio0SegmentRomEnd),
+	LOAD_VANILLA_OBJECTS(0, bitdw, sky),	
+	LOAD_MIO0(8,_common0_mio0SegmentRomStart,_common0_mio0SegmentRomEnd),
+	LOAD_RAW(15,_common0_geoSegmentRomStart,_common0_geoSegmentRomEnd),
+	LOAD_MIO0(5,_group10_mio0SegmentRomStart,_group10_mio0SegmentRomEnd),
+	LOAD_RAW(12,_group10_geoSegmentRomStart,_group10_geoSegmentRomEnd),
+	LOAD_MIO0(6,_group14_mio0SegmentRomStart,_group14_mio0SegmentRomEnd),
+	LOAD_RAW(13,_group14_geoSegmentRomStart,_group14_geoSegmentRomEnd),
+	ALLOC_LEVEL_POOL(),
+	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
+	JUMP_LINK(script_func_vo_bitdw),
+    LOAD_MODEL_FROM_GEO(MODEL_BITDW_WARP_PIPE,         warp_pipe_geo),
+	LOAD_MODEL_FROM_GEO(22, warp_pipe_geo),
+	LOAD_MODEL_FROM_GEO(23, bubbly_tree_geo),
+	LOAD_MODEL_FROM_GEO(24, spiky_tree_geo),
+	LOAD_MODEL_FROM_GEO(25, snow_tree_geo),
+	LOAD_MODEL_FROM_GEO(31, metal_door_geo),
+	LOAD_MODEL_FROM_GEO(32, hazy_maze_door_geo),
+	LOAD_MODEL_FROM_GEO(34, castle_door_0_star_geo),
+	LOAD_MODEL_FROM_GEO(35, castle_door_1_star_geo),
+	LOAD_MODEL_FROM_GEO(36, castle_door_3_stars_geo),
+	LOAD_MODEL_FROM_GEO(37, key_door_geo),
+	LOAD_MODEL_FROM_GEO(38, castle_door_geo),
+	// LOAD_MODEL_FROM_DL(132,0x08025f08,4),
+	// LOAD_MODEL_FROM_DL(158,0x0302c8a0,4),
+	// LOAD_MODEL_FROM_DL(159,0x0302bcd0,4),
+	// LOAD_MODEL_FROM_DL(161,0x0301cb00,4),
+	// LOAD_MODEL_FROM_DL(164,0x04032a18,4),
+	// LOAD_MODEL_FROM_DL(201,0x080048e0,4),
+	// LOAD_MODEL_FROM_DL(218,0x08024bb8,4),
+	JUMP_LINK(script_func_global_1),
+	JUMP_LINK(script_func_global_11),
+	JUMP_LINK(script_func_global_15),
+	LOAD_MODEL_FROM_GEO(17, star_road_hf_geo),
+	/* Fast64 begin persistent block [level commands] */
+	/* Fast64 end persistent block [level commands] */
 
-    AREA(/*index*/ 1, wmotr_geo_0001F0),
-        OBJECT(/*model*/ MODEL_NONE, /*pos*/ -67, 2669, -16, /*angle*/ 0, 270, 0, /*behParam*/ 0x000A0000, /*beh*/ bhvAirborneWarp),
-        WARP_NODE(/*id*/ 0x0A, /*destLevel*/ LEVEL_WMOTR, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),
-        WARP_NODE(/*id*/ 0xF0, /*destLevel*/ LEVEL_CASTLE, /*destArea*/ 0x02, /*destNode*/ 0x38, /*flags*/ WARP_NO_CHECKPOINT),
-        WARP_NODE(/*id*/ 0xF1, /*destLevel*/ LEVEL_CASTLE, /*destArea*/ 0x02, /*destNode*/ 0x6D, /*flags*/ WARP_NO_CHECKPOINT),
-        WARP_NODE(/*id*/ 0xF3, /*destLevel*/ LEVEL_CASTLE_GROUNDS, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),
-        JUMP_LINK(script_wmotr_objects_1),
-        JUMP_LINK(script_wmotr_objects_2),
-        TERRAIN(/*terrainData*/ wmotr_seg7_collision),
-        JUMP_LINK(script_wmotr_macro_objects),
-        SET_BACKGROUND_MUSIC(/*settingsPreset*/ 0x0000, /*seq*/ SEQ_LEVEL_SLIDE),
-        TERRAIN_TYPE(/*terrainType*/ TERRAIN_SNOW),
-    END_AREA(),
+	AREA(1, wmotr_area_1),
+		TERRAIN(wmotr_area_1_collision),
+		MACRO_OBJECTS(wmotr_area_1_macro_objs),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		SET_BACKGROUND_MUSIC(0,32),
+		TERRAIN_TYPE(0),
 
-    FREE_LEVEL_POOL(),
-    MARIO_POS(/*area*/ 1, /*yaw*/ 270, /*pos*/ -67, 1669, -16),
-    CALL(/*arg*/ 0, /*func*/ lvl_init_or_update),
-    CALL_LOOP(/*arg*/ 1, /*func*/ lvl_init_or_update),
-    CLEAR_LEVEL(),
-    SLEEP_BEFORE_EXIT(/*frames*/ 1),
-    EXIT(),
+		OBJECT_WITH_ACTS(0,-6396,122,724,0,90,0,0xa0000, bhvSpinAirborneWarp,31),
+		OBJECT_WITH_ACTS(187,-5316,-690,459,0,0,0,0x0, bhvButterfly,31),
+		OBJECT_WITH_ACTS(187,503,-1002,-3229,0,0,0,0x0, bhvButterfly,31),
+		OBJECT_WITH_ACTS(187,1179,-1002,-953,0,0,0,0x0, bhvButterfly,31),
+		OBJECT_WITH_ACTS(187,476,-1002,3648,0,0,0,0x0, bhvTripletButterfly,31),
+		OBJECT_WITH_ACTS(187,2364,-1002,-3048,0,0,0,0x0, bhvButterfly,31),
+		OBJECT_WITH_ACTS(187,-940,-1002,2793,0,0,0,0x0, bhvButterfly,31),
+		OBJECT_WITH_ACTS(187,-5986,-690,68,0,0,0,0x0, bhvButterfly,31),
+		OBJECT_WITH_ACTS(23,-6125,-690,1489,0,0,0,0x0, bhvTree,31),
+		OBJECT_WITH_ACTS(23,682,-1002,5904,0,0,0,0x0, bhvTree,31),
+		OBJECT_WITH_ACTS(23,1550,-1002,-3696,0,0,0,0x0, bhvTree,31),
+		OBJECT_WITH_ACTS(23,117,-1002,5228,0,0,0,0x0, bhvTree,31),
+		OBJECT_WITH_ACTS(23,-1296,-1002,215,0,0,0,0x0, bhvTree,31),
+		OBJECT_WITH_ACTS(23,246,-1002,-2919,0,0,0,0x0, bhvTree,31),
+		OBJECT_WITH_ACTS(23,-103,-1002,1690,0,0,0,0x0, bhvTree,31),
+		OBJECT_WITH_ACTS(23,1230,-1002,-1293,0,0,0,0x0, bhvTree,31),
+		OBJECT_WITH_ACTS(84,-6128,-267,1495,0,0,0,0x10000, bhvBird,31),
+		OBJECT_WITH_ACTS(84,1244,-632,-1297,0,0,0,0x10000, bhvBird,31),
+		OBJECT_WITH_ACTS(84,131,-580,5220,0,0,0,0x10000, bhvBird,31),
+		OBJECT_WITH_ACTS(192,-363,-642,-1000,0,0,0,0x0, bhvGoomba,31),
+		OBJECT_WITH_ACTS(192,788,-642,4592,0,0,0,0x0, bhvGoomba,31),
+		OBJECT_WITH_ACTS(124,-5296,-759,1263,0,270,0,0x510000, bhvMessagePanel,31),
+		OBJECT_WITH_ACTS(0,-3169,-1002,716,0,90,0,0x0, bhvCoinFormation,31),
+		OBJECT_WITH_ACTS(116,-2750,3239,-36,0,0,0,0x0, bhvOneCoin,31),
+		OBJECT_WITH_ACTS(116,1416,1239,4551,0,0,0,0x0, bhvOneCoin,31),
+		OBJECT_WITH_ACTS(116,2727,1841,-2355,0,0,0,0x0, bhvOneCoin,31),
+		OBJECT_WITH_ACTS(116,2727,2650,-2355,0,0,0,0x0, bhvOneCoin,31),
+		OBJECT_WITH_ACTS(116,-2750,3989,715,0,0,0,0x0, bhvOneCoin,31),
+		OBJECT_WITH_ACTS(122,2709,4465,-2397,0,234,0,0x5000000, bhvClockMinuteHand,31),
+		OBJECT_WITH_ACTS(23,2820,3497,1543,0,0,0,0x0, bhvTree,31),
+		OBJECT_WITH_ACTS(122,4995,4257,724,0,270,0,0x10000, bhvStar,31),
+		OBJECT_WITH_ACTS(187,2494,3497,980,0,0,0,0x0, bhvButterfly,31),
+		OBJECT_WITH_ACTS(212,2892,1526,3529,0,0,0,0x0, bhv1Up,31),
+		OBJECT_WITH_ACTS(222,3031,3497,1206,0,270,0,0x21000000, bhvRrCruiserWing,31),
+		OBJECT_WITH_ACTS(85,2253,3497,-368,0,0,0,0x230000, bhvBetaTrampolineTop,31),
+		OBJECT_WITH_ACTS(192,-2784,2497,-255,0,0,0,0x0, bhvGoomba,31),
+		OBJECT_WITH_ACTS(0,1331,-1308,2460,0,0,0,0x0, bhvFish3,31),
+		OBJECT_WITH_ACTS(124,2531,3497,-373,0,0,0,0x340000, bhvMessagePanel,31),
+		OBJECT_WITH_ACTS(22,1900,2239,-872,0,157,0,0xb0000, bhvWarpPipe,31),
+		OBJECT_WITH_ACTS(22,-4249,864,-3520,0,90,0,0xc0000, bhvWarpPipe,31),
+		OBJECT_WITH_ACTS(192,-3456,739,-3526,0,0,0,0x0, bhvGoomba,31),
+		OBJECT_WITH_ACTS(137,-2539,999,-3529,0,0,0,0x70000, bhvExclamationBox,31),
+		OBJECT_WITH_ACTS(0,328,2489,400,0,82,0,0x0, bhvCoinFormation,31),
+		OBJECT_WITH_ACTS(17,614,1474,3115,0,20,0,0x0, bhvHmcElevatorPlatform,31),
+		OBJECT_WITH_ACTS(17,-3246,1875,-3532,0,0,0,0x0, bhvHmcElevatorPlatform,31),
+		OBJECT_WITH_ACTS(17,-2744,1875,-2280,0,0,0,0x0, bhvHmcElevatorPlatform,31),
+		OBJECT_WITH_ACTS(17,-2744,2369,-1318,0,0,0,0x0, bhvHmcElevatorPlatform,31),
+		OBJECT_WITH_ACTS(116,-300,3774,711,0,0,0,0x0, bhvOneCoin,31),
+		OBJECT_WITH_ACTS(17,-2744,1875,-2530,0,0,0,0x0, bhvHmcElevatorPlatform,31),
+		OBJECT_WITH_ACTS(187,2862,3489,242,0,0,0,0x0, bhvButterfly,31),
+		OBJECT_WITH_ACTS(23,2835,3489,-111,0,0,0,0x0, bhvTree,31),
+
+		WARP_NODE(10,31,1,10,0),
+		WARP_NODE(11,31,1,12,0),
+		WARP_NODE(12,31,1,11,0),
+		WARP_NODE(13,9,1,14,0),
+		WARP_NODE(14,9,1,13,0),
+		WARP_NODE(240,16,1,9,0),
+		WARP_NODE(241,16,1,201,0),
+		WARP_NODE(0,9,1,10,0),
+		WARP_NODE(1,9,1,10,0),
+		WARP_NODE(2,9,1,10,0),
+		WARP_NODE(3,9,1,10,0),
+		WARP_NODE(4,9,1,10,0),
+		WARP_NODE(5,9,1,10,0),
+		WARP_NODE(6,9,1,10,0),
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+	FREE_LEVEL_POOL(),
+	MARIO_POS(1, 0, 0, 0, 0),
+	CALL(0, lvl_init_or_update),
+	CALL_LOOP(1, lvl_init_or_update),
+	CLEAR_LEVEL(),
+	SLEEP_BEFORE_EXIT(1),
+	EXIT(),
 };
