@@ -4639,7 +4639,7 @@ const BehaviorScript bhvHiddenStar[] = {
 const BehaviorScript bhvHiddenStarTrigger[] = {
     BEGIN(OBJ_LIST_LEVEL),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    SET_HITBOX(/*Radius*/ 100, /*Height*/ 100),
+    SET_HITBOX(/*Radius*/ 200, /*Height*/ 200),
     SET_INT(oIntangibleTimer, 0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_hidden_star_trigger_loop),
@@ -6173,6 +6173,7 @@ const BehaviorScript bhvStarRoadBOIRock[] = {
     BEGIN_LOOP(),
     CALL_NATIVE( bhv_breakable_box_loop),
     CALL_NATIVE( load_object_collision_model),
+    SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6185,6 +6186,7 @@ const BehaviorScript bhvStarRoadBOIPlatform[] = {
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_ssl_moving_pyramid_wall_loop),
         CALL_NATIVE( load_object_collision_model),
+    SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
