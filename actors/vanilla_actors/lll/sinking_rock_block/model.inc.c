@@ -50,8 +50,19 @@ static const Gfx lll_seg7_dl_0701A7E8[] = {
 
 // 0x0701A878 - 0x0701A8E8
 const Gfx lll_seg7_dl_0701A878[] = {
+    gsSPSetGeometryMode(G_FOG),
+    gsSPLightColor(LIGHT_1, 0xFFFFFFFF),
+    gsSPLightColor(LIGHT_2, 0x7F7F7FFF),
     gsDPPipeSync(),
-    gsDPSetCombineMode(G_CC_MODULATERGB, G_CC_MODULATERGB),
+    gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, 0, 0, 0, COMBINED, 0, 0, 0, COMBINED),
+    gsDPSetFogColor(102, 102, 0, 255),
+    gsMoveWd(G_MW_FOG, 0, 419489792),
+    // gsSPFogPosition(985, 1000),
+    gsDPSetAlphaDither(G_AD_NOISE),
+    gsDPSetCycleType(G_CYC_2CYCLE),
+    gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_OPA_SURF2),
+    gsSPTexture(65535, 65535, 0, 0, 1),
+
     gsSPClearGeometryMode(G_SHADING_SMOOTH),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOLOD, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOLOD),
     gsSPTexture(0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON),
@@ -60,8 +71,13 @@ const Gfx lll_seg7_dl_0701A878[] = {
     gsDPSetTileSize(0, 0, 0, (32 - 1) << G_TEXTURE_IMAGE_FRAC, (32 - 1) << G_TEXTURE_IMAGE_FRAC),
     gsSPDisplayList(lll_seg7_dl_0701A7E8),
     gsSPTexture(0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_OFF),
+
     gsDPPipeSync(),
-    gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
-    gsSPSetGeometryMode(G_SHADING_SMOOTH),
+    gsDPSetCycleType(G_CYC_1CYCLE),
+    gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_NOOP2),
+    gsSPGeometryMode(G_FOG, 0),
+    gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, SHADE,0, 0, 0, SHADE, 0, 0, 0, SHADE),
+    gsSPGeometryMode(0, G_CULL_BACK|G_LIGHTING),
+    gsSPEndDisplayList(),
     gsSPEndDisplayList(),
 };

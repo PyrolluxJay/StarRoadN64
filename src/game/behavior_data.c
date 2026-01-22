@@ -2347,6 +2347,7 @@ const BehaviorScript bhvLllSinkingRockBlock[] = {
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_lll_sinking_rock_block_loop),
         CALL_NATIVE(load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -4679,6 +4680,7 @@ const BehaviorScript bhvLllRollingLog[] = {
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_rolling_log_loop),
         CALL_NATIVE(load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
