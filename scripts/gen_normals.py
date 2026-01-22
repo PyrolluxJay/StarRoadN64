@@ -73,6 +73,11 @@ def load_and_fix(model_path):
                 keep_loading = False
                 lines.append(line)
             elif keep_loading:
+                vtx = Vtx(line)
+                if vtx.color[0] != 0 or vtx.color[1] != 0 or vtx.color[2] != 0:
+                    lines.append(line)
+                    continue
+
                 tri_vtx.append(Vtx(line))
                 if len(tri_vtx) == 3:
                     # Calculate normal for the triangle
@@ -110,7 +115,6 @@ def load_and_fix(model_path):
 if '__main__' in __name__:
     model_path = sys.argv[1]
     model_patched_path = load_and_fix(model_path)
-    output_path = sys.argv[2]
-    with open(output_path, "w") as f_out:
+    with open(model_path, "w") as f_out:
         for line in model_patched_path:
             f_out.write(line)

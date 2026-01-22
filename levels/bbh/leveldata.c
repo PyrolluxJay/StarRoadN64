@@ -17,5 +17,5 @@
 #include "levels/bbh/custom_c/custom.modelopt.inc.c"
 #include "levels/bbh/custom_c/custom.collision.inc.c"
 #include "levels/bbh/custom_c/obj.collision.inc.c"
-#include "levels/bbh/custom_c/obj.modelopt.inc.h"
+#include "levels/bbh/custom_c/obj.model.inc.h"
 #include "levels/bbh/custom_c/obj.model.inc.c"

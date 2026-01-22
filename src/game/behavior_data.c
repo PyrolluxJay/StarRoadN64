@@ -6219,6 +6219,7 @@ const BehaviorScript bhvStarRoadGGBigRotatingPlatform[] = {
     BEGIN_LOOP(),
     CALL_NATIVE( bhv_rotating_octagonal_plat_loop),
     CALL_NATIVE( load_object_collision_model),
+    SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6229,6 +6230,7 @@ static const BehaviorScript Bhv_Custom_0x13003b70[] = {
     CALL_NATIVE( bhv_lll_sinking_rock_block_loop),
     CALL_NATIVE( bhv_lll_sinking_rock_block_loop),
     CALL_NATIVE( load_object_collision_model),
+    SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6250,6 +6252,7 @@ const BehaviorScript bhvStarRoadGGTwistyPlatform[] = {
     SCALE(0,91),
     CALL_NATIVE( bhv_horizontal_grindel_init),
     BEGIN_LOOP(),
+    SET_FLOAT(oDrawingDistance, 20000),
     CALL_NATIVE( bhv_squishable_platform_loop),
     CALL_NATIVE( bhv_squishable_platform_loop),
     CALL_NATIVE( load_object_collision_model),
@@ -6264,6 +6267,7 @@ const BehaviorScript bhvStarRoadGGGrave[] = {
     SET_FLOAT(oCollisionDistance,500),
     SET_HOME(),
     BEGIN_LOOP(),
+    SET_FLOAT(oDrawingDistance, 20000),
     CALL_NATIVE( bhv_pushable_loop),
     CALL_NATIVE( load_object_collision_model),
     END_LOOP(),
@@ -6276,6 +6280,7 @@ const BehaviorScript bhvStarRoadGGLamp[] = {
     LOAD_COLLISION_DATA(col_rr_geo_0006A8_0xfb6a89),
     SET_HOME(),
     BEGIN_LOOP(),
+    SET_FLOAT(oDrawingDistance, 20000),
     CALL_NATIVE( bhv_squarish_path_moving_loop),
     END_LOOP(),
 };
@@ -6290,8 +6295,7 @@ const BehaviorScript bhvStarRoadGGDonutPlatform[] = {
     SET_INT(oAngleVelYaw,256),
     ADD_INT(oMoveAngleYaw,256),
     CALL_NATIVE( load_object_collision_model),
-    BEGIN(OBJ_LIST_PLAYER),
-    BEGIN(OBJ_LIST_PLAYER),
+    SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6304,7 +6308,8 @@ const BehaviorScript bhvStarRoadGGBoo[] = {
     CALL_NATIVE(bhv_init_room),
     CALL_NATIVE(bhv_toad_message_init),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_toad_message_loop),
+        CALL_NATIVE(bhv_toad_message_loop),    
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
