@@ -13,25 +13,6 @@
 
 #include "levels/ending/header.h"
 
-// 0x0E000050
-const GeoLayout ending_geo_area_1[] = {
-   GEO_NODE_SCREEN_AREA(10, SCREEN_CENTER_X, SCREEN_CENTER_Y, SCREEN_CENTER_X, SCREEN_CENTER_Y),
-   GEO_OPEN_NODE(),
-      GEO_ZBUFFER(0),
-      GEO_OPEN_NODE(),
-         GEO_NODE_ORTHO(100),
-         GEO_OPEN_NODE(),
-            GEO_BACKGROUND_COLOR(GPACK_RGBA5551(0, 0, 0, 1)),
-            GEO_ASM(0, geo_exec_cake_end_screen),
-         GEO_CLOSE_NODE(),
-      GEO_CLOSE_NODE(),
-      GEO_ZBUFFER(1),
-      GEO_OPEN_NODE(),
-         GEO_CAMERA_FRUSTUM_WITH_FUNC(45, 100, 12800, geo_camera_fov),
-         GEO_OPEN_NODE(),
-            GEO_CAMERA(CAMERA_MODE_RADIAL, 0, 2000, 6000, 0, 0, 0, geo_camera_main),
-         GEO_CLOSE_NODE(),
-      GEO_CLOSE_NODE(),
-   GEO_CLOSE_NODE(),
-   GEO_END(),
-};
+#include "geo.inc.c"
+#include "levels/ending/custom_c/custom.modelfixopt.inc.h"
+#include "levels/ending/custom_c/custom.geo.inc.c"

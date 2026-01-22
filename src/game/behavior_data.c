@@ -6820,3 +6820,18 @@ const BehaviorScript bhvStarRoadB3SlidingPlatform[] = {
         CALL_NATIVE( load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvStarRoadToad[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags,16457),
+    LOAD_ANIMATIONS(oAnimations, peach_seg5_anims_0501C41C),
+    ANIMATE(PEACH_ANIM_0),
+    SET_INTERACT_TYPE(8388608),
+    SET_HITBOX(80,100),
+    SET_INT(oIntangibleTimer,0),
+    CALL_NATIVE( bhv_init_room),
+    CALL_NATIVE( bhv_toad_message_init),
+    BEGIN_LOOP(),
+    CALL_NATIVE( bhv_toad_message_loop),
+    END_LOOP(),
+};

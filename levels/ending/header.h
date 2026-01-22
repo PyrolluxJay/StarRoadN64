@@ -6,10 +6,8 @@
 // geo
 extern const GeoLayout ending_geo_area_1[];
 
-// leveldata
-extern const Gfx dl_cake_end_screen[];
-
 // script
 extern const LevelScript level_ending_entry[];
 
+#include "header.inc.h"
 #endif
