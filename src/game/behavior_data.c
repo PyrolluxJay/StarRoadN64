@@ -6650,6 +6650,7 @@ const BehaviorScript bhvStarRoadWCBlade[] = {
         CALL_NATIVE( bhv_ttc_spinner_update),
         CALL_NATIVE( bhv_ttc_spinner_update),
         CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance,20000),
     END_LOOP(),
 };
 
