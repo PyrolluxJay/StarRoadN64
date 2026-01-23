@@ -6186,7 +6186,7 @@ const BehaviorScript bhvStarRoadBOIPlatform[] = {
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_ssl_moving_pyramid_wall_loop),
         CALL_NATIVE( load_object_collision_model),
-    SET_FLOAT(oDrawingDistance, 20000),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6198,8 +6198,9 @@ const BehaviorScript bhvStarRoadCHWindow[] = {
     SET_HITBOX(200,200),
     SET_INT(oIntangibleTimer,0),
     BEGIN_LOOP(),
-    CALL_NATIVE( bhv_tower_door_loop),
-    CALL_NATIVE( load_object_collision_model),
+        CALL_NATIVE( bhv_tower_door_loop),
+        CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6490,8 +6491,9 @@ const BehaviorScript bhvStarRoadMMMTambourine[] = {
     LOAD_COLLISION_DATA(col_ddd_geo_0004A0_0x1095763),
     BEGIN(OBJ_LIST_PLAYER),
     BEGIN_LOOP(),
-    CALL_NATIVE( bhv_ttc_spinner_update),
-    CALL_NATIVE( load_object_collision_model),
+        CALL_NATIVE( bhv_ttc_spinner_update),
+        CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6502,8 +6504,9 @@ const BehaviorScript bhvStarRoadMMMDrumstick[] = {
     LOAD_COLLISION_DATA(col_ddd_geo_000478_0x10890b3),
     CALL_NATIVE( bhv_ssl_moving_pyramid_wall_init),
     BEGIN_LOOP(),
-    CALL_NATIVE( bhv_ssl_moving_pyramid_wall_loop),
-    CALL_NATIVE( load_object_collision_model),
+        CALL_NATIVE( bhv_ssl_moving_pyramid_wall_loop),
+        CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6530,7 +6533,7 @@ const BehaviorScript bhvStarRoadMMMCannon[] = {
     SET_HITBOX(150,166),
     SET_INT(oIntangibleTimer,0),
     BEGIN_LOOP(),
-    CALL_NATIVE( bhv_cannon_base_loop),
+        CALL_NATIVE( bhv_cannon_base_loop),
     END_LOOP(),
 };
 
