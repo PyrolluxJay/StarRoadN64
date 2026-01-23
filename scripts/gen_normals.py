@@ -66,6 +66,7 @@ def load_and_fix(model_path):
                 break
 
             if 'Vtx' in line:
+                print(line)
                 assert not keep_loading
                 keep_loading = True
                 first_vtx = True

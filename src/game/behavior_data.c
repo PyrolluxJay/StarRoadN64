@@ -6745,8 +6745,9 @@ const BehaviorScript bhvStarRoadBOFBarrel[] = {
     ADD_FLOAT(oPosY,65486),
     SET_HOME(),
     BEGIN_LOOP(),
-    CALL_NATIVE( bhv_lll_sinking_rock_block_loop),
-    CALL_NATIVE( load_object_collision_model),
+        CALL_NATIVE( bhv_lll_sinking_rock_block_loop),
+        CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
