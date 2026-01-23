@@ -4886,6 +4886,7 @@ const BehaviorScript bhvJrbFloatingPlatform[] = {
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_floating_platform_loop),
         CALL_NATIVE(load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6363,8 +6364,9 @@ const BehaviorScript bhvStarRoadCCCoralSquare[] = {
     SET_FLOAT(oCollisionDistance,500),
     CALL_NATIVE( bhv_init_room),
     BEGIN_LOOP(),
-    CALL_NATIVE( bhv_breakable_box_loop),
-    CALL_NATIVE( load_object_collision_model),
+        CALL_NATIVE( bhv_breakable_box_loop),
+        CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
@@ -6391,8 +6393,9 @@ const BehaviorScript bhvStarRoadCCCoralBoat[] = {
     CALL_NATIVE( bhv_platform_on_track_init),
     LOAD_COLLISION_DATA(col_jrb_geo_000978_0xf4be31),
     BEGIN_LOOP(),
-    CALL_NATIVE( bhv_platform_on_track_update),
-    CALL_NATIVE( load_object_collision_model),
+        CALL_NATIVE( bhv_platform_on_track_update),
+        CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
