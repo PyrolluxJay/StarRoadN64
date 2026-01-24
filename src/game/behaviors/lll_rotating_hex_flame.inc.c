@@ -18,9 +18,7 @@ void fire_bar_spawn_flames(s16 yaw) {
     s32 amt = o->oBehParams2ndByte; // Amount of flames to spawn
 
     // Use the vanilla default value if the bparam is 0
-    if (amt == 0) {
-        amt = 4;
-    }
+    amt = 4;
 
     for (i = 0; i < amt; i++) {
         flameObj = spawn_object(o, MODEL_RED_FLAME, bhvLllRotatingHexFlame);
@@ -68,5 +66,5 @@ ObjActionFunc sRotatingCwFireBarsActions[] = {
 
 void bhv_lll_rotating_block_fire_bars_loop(void) {
     cur_obj_call_action_function(sRotatingCwFireBarsActions);
-    load_object_collision_model();
+    // load_object_collision_model();
 }
