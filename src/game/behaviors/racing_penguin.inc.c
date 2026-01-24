@@ -92,6 +92,15 @@ static void racing_penguin_act_race(void) {
         if (cur_obj_check_if_at_animation_end() && (o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND)) {
             spawn_object_relative_with_scale(0, 0, -100, 0, 4.0f, o, MODEL_SMOKE, bhvWhitePuffSmoke2);
         }
+
+        if (o->oPosX > 550.f)
+        {
+            if (o->oPosY < -3431.f)
+            {
+                o->oPosY = -3431.f;
+                o->oVelY = 0.f;
+            }
+        }
     }
 
     if (mario_is_in_air_action()) {
@@ -148,7 +157,7 @@ static void racing_penguin_act_show_final_text(void) {
             o->oTimer = 0;
         }
     } else if (o->oRacingPenguinMarioWon) {
-        cur_obj_spawn_star_at_y_offset(2476.0f, 1302.0f, -6029.0f, 200.0f);
+        cur_obj_spawn_star_at_y_offset(2732.0f, 1287.0f, -6336.0f, 200.0f);
         o->oRacingPenguinMarioWon = FALSE;
     }
 }
