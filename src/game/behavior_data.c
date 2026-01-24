@@ -6369,7 +6369,7 @@ const BehaviorScript bhvStarRoadCCCoralSquare[] = {
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_breakable_box_loop),
         CALL_NATIVE( load_object_collision_model),
-        SET_FLOAT(oDrawingDistance, 1000),
+        SET_FLOAT(oDrawingDistance, 10000),
     END_LOOP(),
 };
 

@@ -221,6 +221,7 @@ static void platform_on_track_act_wait_for_mario(void) {
  * Move along the track. After reaching the end, either start falling,
  * return to the init action, or continue moving back to the start waypoint.
  */
+extern const BehaviorScript bhvStarRoadCCCoralBoat[];
 static void platform_on_track_act_move_along_track(void) {
     s16 initialAngle;
 
@@ -253,21 +254,24 @@ static void platform_on_track_act_move_along_track(void) {
             if (!o->oPlatformOnTrackIsNotSkiLift) {
                 obj_forward_vel_approach(10.0, 0.1f);
             } else {
-#ifdef CONTROLLABLE_PLATFORM_SPEED
-                f32 targetVel = gMarioObject->platform == o
-                    ? (o->oDistanceToMario * coss(o->oAngleToMario - o->oMoveAngleYaw)) - 10.0f
-                    : 5.0f;
+                if (o->behavior != bhvStarRoadCCCoralBoat)
+                {
+                    f32 targetVel = gMarioObject->platform == o
+                        ? (o->oDistanceToMario * coss(o->oAngleToMario - o->oMoveAngleYaw)) - 10.0f
+                        : 5.0f;
 
-                f32 decelRate = gMarioObject->platform == o ? 0.5f : 1.5f;
-                if (targetVel < 10.0f) {
-                    targetVel = 10.0f;
-                } else if (targetVel > 26.0f) {
-                    targetVel = 26.0f;
+                    f32 decelRate = gMarioObject->platform == o ? 0.5f : 1.5f;
+                    if (targetVel < 10.0f) {
+                        targetVel = 10.0f;
+                    } else if (targetVel > 26.0f) {
+                        targetVel = 26.0f;
+                    }
+                    obj_forward_vel_approach(targetVel, 0.5f);
                 }
-                obj_forward_vel_approach(targetVel, 0.5f);
-#else
-                o->oForwardVel = 10.0f;
-#endif
+                else
+                {
+                    o->oForwardVel = 15.0f;
+                }
             }
 
             // Spawn a new track ball if necessary
@@ -395,28 +399,30 @@ void bhv_platform_on_track_update(void) {
     if (!o->oPlatformOnTrackIsNotSkiLift) {
         platform_on_track_rock_ski_lift();
     } else if (o->oPlatformOnTrackType == PLATFORM_ON_TRACK_TYPE_CARPET) {
-#ifdef CONTROLLABLE_PLATFORM_SPEED
-        s16 targetRoll; // Visually, this is the platform's pitch, since these platforms technically move sideways
-        if (gMarioObject->platform == o) {
-            if (!o->oPlatformOnTrackWasStoodOn) {
-                o->oPlatformOnTrackOffsetY    = -8.0f;
+        if (o->behavior != bhvStarRoadCCCoralBoat)
+        {
+            s16 targetRoll; // Visually, this is the platform's pitch, since these platforms technically move sideways
+            if (gMarioObject->platform == o) {
+                if (!o->oPlatformOnTrackWasStoodOn) {
+                    o->oPlatformOnTrackOffsetY    = -8.0f;
+                    o->oPlatformOnTrackWasStoodOn = TRUE;
+                }
+                targetRoll = o->oDistanceToMario * coss(o->oAngleToMario - o->oMoveAngleYaw) * 0x4;
+            } else {
+                targetRoll = 0x0;
+            }
+            o->oFaceAngleRoll = approach_s32_symmetric(o->oFaceAngleRoll, targetRoll, 0x100);
+        }
+        else
+        {
+            if (!o->oPlatformOnTrackWasStoodOn && gMarioObject->platform == o) {
+                o->oPlatformOnTrackOffsetY = -8.0f;
                 o->oPlatformOnTrackWasStoodOn = TRUE;
             }
-            targetRoll = o->oDistanceToMario * coss(o->oAngleToMario - o->oMoveAngleYaw) * 0x4;
-        } else {
-            targetRoll = 0x0;
-        }
-        o->oFaceAngleRoll = approach_s32_symmetric(o->oFaceAngleRoll, targetRoll, 0x100);
-#else
 
-        if (!o->oPlatformOnTrackWasStoodOn && gMarioObject->platform == o) {
-            o->oPlatformOnTrackOffsetY = -8.0f;
-            o->oPlatformOnTrackWasStoodOn = TRUE;
+            approach_f32_ptr(&o->oPlatformOnTrackOffsetY, 0.0f, 0.5f);
+            o->oPosY += o->oPlatformOnTrackOffsetY;
         }
-
-        approach_f32_ptr(&o->oPlatformOnTrackOffsetY, 0.0f, 0.5f);
-        o->oPosY += o->oPlatformOnTrackOffsetY;
-#endif
     }
 }
 

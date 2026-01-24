@@ -93,6 +93,8 @@ void update_platform_displacement_info(struct PlatformDisplacementInfo *displace
  * Apply one frame of platform displacement to Mario or an object using the given
  * platform.
  */
+extern const BehaviorScript bhvStarRoadCCCoralBoat[];
+extern const BehaviorScript bhvStarRoadFFFAutoscroller[];
 void apply_platform_displacement(struct PlatformDisplacementInfo *displaceInfo, Vec3f pos, s16 *yaw, struct Object *platform) {
     Vec3f posDifference;
     Vec3f yawVec;
@@ -135,7 +137,9 @@ void apply_platform_displacement(struct PlatformDisplacementInfo *displaceInfo, 
     // If the object is Mario, set inertia
     if (pos == gMarioState->pos) {
         vec3_diff(sMarioAmountDisplaced, pos, oldPos);
-        sWasOnPlatform = platform->behavior == bhvPlatformOnTrack;
+        sWasOnPlatform = platform->behavior == bhvPlatformOnTrack
+                      || platform->behavior == bhvStarRoadCCCoralBoat
+                      || platform->behavior == bhvStarRoadFFFAutoscroller;
     }
 }
 
