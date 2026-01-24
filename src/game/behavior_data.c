@@ -553,7 +553,8 @@ const BehaviorScript bhvKingBobomb[] = {
     SET_INT(oHealth, 3),
     SET_INT(oDamageOrCoinValue, 1),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_king_bobomb_loop),
+        CALL_NATIVE( bhv_king_bobomb_loop),
+        CALL_NATIVE( bhv_king_bobomb_loop),
     END_LOOP(),
 };
 
