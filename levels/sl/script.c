@@ -25,7 +25,7 @@ extern const BehaviorScript bhvStarRoadShyguy[];
 extern const GeoLayout Geo_sl_1_0x1741700[];
 #define sl_area_1 Geo_sl_1_0x1741700
 
-extern const GeoLayout flyguy_geo[];
+extern const GeoLayout shyguy_geo[];
 /* Fast64 end persistent block [scripts] */
 
 const LevelScript level_sl_entry[] = {
@@ -50,7 +50,7 @@ const LevelScript level_sl_entry[] = {
 	LOAD_MODEL_FROM_GEO(24, spiky_tree_geo),
 	LOAD_MODEL_FROM_GEO(25, snow_tree_geo),
 	LOAD_MODEL_FROM_GEO(31, metal_door_geo),
-	LOAD_MODEL_FROM_GEO(32, flyguy_geo),
+	LOAD_MODEL_FROM_GEO(32, shyguy_geo),
 	LOAD_MODEL_FROM_GEO(34, castle_door_0_star_geo),
 	LOAD_MODEL_FROM_GEO(35, castle_door_1_star_geo),
 	LOAD_MODEL_FROM_GEO(36, castle_door_3_stars_geo),

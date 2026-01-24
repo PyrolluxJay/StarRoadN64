@@ -36,7 +36,7 @@ extern const BehaviorScript bhvStarRoadShyguy[];
 extern const BehaviorScript bhvStarRoadCCCandyDomino[];
 #define bhvBeginningPeach bhvStarRoadCCCandyDomino
 
-extern const GeoLayout flyguy_geo[];
+extern const GeoLayout shyguy_geo[];
 extern const GeoLayout star_road_cccandy_domino[];
 /* Fast64 end persistent block [scripts] */
 
@@ -59,7 +59,7 @@ const LevelScript level_wdw_entry[] = {
 	LOAD_MODEL_FROM_GEO(24, spiky_tree_geo),
 	LOAD_MODEL_FROM_GEO(25, snow_tree_geo),
 	LOAD_MODEL_FROM_GEO(31, metal_door_geo),
-	LOAD_MODEL_FROM_GEO(32, flyguy_geo),
+	LOAD_MODEL_FROM_GEO(32, shyguy_geo),
 	LOAD_MODEL_FROM_GEO(34, castle_door_0_star_geo),
 	LOAD_MODEL_FROM_GEO(35, castle_door_1_star_geo),
 	LOAD_MODEL_FROM_GEO(36, castle_door_3_stars_geo),
