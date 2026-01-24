@@ -34,6 +34,7 @@ extern const BehaviorScript bhvStarRoadB2Skulls[]; // 0xf
 #define bhvTiltingBowserLavaPlatform bhvStarRoadB2Skulls
 
 extern const GeoLayout star_road_b2_skull[];
+#define bhvClockMinuteHand bhvStarRoadStarReplica
 /* Fast64 end persistent block [scripts] */
 
 const LevelScript level_bitfs_entry[] = {
