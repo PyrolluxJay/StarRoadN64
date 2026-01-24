@@ -580,6 +580,9 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
 #else
                 if (gStarModelLastCollected == MODEL_BOWSER_KEY) {
                     obj_set_model(celebStar, gStarModelLastCollected);
+                    obj_scale(celebStar, 0.5f);
+                    celebStar->oFaceAngleRoll = -0x4000;
+                    celebStar->oGraphYOffset = 40.0f;
                 }
 #endif
                 disable_background_sound();
