@@ -16,7 +16,7 @@
 u8 sTransitionFadeTimer = 0;
 u16 sTransitionTextureAngle = 0;
 
-void *sTextureTransitionID[] = {
+static const void *sTextureTransitionID[] = {
     texture_transition_star_half,
     texture_transition_circle_half,
     texture_transition_mario,

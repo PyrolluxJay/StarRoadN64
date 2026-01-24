@@ -189,7 +189,7 @@ static void create_dl_rotation_matrix_z(s8 pushOp, u16 a) {
     }
 }
 
-#define create_dl_rotation_matrix(op, a, x, y, z) create_dl_rotation_matrix_z(op, (a) / 360.f * 0x10000)
+#define create_dl_rotation_matrix(op, a, x, y, z) create_dl_rotation_matrix_z(op, (s16) ((a) / 360.f * 0x10000))
 
 void create_dl_scale_matrix(s8 pushOp, f32 x, f32 y, f32 z) {
     Mtx *matrix = (Mtx *) alloc_display_list(sizeof(Mtx));
