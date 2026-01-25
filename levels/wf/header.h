@@ -11,4 +11,5 @@ extern const LevelScript level_wf_entry[];
 
 #include "levels/wf/header.inc.h"
 
+#include "slr_water/header.h"
 #endif

@@ -8,6 +8,7 @@
 
 #include "levels/castle_grounds/cg_water/header.h"
 #include "levels/bob/boi_water/header.h"
+#include "levels/wf/slr_water/header.h"
 
 struct WaterConfig
 {
@@ -31,6 +32,8 @@ static struct WaterConfig get_water_config(int param)
             return WATER_DECL(cg_water_Plane_001_mesh, cg_water_Plane_001_mesh_vtx_0);
         case WATER_BOI:
             return WATER_DECL(boi_water_node_001_mesh, boi_water_node_001_mesh_vtx_0);
+        case WATER_SLR:
+            return WATER_DECL(slr_water_node_001_mesh, slr_water_node_001_mesh_vtx_0);
         default:
             return (struct WaterConfig){0};
     }
