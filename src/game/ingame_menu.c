@@ -25,6 +25,7 @@
 #include "puppycam2.h"
 #include "main.h"
 #include "engine/gut.h"
+#include "options_menu.h"
 
 #include "hacktice/main.h"
 
@@ -1993,6 +1994,7 @@ s32 render_pause_courses_and_castle(void) {
     puppycam_check_pause_buttons();
     if (!gPCOptionOpen) {
 #endif
+    if (optmenu_open == 0) {
     switch (gDialogBoxState) {
         case DIALOG_STATE_OPENING:
             gDialogLineNum = MENU_OPT_DEFAULT;
@@ -2065,6 +2067,12 @@ s32 render_pause_courses_and_castle(void) {
     if (gDialogTextAlpha > 250) {
         gDialogTextAlpha = 250;
     }
+    } else {
+        shade_screen();
+        optmenu_draw();
+    }
+    optmenu_check_buttons();
+    optmenu_draw_prompt();
 #ifdef PUPPYCAM
     } else {
         shade_screen();
