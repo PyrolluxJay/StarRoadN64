@@ -1,3 +1,5 @@
+#include "game/water.h"
+
 const GeoLayout Geo_jrb_1_0x1901700[]= {
 GEO_NODE_SCREEN_AREA(10,160,120,160,120),
 GEO_OPEN_NODE(),
@@ -18,7 +20,7 @@ GEO_DISPLAY_LIST(LAYER_OPAQUE,DL_jrb_1_0xe037220),
 GEO_DISPLAY_LIST(LAYER_ALPHA,DL_jrb_1_0xe054c20),
 GEO_RENDER_OBJ(),
 GEO_ASM(0, geo_envfx_main),
-GEO_ASM(20480, geo_movtex_draw_water_regions),
+GEO_ASM(WATER_PPP, geo_render_water_dl),
 GEO_CLOSE_NODE(),
 GEO_CLOSE_NODE(),
 GEO_CLOSE_NODE(),

@@ -6,4 +6,5 @@ enum {
     WATER_CASTLE_GROUNDS,
     WATER_BOI,
     WATER_SLR,
+    WATER_PPP,
 };

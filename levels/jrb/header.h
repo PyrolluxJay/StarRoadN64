@@ -13,4 +13,5 @@ extern const LevelScript level_jrb_entry[];
 
 #include "levels/jrb/header.inc.h"
 
+#include "ppp_water/header.h"
 #endif
