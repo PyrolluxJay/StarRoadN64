@@ -14,8 +14,6 @@
 
 #include "sm64.h"
 
-#include "game/printf.h"
-
 enum crashPages {
     PAGE_CONTEXT,
 #ifdef PUPPYPRINT_DEBUG

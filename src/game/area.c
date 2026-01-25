@@ -27,6 +27,7 @@
 #include "debug_box.h"
 #include "engine/colors.h"
 #include "profiling.h"
+#include "engine/n64-stdbool.h"
 #ifdef S2DEX_TEXT_ENGINE
 #include "s2d_engine/init.h"
 #endif
@@ -311,9 +312,23 @@ void set_vi_mode(int enabled)
     __osRestoreInt(saveMask);
 }
 
-void load_area(s32 index) {
-    int mode = 7;
+extern bool configVIAntialiasing;
+extern bool configVIDedither;
+void set_vi_mode_from_config()
+{
+    int mode = 0;
+    if (!configVIAntialiasing) {
+        mode |= 3;
+    }
+    if (!configVIDedither) {
+        mode |= 4;
+    }
+
     set_vi_mode(mode);
+}
+
+void load_area(s32 index) {
+    set_vi_mode_from_config();
 
     if (gCurrentArea == NULL && gAreaData[index].graphNode != NULL) {
         gCurrentArea = &gAreaData[index];

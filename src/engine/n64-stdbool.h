@@ -16,6 +16,8 @@
 			typedef unsigned char n64_bool;
 		#endif
 
+		#define bool n64_bool
+
 		#ifndef true
 			#define true 1
 		#endif

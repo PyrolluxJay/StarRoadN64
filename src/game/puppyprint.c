@@ -33,7 +33,6 @@ a modern game engine's developer's console.
 #include "print.h"
 #include "string.h"
 #include "stdarg.h"
-#include "printf.h"
 #include "engine/math_util.h"
 #include "engine/behavior_script.h"
 #include "camera.h"

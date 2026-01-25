@@ -12,6 +12,8 @@
 #include "game/ingame_menu.h"
 #include "game/options_menu.h"
 
+#include "engine/n64-stdbool.h"
+
 u8 optmenu_open = 0;
 
 static u8 optmenu_binding = 0;
@@ -48,11 +50,10 @@ enum OptType {
 
 struct SubMenu;
 
-#define bool u8
-
 struct Option {
     enum OptType type;
     const char *label;
+    const char *explanation;
     union {
         u32 *uval;
         bool *bval;
@@ -74,7 +75,6 @@ struct Option {
 
 struct SubMenu {
     struct SubMenu *prev; // this is set at runtime to avoid needless complication
-    const char *label;
     struct Option *opts;
     s32 numOpts;
     s32 select;
@@ -83,73 +83,93 @@ struct SubMenu {
 
 /* helper macros */
 
-#define DEF_OPT_TOGGLE(lbl, bv) \
-    { .type = OPT_TOGGLE, .label = lbl, .bval = bv }
-#define DEF_OPT_SCROLL(lbl, uv, min, max, st) \
-    { .type = OPT_SCROLL, .label = lbl, .uval = uv, .scrMin = min, .scrMax = max, .scrStep = st }
-#define DEF_OPT_CHOICE(lbl, uv, ch) \
-    { .type = OPT_CHOICE, .label = lbl, .uval = uv, .choices = ch, .numChoices = sizeof(ch) / sizeof(ch[0]) }
-#define DEF_OPT_SUBMENU(lbl, nm) \
-    { .type = OPT_SUBMENU, .label = lbl, .nextMenu = nm }
+#define DEF_OPT_TOGGLE(lbl, expl, bv) \
+    { .type = OPT_TOGGLE, .label = lbl, .explanation = expl, .bval = bv }
+#define DEF_OPT_SCROLL(lbl, expl, uv, min, max, st) \
+    { .type = OPT_SCROLL, .label = lbl, .explanation = expl, .uval = uv, .scrMin = min, .scrMax = max, .scrStep = st }
+#define DEF_OPT_CHOICE(lbl, expl, uv, ch) \
+    { .type = OPT_CHOICE, .label = lbl, .explanation = expl, .uval = uv, .choices = ch, .numChoices = sizeof(ch) / sizeof(ch[0]) - 1 }
+#define DEF_OPT_SUBMENU(lbl, expl, nm) \
+    { .type = OPT_SUBMENU, .label = lbl, .explanation = expl, .nextMenu = nm }
 
-#define DEF_SUBMENU(lbl, opt) \
-    { .label = lbl, .opts = opt, .numOpts = sizeof(opt) / sizeof(opt[0]) }
+#define DEF_SUBMENU(opt) \
+    { .opts = opt, .numOpts = sizeof(opt) / sizeof(opt[0]) }
 
 /* submenu definitions */
 
-#define MAX_VOLUME 127
-unsigned int configMasterVolume = MAX_VOLUME; // 0 - MAX_VOLUME
-unsigned int configMusicVolume = MAX_VOLUME;
-unsigned int configSfxVolume = MAX_VOLUME;
-unsigned int configEnvVolume = MAX_VOLUME;
+bool configVIAntialiasing = true;
+bool configVIDedither = true;
+bool configFallDamage = true;
+bool configFailWarp = false;
+bool config45DegreeWallkicks = false;
+bool configExtraWallkickFrames = false;
+bool configFastSwimming = false;
+bool configSteepSlopeJumps = false;
+bool configLives = true;
+bool configAllowExitLevel = false;
+bool configFasterObjects = false;
+bool configNoActSpecificObjects = false;
+u32 configPreset = 0;
 
-static const char optMainStr[][32] = {
-    { "Options" },
-    { "Camera" },
-    { "Controls" },
-    { "Video" },
-    { "Audio" },
-    { "Exit Game" },
-    { "Cheats" },
-};
-
-static const char optsAudioStr[][32] = {
-    { "mv" },    
-    { "mus" },
-    { "sfx" },
-    { "env" },
-};
+static const char sViAntialiasingExplanation[]       = "Smooths out jagged edges,\n"
+                                                       "but adds more blur. Reduces performance.";
+static const char sViDeditherExplanation[]           = "Reduces color dither patterns,\n"
+                                                       "but adds more blur. Reduces performance.";
+static const char sFallDamageExplanation[]           = "Enables fall damage from\n"
+                                                       "high falls.";
+static const char sFailWarpExplanation[]             = "Warps the player to the\n"
+                                                       "last safe spot on death.";
+static const char s45DegreeWallkicksExplanation[]    = "Allows wallkicks on\n"
+                                                       "45 degree walls jumps.";
+static const char sExtraWallkickFramesExplanation[]  = "Gives 3 extra frames to\n"
+                                                       "perform wallkicks.";
+static const char sFastSwimmingExplanation[]         = "Increases swimming movement speed.\n"
+                                                       "Hold A for fastest swim.";
+static const char sSteepSlopeJumpsExplanation[]      = "Allows proper jumps on slopes\n"
+                                                       "that are very steep.";
+static const char sLivesExplanation[]                = "Enables lives system";
+static const char sAllowExitLevelExplanation[]       = "Adds extra pause option to exit\n"
+                                                       "immediately outside the level or\n"
+                                                       "back to the castle grounds.";
+static const char sFasterObjectsExplanation[]        = "Increases speed of push blocks and boat.\n"
+                                                       "Moving platforms speed depends on Mario position.\n";
+static const char sNoActSpecificObjectsExplanation[] = "Removes unnecessary act specific objects.";
+static const char sPresetExplanation[]               = "Classic - close to original hack\n"
+                                                       "QoL Only - minimal changes to enhance gameplay\n"
+                                                       "Modern - more changes for a modern experience";
+static const char sAdvancedExplanation[]             = "Select exact patches you want to use.\n"
+                                                       "Overrides the preset selection.";
 
 static struct Option optsAudio[] = {
-    DEF_OPT_SCROLL( optsAudioStr[0], &configMasterVolume, 0, MAX_VOLUME, 1 ),
-    DEF_OPT_SCROLL( optsAudioStr[1], &configMusicVolume, 0, MAX_VOLUME, 1),
-    DEF_OPT_SCROLL( optsAudioStr[2], &configSfxVolume, 0, MAX_VOLUME, 1),
-    DEF_OPT_SCROLL( optsAudioStr[3], &configEnvVolume, 0, MAX_VOLUME, 1),
+    DEF_OPT_TOGGLE("Fall damage"            , sFallDamageExplanation          , &configFallDamage),
+    DEF_OPT_TOGGLE("Fail warps"             , sFailWarpExplanation            , &configFailWarp),
+    DEF_OPT_TOGGLE("45 degree wallkicks"    , s45DegreeWallkicksExplanation   , &config45DegreeWallkicks),
+    DEF_OPT_TOGGLE("Extra wallkick frames"  , sExtraWallkickFramesExplanation , &configExtraWallkickFrames),
+    DEF_OPT_TOGGLE("Faster swimming"        , sFastSwimmingExplanation        , &configFastSwimming),
+    DEF_OPT_TOGGLE("Steep slope jumps"      , sSteepSlopeJumpsExplanation     , &configSteepSlopeJumps),
+    DEF_OPT_TOGGLE("Lives"                  , sLivesExplanation               , &configLives),
+    DEF_OPT_TOGGLE("Allow extra exit level" , sAllowExitLevelExplanation      , &configAllowExitLevel),
+    DEF_OPT_TOGGLE("Faster objects"         , sFasterObjectsExplanation       , &configFasterObjects),
+    DEF_OPT_TOGGLE("No act specific objects", sNoActSpecificObjectsExplanation, &configNoActSpecificObjects),
 };
 
-static struct SubMenu menuAudio    = DEF_SUBMENU( optMainStr[4], optsAudio );
+static struct SubMenu menuAudio    = DEF_SUBMENU( optsAudio );
 
-/* main options menu definition */
+static const char* sPresets[] = {
+    "Classic",
+    "QoL Only",
+    "Modern",
+    "Custom",
+};
 
 static struct Option optsMain[] = {
-#ifdef BETTERCAMERA
-    DEF_OPT_SUBMENU( optMainStr[1], &menuCamera ),
-#endif
-#ifndef TARGET_N64
-    DEF_OPT_SUBMENU( optMainStr[2], &menuControls ),
-    DEF_OPT_SUBMENU( optMainStr[3], &menuVideo ),
-    DEF_OPT_BUTTON ( optMainStr[5], optmenu_act_exit ),
-#endif
-
-    DEF_OPT_SUBMENU( optMainStr[4], &menuAudio ),
-
-#ifdef CHEATS_ACTIONS
-    // NOTE: always keep cheats the last option here because of the half-assed way I toggle them
-    DEF_OPT_SUBMENU( optMainStr[6], &menuCheats )
-#endif
+    DEF_OPT_TOGGLE("VI antialiasing"        , sViAntialiasingExplanation      , &configVIAntialiasing),
+    DEF_OPT_TOGGLE("VI dedither"            , sViDeditherExplanation          , &configVIDedither),
+    DEF_OPT_CHOICE("Patches preset"         , sPresetExplanation              , &configPreset, sPresets),
+    DEF_OPT_SUBMENU("Advanced patches menu..." , sAdvancedExplanation, &menuAudio ),
 };
 
-static struct SubMenu menuMain = DEF_SUBMENU( optMainStr[0], optsMain );
+static struct SubMenu menuMain = DEF_SUBMENU( optsMain );
 
 /* implementation */
 
@@ -218,14 +238,63 @@ static void optmenu_draw_opt(const struct Option *opt, s16 x, s16 y, u8 sel) {
     };
 }
 
+extern void set_vi_mode_from_config();
 static void optmenu_opt_change(struct Option *opt, s32 val) {
     switch (opt->type) {
         case OPT_TOGGLE:
             *opt->bval = !*opt->bval;
+            if (opt->bval == &configVIAntialiasing || opt->bval == &configVIDedither)
+            {
+                set_vi_mode_from_config();
+            }
+            else
+            {
+                configPreset = 3; // Custom
+            }
             break;
 
         case OPT_CHOICE:
             *opt->uval = wrap_add(*opt->uval, val, 0, opt->numChoices - 1);
+            if (opt->uval == &configPreset) {
+                switch (configPreset) {
+                    case 0: // Classic
+                        configFallDamage           = true;
+                        configFailWarp             = false;
+                        config45DegreeWallkicks    = false;
+                        configExtraWallkickFrames  = false;
+                        configFastSwimming         = false;
+                        configSteepSlopeJumps      = false;
+                        configLives                = true;
+                        configAllowExitLevel       = false;
+                        configFasterObjects        = false;
+                        configNoActSpecificObjects = false;
+                        break;
+                    case 1: // QoL Only
+                        configFallDamage           = true;
+                        configFailWarp             = false;
+                        config45DegreeWallkicks    = false;
+                        configExtraWallkickFrames  = false;
+                        configFastSwimming         = false;
+                        configSteepSlopeJumps      = false;
+                        configLives                = false;
+                        configAllowExitLevel       = true;
+                        configFasterObjects        = true;
+                        configNoActSpecificObjects = true;
+                        break;
+                    case 2: // Modern
+                        configFallDamage           = true;
+                        configFailWarp             = true;
+                        config45DegreeWallkicks    = true;
+                        configExtraWallkickFrames  = true;
+                        configFastSwimming         = true;
+                        configSteepSlopeJumps      = true;
+                        configLives                = true;
+                        configAllowExitLevel       = true;
+                        configFasterObjects        = true;
+                        configNoActSpecificObjects = true;
+                        break;
+                }
+            }
             break;
 
         case OPT_SCROLL:
@@ -246,25 +315,12 @@ static void optmenu_opt_change(struct Option *opt, s32 val) {
     }
 }
 
-static inline s16 get_hudstr_centered_x(const s16 sx, const char *str) {
-    const char *chr = str;
-    s16 len = 0;
-    while (*chr != '\0') ++chr, ++len;
-    return sx - len * 6; // stride is 12
-}
-
 //Options menu
 void optmenu_draw(void) {
     u8 i;
     s16 scroll;
     s16 scrollpos;
     f32 sinpos;
-
-    const s16 labelX = get_hudstr_centered_x(160, currentMenu->label);
-    gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
-    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
-    print_hud_lut_string(labelX, 40, currentMenu->label);
-    gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
 
     if (currentMenu->numOpts > 4) {
         optmenu_draw_box(272, 90, 280, 208, 0x80, 0x80, 0x80);
@@ -273,6 +329,8 @@ void optmenu_draw(void) {
     }
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    optmenu_draw_text(160, 190, currentMenu->opts[currentMenu->select].explanation, 0);
+    
     gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 80, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     for (i = 0; i < currentMenu->numOpts; i++) {
