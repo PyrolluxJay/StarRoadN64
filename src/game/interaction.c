@@ -1353,7 +1353,14 @@ u32 interact_hit_from_below(struct MarioState *m, UNUSED u32 interactType, struc
     return FALSE;
 }
 
+extern const BehaviorScript bhvStarRoadSRRoomba[];
 u32 interact_bounce_top(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
+    if (obj->behavior == bhvStarRoadSRRoomba && m->action == ACT_SQUISHED)
+    {
+        push_mario_out_of_object(m, obj, 5.0f);
+        return FALSE;
+    }
+
     u32 interaction;
     if (m->flags & MARIO_METAL_CAP) {
         interaction = INT_FAST_ATTACK_OR_SHELL;
