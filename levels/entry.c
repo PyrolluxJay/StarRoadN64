@@ -9,7 +9,7 @@
 
 #include "config.h"
 
-#define TEST_LEVEL LEVEL_TTM
+#define TEST_LEVEL LEVEL_CASTLE_GROUNDS
 
 extern const LevelScript level_main_scripts_entry[];
 const LevelScript level_script_entry[] = {

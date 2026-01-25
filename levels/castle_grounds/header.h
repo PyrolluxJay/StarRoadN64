@@ -12,4 +12,5 @@ extern Movtex castle_grounds_movtex_tris_waterfall[];
 
 #include "levels/castle_grounds/header.inc.h"
 
+#include "cg_water/header.h"
 #endif
