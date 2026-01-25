@@ -15,4 +15,5 @@ extern const LevelScript level_hmc_entry[];
 
 #include "levels/hmc/header.inc.h"
 
+#include "coral_water/header.h"
 #endif

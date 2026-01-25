@@ -18,3 +18,4 @@
 #include "levels/hmc/custom_c/obj.collision.inc.c"
 #include "levels/hmc/custom_c/obj.model.inc.c"
 
+#include "coral_water/model.inc.c"

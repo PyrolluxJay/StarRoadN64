@@ -8,4 +8,5 @@ enum {
     WATER_SLR,
     WATER_PPP,
     WATER_CH,
+    WATER_CORAL,
 };
