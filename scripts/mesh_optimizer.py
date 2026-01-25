@@ -18,6 +18,9 @@ VTX_SUFFIX = 'opt'
 #VTX_FILTER = lambda vtx: vtx.pos.y < 373
 #VTX_SUFFIX = 'opt_p'
 
+VTX_FILTER = lambda vtx: vtx.pos.x - vtx.pos.z < 200
+VTX_SUFFIX = 'opt_s'
+
 HAS_EX3_COMMANDS = True
 HAS_TRI3 = False
 #VTX_BUF_SIZE = 56

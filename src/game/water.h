@@ -7,4 +7,5 @@ enum {
     WATER_BOI,
     WATER_SLR,
     WATER_PPP,
+    WATER_CH,
 };

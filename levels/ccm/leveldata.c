@@ -14,5 +14,7 @@
 #include "levels/ccm/custom_c/textureNew.inc.c"
 #include "levels/ccm/custom_c/movtextNew.inc.c"
 #include "levels/ccm/custom_c/custom.modelopt.inc.c"
+#include "levels/ccm/custom_c/custom.modelopt_s.inc.c"
 #include "levels/ccm/custom_c/custom_object.collision.inc.c"
 #include "levels/ccm/custom_c/custom_object.model.inc.c"
+#include "ch_water/model.inc.c"
