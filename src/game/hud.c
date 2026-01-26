@@ -17,6 +17,7 @@
 #include "engine/math_util.h"
 #include "puppycam2.h"
 #include "puppyprint.h"
+#include "options_menu.h"
 
 #include "config.h"
 
@@ -181,7 +182,7 @@ void render_dl_power_meter(s16 numHealthWedges) {
         return;
     }
 
-    guTranslate(mtx, (f32) sPowerMeterHUD.x, (f32) sPowerMeterHUD.y, 0);
+    guTranslate(mtx, configLives ? (f32) sPowerMeterHUD.x : 50, (f32) sPowerMeterHUD.y, 0);
 
     gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(mtx++),
               G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
@@ -572,6 +573,7 @@ void render_hud(void) {
         }
 
 #ifdef ENABLE_LIVES
+        if (configLives)
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
             render_hud_mario_lives();
         }

@@ -32,6 +32,7 @@
 #include "level_commands.h"
 #include "debug.h"
 #include "fail_warp.h"
+#include "options_menu.h"
 
 #include "config.h"
 
@@ -761,6 +762,7 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
 
             case WARP_OP_DEATH:
 #ifdef ENABLE_LIVES
+                if (configLives)
                 if (m->numLives == 0) {
                     sDelayedWarpOp = WARP_OP_GAME_OVER;
                 }
@@ -782,7 +784,7 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                     sSourceWarpNodeId = WARP_NODE_WARP_FLOOR;
                     if (area_get_warp_node(sSourceWarpNodeId) == NULL) {
 #ifdef ENABLE_LIVES
-                        if (m->numLives == 0) {
+                        if (configLives && m->numLives == 0) {
                             sDelayedWarpOp = WARP_OP_GAME_OVER;
                         } else {
                             sSourceWarpNodeId = WARP_NODE_DEATH;

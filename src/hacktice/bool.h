@@ -1,5 +1,3 @@
 #pragma once
 
-typedef char bool;
-#define true 1
-#define false 0
+#include "engine/n64-stdbool.h"
