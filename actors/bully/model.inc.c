@@ -77,6 +77,15 @@ ALIGNED8 static const Texture bully_seg5_texture_05001468[] = {
 #include "actors/bully/bully_right_side.rgba16.inc.c"
 };
 
+ALIGNED8 static const Texture bully_seg5_texture_05000468_m[] = {
+#include "actors/bully/bully_left_side_m.rgba16.inc.c"
+};
+
+// 0x05001468
+ALIGNED8 static const Texture bully_seg5_texture_05001468_m[] = {
+#include "actors/bully/bully_right_side_m.rgba16.inc.c"
+};
+
 // 0x05002468
 ALIGNED8 static const Texture bully_seg5_texture_05002468[] = {
 #include "actors/bully/bully_eye.rgba16.inc.c"
@@ -415,7 +424,7 @@ static const Vtx bully_seg5_vertex_05003C90[] = {
 
 // 0x05003CD0 - 0x05003D08
 const Gfx bully_seg5_dl_05003CD0[] = {
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, bully_seg5_texture_05000468),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, bully_seg5_texture_05000468_m),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 32 * 64 - 1, CALC_DXT(32, G_IM_SIZ_16b_BYTES)),
     gsSPVertex(bully_seg5_vertex_05003C50, 4, 0),
@@ -425,7 +434,7 @@ const Gfx bully_seg5_dl_05003CD0[] = {
 
 // 0x05003D08 - 0x05003D40
 const Gfx bully_seg5_dl_05003D08[] = {
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, bully_seg5_texture_05001468),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, bully_seg5_texture_05001468_m),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 32 * 64 - 1, CALC_DXT(32, G_IM_SIZ_16b_BYTES)),
     gsSPVertex(bully_seg5_vertex_05003C90, 4, 0),
