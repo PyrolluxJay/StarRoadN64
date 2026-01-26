@@ -777,7 +777,7 @@ static void koopa_the_quick_update(void) {
 /**
  * Update function.
  */
-void bhv_koopa_update(void) {
+static void bhv_koopa_update_impl(void) {
     // PARTIAL_UPDATE
 
     o->oDeathSound = SOUND_OBJ_KOOPA_FLYGUY_DEATH;
@@ -806,6 +806,13 @@ void bhv_koopa_update(void) {
     }
 
     obj_face_yaw_approach(o->oMoveAngleYaw, 0x600);
+}
+
+void bhv_koopa_update(void) {
+    bhv_koopa_update_impl();
+    if (o->oKoopaMovementType == KOOPA_BP_KOOPA_THE_QUICK_BOB
+     || o->oKoopaMovementType == KOOPA_BP_KOOPA_THE_QUICK_THI)
+        bhv_koopa_update_impl();
 }
 
 /**

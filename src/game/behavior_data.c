@@ -5079,7 +5079,6 @@ const BehaviorScript bhvKoopa[] = {
     CALL_NATIVE( bhv_koopa_init),
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_koopa_update),
-        CALL_NATIVE( bhv_koopa_update),
     END_LOOP(),
 };
 
