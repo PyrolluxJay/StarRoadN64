@@ -563,7 +563,7 @@ const BehaviorScript bhvKingBobomb[] = {
     DROP_TO_FLOOR(),
     SET_HOME(),
     SPAWN_OBJ(/*Model*/ MODEL_NONE, /*Behavior*/ bhvBobombAnchorMario),
-    SET_INT(oHealth, 3),
+    SET_INT(oHealth, 4),
     SET_INT(oDamageOrCoinValue, 1),
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_king_bobomb_loop),
