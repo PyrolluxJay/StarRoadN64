@@ -5576,6 +5576,8 @@ gsDPSetTileSize(0, 0, 0, 124, 124),
 	gsSPVertex(DL_ddd_1_0xe028540_13_vtxopt, 5, 0),
 	gsSPTriSnake(1, 2, 0, 3, G_SNAKE_LEFT, G_SNAKE_LAST | 4, G_SNAKE_LEFT, -1, 0, -1, 0),
 gsSPTexture(65535, 65535, 0, 0, 0),
+gsDPPipeSync(),
+gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, SHADE, 0, 0, 0, SHADE, 0, 0, 0, SHADE),
 gsSPEndDisplayList(),
 };
 
