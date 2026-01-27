@@ -1,4 +1,5 @@
 // metal_box.inc.c
+#include "game/options_menu.h"
 
 struct ObjectHitbox sMetalBoxHitbox = {
     /* interactType:      */ INTERACT_NONE,
@@ -30,8 +31,14 @@ void bhv_pushable_loop(void) {
         s16 angleToMario = obj_angle_to_object(o, gMarioObject);
         if (abs_angle_diff(angleToMario, gMarioObject->oMoveAngleYaw) > 0x4000) {
             o->oMoveAngleYaw = (s16)((gMarioObject->oMoveAngleYaw + 0x2000) & 0xc000);
-            if (check_if_moving_over_floor(8.0f, 150.0f)) {
-                o->oForwardVel = 4.0f;
+            const f32 vel = configFasterObjects ? 20.f : 4.f;
+            if (check_if_moving_over_floor(vel + 4.0f, 150.0f)) {
+                o->oForwardVel = vel;
+                if (configFasterObjects)
+                {
+                    gMarioStates->pos[0] += o->oForwardVel * sins(o->oMoveAngleYaw);
+                    gMarioStates->pos[2] += o->oForwardVel * coss(o->oMoveAngleYaw);
+                }
                 cur_obj_play_sound_1(SOUND_ENV_METAL_BOX_PUSH);
             }
         }
