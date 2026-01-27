@@ -1096,16 +1096,19 @@ s32 play_mode_paused(void) {
         if (gDebugLevelSelect) {
             fade_into_special_warp(WARP_SPECIAL_LEVEL_SELECT, 1);
         } else {
-#ifdef DEATH_ON_EXIT_COURSE
-            struct ObjectWarpNode *warpNode = area_get_warp_node(WARP_NODE_DEATH);
-            assert(warpNode != NULL, "No death warp node could be found!");
+            if (gMenuOptSelectIndex == MENU_OPT_EXIT_COURSE)
+            {
+                struct ObjectWarpNode *warpNode = area_get_warp_node(WARP_NODE_DEATH);
+                assert(warpNode != NULL, "No death warp node could be found!");
 
-            initiate_warp(warpNode->node.destLevel & 0x7F, warpNode->node.destArea,
-                            warpNode->node.destNode, WARP_FLAGS_NONE);
-#else // DEATH_ON_EXIT_COURSE
-            initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAG_EXIT_COURSE);
-            gSavedCourseNum = COURSE_NONE;
-#endif // DEATH_ON_EXIT_COURSE
+                initiate_warp(warpNode->node.destLevel & 0x7F, warpNode->node.destArea,
+                                warpNode->node.destNode, WARP_FLAGS_NONE);
+            }
+            else
+            {
+                initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAG_EXIT_COURSE);
+                gSavedCourseNum = COURSE_NONE;
+            }
 
             fade_into_special_warp(WARP_SPECIAL_NONE, 0);
             if (sWarpDest.type != WARP_TYPE_CHANGE_LEVEL) {

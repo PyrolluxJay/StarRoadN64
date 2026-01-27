@@ -1780,7 +1780,13 @@ LangArray textCameraAngleR = DEFINE_LANGUAGE_ARRAY(
     "MODO DE CÁMARA CON Ⓡ");
 
 void render_pause_course_options(s16 x, s16 y, s8 *index, s16 yIndex) {
-    handle_menu_scrolling(MENU_SCROLL_VERTICAL, index, 1, 3);
+    int maxScroll = configAllowExitLevel ? 4 : 3;
+    handle_menu_scrolling(MENU_SCROLL_VERTICAL, index, 1, maxScroll);
+
+    s8 realIndex = *index;
+    if (!configAllowExitLevel && realIndex == MENU_OPT_EXIT_OUTSIDE) {
+        realIndex = MENU_OPT_CAMERA_ANGLE_R;
+    }
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
 
@@ -1788,18 +1794,18 @@ void render_pause_course_options(s16 x, s16 y, s8 *index, s16 yIndex) {
     print_generic_string(x, y,      LANG_ARRAY(textContinue));
     print_generic_string(x, y - 15, LANG_ARRAY(textExitCourse));
 
-    if (*index != MENU_OPT_CAMERA_ANGLE_R) {
-        print_generic_string(x, y - 31, LANG_ARRAY(textCameraAngleR));
+    if (realIndex != MENU_OPT_CAMERA_ANGLE_R) {
+        print_generic_string(x, y - 31, configAllowExitLevel ? "EXIT TO CASTLE GROUNDS" : LANG_ARRAY(textCameraAngleR));
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
-        create_dl_translation_matrix(MENU_MTX_PUSH, x - 14, (y - ((*index - 1) * yIndex)), 0);
+        create_dl_translation_matrix(MENU_MTX_PUSH, x - 14, (y - ((realIndex - 1) * yIndex)), 0);
 
         gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
         gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
         gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     }
 
-    if (*index == MENU_OPT_CAMERA_ANGLE_R) {
+    if (realIndex == MENU_OPT_CAMERA_ANGLE_R) {
         render_pause_camera_options(x - 52, y - 38, &gDialogCameraAngleIndex, 110);
     }
 }
@@ -2034,8 +2040,15 @@ s32 render_pause_courses_and_castle(void) {
                 gDialogBoxState = DIALOG_STATE_OPENING;
                 gMenuMode = MENU_MODE_NONE;
 
-                if (gDialogLineNum == MENU_OPT_EXIT_COURSE) {
-                    index = gDialogLineNum;
+                s8 realIndex = gDialogLineNum;
+                if (!configAllowExitLevel)
+                {
+                    if (realIndex == MENU_OPT_EXIT_OUTSIDE) realIndex = MENU_OPT_CAMERA_ANGLE_R;
+                    if (realIndex == MENU_OPT_EXIT_COURSE)  realIndex = MENU_OPT_EXIT_OUTSIDE;
+                }
+
+                if (realIndex == MENU_OPT_EXIT_COURSE || realIndex == MENU_OPT_EXIT_OUTSIDE) {
+                    index = realIndex;
                 } else { // MENU_OPT_CONTINUE or MENU_OPT_CAMERA_ANGLE_R
                     index = MENU_OPT_DEFAULT;
                 }
