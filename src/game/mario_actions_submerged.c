@@ -18,6 +18,7 @@
 #include "behavior_data.h"
 #include "level_table.h"
 #include "rumble_init.h"
+#include "options_menu.h"
 
 #define MIN_SWIM_STRENGTH 160
 #define MIN_SWIM_SPEED 16.0f
@@ -226,7 +227,7 @@ static void stationary_slow_down(struct MarioState *m) {
 
 static void update_swimming_speed(struct MarioState *m, f32 decelThreshold) {
     f32 buoyancy = get_buoyancy(m);
-    f32 maxSpeed = 28.0f;
+    f32 maxSpeed = configFastSwimming ? 42.0f : 28.0f;
 
     if (m->action & ACT_FLAG_STATIONARY) {
         m->forwardVel -= 2.0f;
@@ -618,11 +619,12 @@ static s32 act_flutter_kick(struct MarioState *m) {
         return set_mario_action(m, ACT_SWIMMING_END, 0);
     }
 
-    m->forwardVel = approach_f32(m->forwardVel, 12.0f, 0.1f, 0.15f);
+    const f32 maxVel = configFastSwimming ? 42.0f : 12.0f;
+    m->forwardVel = approach_f32(m->forwardVel, maxVel, 0.1f, 0.15f);
     m->actionTimer = 1;
-    sSwimStrength = MIN_SWIM_STRENGTH;
+    sSwimStrength = configFastSwimming ? 440 : MIN_SWIM_STRENGTH;
 
-    if (m->forwardVel < 14.0f) {
+    if (configFastSwimming || m->forwardVel < 14.0f) {
         play_swimming_noise(m);
         set_mario_animation(m, MARIO_ANIM_FLUTTERKICK);
     }
@@ -678,7 +680,8 @@ static s32 act_hold_breaststroke(struct MarioState *m) {
     }
 
     set_mario_animation(m, MARIO_ANIM_SWIM_WITH_OBJ_PART1);
-    common_swimming_step(m, 160);
+    int swimStrength = configFastSwimming ? 440 : 160;
+    common_swimming_step(m, swimStrength);
     return FALSE;
 }
 
@@ -711,7 +714,8 @@ static s32 act_hold_swimming_end(struct MarioState *m) {
 
     m->forwardVel -= 0.25f;
     set_mario_animation(m, MARIO_ANIM_SWIM_WITH_OBJ_PART2);
-    common_swimming_step(m, 160);
+    int swimStrength = configFastSwimming ? 440 : 160;
+    common_swimming_step(m, swimStrength);
     return FALSE;
 }
 
@@ -732,12 +736,14 @@ static s32 act_hold_flutter_kick(struct MarioState *m) {
         return set_mario_action(m, ACT_HOLD_SWIMMING_END, 0);
     }
 
-    m->forwardVel = approach_f32(m->forwardVel, 12.0f, 0.1f, 0.15f);
-    if (m->forwardVel < 14.0f) {
+    const f32 maxVel = configFastSwimming ? 42.0f : 12.0f;
+    m->forwardVel = approach_f32(m->forwardVel, maxVel, 0.1f, 0.15f);
+    if (configFastSwimming || m->forwardVel < 14.0f) {
         play_swimming_noise(m);
         set_mario_animation(m, MARIO_ANIM_FLUTTERKICK_WITH_OBJ);
     }
-    common_swimming_step(m, 160);
+    int swimStrength = configFastSwimming ? 440 : 160;
+    common_swimming_step(m, swimStrength);
     return FALSE;
 }
 
