@@ -10,6 +10,7 @@
 #include "fail_warp.h"
 #include "interaction.h"
 #include "mario_step.h"
+#include "options_menu.h"
 
 #include "config.h"
 
@@ -440,7 +441,7 @@ s32 bonk_or_hit_lava_wall(struct MarioState *m, struct WallCollisionData *wallDa
                 oldWallDYaw = wallDYaw;
                 set_mario_wall(m, wallData->walls[i]);
 
-                if (wallDYaw > DEGREES(180 - WALL_KICK_DEGREES)) {
+                if (wallDYaw > DEGREES(180 - WALL_KICK_DEGREES) - config45DegreeWallkicks) {
                     m->flags |= MARIO_AIR_HIT_WALL;
                     result = AIR_STEP_HIT_WALL;
                 }
