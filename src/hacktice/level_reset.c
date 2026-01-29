@@ -104,11 +104,17 @@ void LevelReset_onNormal()
     if (warp != LevelConv_PlainLevels_OFF)
     {
         LevelConv_SM64Levels sm64lvl = LevelConv_toSM64Level(warp);
+
+        int nodeId = 0xa;
+        if (LevelConv_PlainLevels_C3 == warp)
+        {
+            nodeId = 1;
+        }
         
         sWarpDest.levelNum = (u8) sm64lvl;
         sWarpDest.type = 2;
         sWarpDest.areaIdx = 1;
-        sWarpDest.nodeId = 0xa;
+        sWarpDest.nodeId = nodeId;
         gMarioStates->health = 0x880;
         sCurrPlayMode = 0x4;
         gHudDisplay.timer = 0;
