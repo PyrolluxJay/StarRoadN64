@@ -26,7 +26,7 @@ void king_bobomb_act_inactive(void) { // act 0
         gSecondCameraFocus = o;
         cur_obj_init_animation_with_sound(KING_BOBOMB_ANIM_IDLE);
         cur_obj_set_pos_to_home();
-        o->oHealth = 3;
+        o->oHealth = 4;
 
         if (cur_obj_can_mario_activate_textbox_2(500.0f, 100.0f)) {
             o->oSubAction++;
