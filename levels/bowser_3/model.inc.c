@@ -1004,7 +1004,7 @@ Gfx bowser_3_dl_node_003_mesh_layer_4[] = {
 	gsSPLightColor(LIGHT_1, 0x666666FF),
 	gsSPLightColor(LIGHT_2, 0x282828FF),
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0),
+	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, TEXEL0, TEXEL0, 0, SHADE, 0, 0, 0, 0, TEXEL0),
 	gsDPSetAlphaDither(G_AD_NOISE),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsSPTexture(65535, 65535, 0, 0, 1),
