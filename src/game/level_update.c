@@ -761,15 +761,18 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                 break;
 
             case WARP_OP_DEATH:
+                sSourceWarpNodeId = WARP_NODE_DEATH;
 #ifdef ENABLE_LIVES
-                if (configLives)
-                if (m->numLives == 0) {
+                if (configLives && m->numLives == 0)
+                {
                     sDelayedWarpOp = WARP_OP_GAME_OVER;
+                }
+                else
+                {
+                    fadeMusic = !music_unchanged_through_warp(sSourceWarpNodeId);
                 }
 #endif
                 sDelayedWarpTimer = 48;
-                sSourceWarpNodeId = WARP_NODE_DEATH;
-                fadeMusic = !music_unchanged_through_warp(sSourceWarpNodeId);
                 play_transition(WARP_TRANSITION_FADE_INTO_BOWSER, sDelayedWarpTimer, 0x00, 0x00, 0x00);
                 play_sound(SOUND_MENU_BOWSER_LAUGH, gGlobalSoundSource);
 #ifdef PREVENT_DEATH_LOOP
@@ -788,14 +791,15 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                             sDelayedWarpOp = WARP_OP_GAME_OVER;
                         } else {
                             sSourceWarpNodeId = WARP_NODE_DEATH;
+                            fadeMusic = !music_unchanged_through_warp(sSourceWarpNodeId);
                         }
 #else
                         sSourceWarpNodeId = WARP_NODE_DEATH;
+                        fadeMusic = !music_unchanged_through_warp(sSourceWarpNodeId);
 #endif
                     }                    
                 }
 
-                fadeMusic = !music_unchanged_through_warp(sSourceWarpNodeId);
                 sDelayedWarpTimer = 20;
                 play_transition(WARP_TRANSITION_FADE_INTO_CIRCLE, sDelayedWarpTimer, 0x00, 0x00, 0x00);
                 break;
@@ -888,6 +892,7 @@ void initiate_delayed_warp(void) {
             switch (sDelayedWarpOp) {
                 case WARP_OP_GAME_OVER:
                     save_file_reload();
+                    gCurrLevelNum = LEVEL_DED;
                     warp_special(WARP_SPECIAL_MARIO_HEAD_DIZZY);
                     break;
 

@@ -19,6 +19,7 @@
 #define ded_area_1_collision col_cotmc_1_0xe061700_d
 extern const GeoLayout Geo_cotmc_1_0x2701700_d[];
 #define ded_area_1 Geo_cotmc_1_0x2701700_d
+
 /* Fast64 end persistent block [scripts] */
 
 const LevelScript level_ded_entry[] = {
@@ -36,6 +37,8 @@ const LevelScript level_ded_entry[] = {
 		MACRO_OBJECTS(ded_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, 0),
 		TERRAIN_TYPE(TERRAIN_GRASS),
+		OBJECT_WITH_ACTS(0, 2791,-4218,-1630,0,30,0,0x7f7f7f7f, bhvWarp,63),
+		WARP_NODE(0x7f,18,1,10,0),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
