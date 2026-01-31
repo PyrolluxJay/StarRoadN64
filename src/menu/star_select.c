@@ -18,6 +18,7 @@
 #include "sm64.h"
 #include "star_select.h"
 #include "game/main.h"
+#include "game/options_menu.h"
 
 /**
  * @file star_select.c
@@ -52,7 +53,7 @@ static s8 sSelectableStarIndex = 0;
 static s32 sActSelectorMenuTimer = 0;
 
 #ifdef WIDE
-#define ACT_SELECT_WIDESCREEN_SCALE (gConfig.widescreen ? (4.f / 3) : 1.f)
+#define ACT_SELECT_WIDESCREEN_SCALE (configWideScreen ? (4.f / 3) : 1.f)
 #else
 #define ACT_SELECT_WIDESCREEN_SCALE 1.f
 #endif

@@ -19,6 +19,7 @@
 #include "sram.h"
 #endif
 #include "puppycam2.h"
+#include "options_menu.h"
 
 #ifdef UNIQUE_SAVE_DATA
 u16 MENU_DATA_MAGIC = 0x4849;
@@ -705,18 +706,26 @@ void save_file_set_sound_mode(u16 mode) {
     save_main_menu_data();
 }
 
-#ifdef WIDE
-u32 save_file_get_widescreen_mode(void) {
-    return gSaveBuffer.menuData.wideMode;
+void save_file_load_all_config(void)
+{
+    configVIAntialiasing = gSaveBuffer.menuData.configVIAntialiasing;
+    configVIDedither = gSaveBuffer.menuData.configVIDedither;
+#define OPTION(name) name = gSaveBuffer.menuData.name;
+#include "options_menu_x.h"
+#undef OPTION
 }
 
-void save_file_set_widescreen_mode(u8 mode) {
-    gSaveBuffer.menuData.wideMode = mode;
+void save_file_save_all_config(void)
+{
+    gSaveBuffer.menuData.configVIAntialiasing = configVIAntialiasing;
+    gSaveBuffer.menuData.configVIDedither = configVIDedither;
+#define OPTION(name) gSaveBuffer.menuData.name = name;
+#include "options_menu_x.h"
+#undef OPTION
 
     gMainMenuDataModified = TRUE;
     save_main_menu_data();
 }
-#endif
 
 u32 save_file_get_sound_mode(void) {
     if (gSaveBuffer.menuData.soundMode >= SOUND_MODE_COUNT) {

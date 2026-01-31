@@ -54,6 +54,15 @@ extern const Gfx coin_seg3_dl_red_r[];
 extern const Gfx coin_seg3_dl_secret[];
 extern const Gfx coin_seg3_dl_secret_r[];
 
+extern const Gfx coin_seg3_dl_red_0[];;
+extern const Gfx coin_seg3_dl_red_22_5[]; 
+extern const Gfx coin_seg3_dl_red_45[];
+extern const Gfx coin_seg3_dl_red_67_5[];
+extern const Gfx coin_seg3_dl_red_90[];
+extern const Gfx coin_seg3_dl_red_67_5_r[];
+extern const Gfx coin_seg3_dl_red_45_r[];
+extern const Gfx coin_seg3_dl_red_22_5_r[];
+
 #else
 extern const Gfx coin_seg3_sub_dl_begin[];
 extern const Gfx coin_seg3_sub_dl_end[];

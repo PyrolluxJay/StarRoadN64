@@ -1554,6 +1554,34 @@ void shade_screen(void) {
 }
 
 void print_animated_red_coin(s16 x, s16 y) {
+    s32 globalTimer = gGlobalTimer;
+
+    create_dl_translation_matrix(MENU_MTX_PUSH, x, y, 0);
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.2f, 0.2f, 1.0f);
+    gDPSetRenderMode(gDisplayListHead++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+
+#ifdef IA8_30FPS_COINS
+    switch (globalTimer & 0x7) {
+        case 0: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_0     ); break;
+        case 1: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_22_5  ); break;
+        case 2: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_45    ); break;
+        case 3: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_67_5  ); break;
+        case 4: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_90    ); break;
+        case 5: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_67_5_r); break;
+        case 6: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_45_r  ); break;
+        case 7: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_22_5_r); break;
+    }
+#else
+    switch (globalTimer & 0x6) {
+        case 0: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_front     ); break;
+        case 2: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_tilt_right); break;
+        case 4: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_side      ); break;
+        case 6: gSPDisplayList(gDisplayListHead++, coin_seg3_dl_red_tilt_left ); break;
+    }
+#endif
+
+    gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
 
 void render_pause_red_coins(void) {
@@ -1577,39 +1605,7 @@ void render_pause_red_coins(void) {
     }
 }
 
-LangArray textCurrRatio43 = DEFINE_LANGUAGE_ARRAY(
-    "ASPECT RATIO: 4:3\nPRESS L TO SWITCH",
-    "RATIO D'ASPECT: 4:3\nAPPUYEZ SUR L POUR CHANGER",
-    "SEITENVERHÄLTNIS: 4:3\nDRÜCKE L ZUM WECHSELN",
-    "アスペクトひ: ４:３\nＬボタンできりかえ",
-    "RELACIÓN DE ASPECTO: 4:3\nPULSA L PARA CAMBIAR");
-
-LangArray textCurrRatio169 = DEFINE_LANGUAGE_ARRAY(
-    "ASPECT RATIO: 16:9\nPRESS L TO SWITCH",
-    "RATIO D'ASPECT: 16:9\nAPPUYEZ SUR L POUR CHANGER",
-    "SEITENVERHÄLTNIS: 16:9\nDRÜCKE L ZUM WECHSELN",
-    "アスペクトひ: １６:９\nＬボタンできりかえ",
-    "RELACIÓN DE ASPECTO: 16:9\nPULSA L PARA CAMBIAR");
-
 static const char pressBToHacktice[] = "PRESS B TO ENABLE HACKTICE";
-
-/// By default, not needed as puppycamera has an option, but should you wish to revert that, you are legally allowed.
-#if defined(WIDE) && !defined(PUPPYCAM)
-void render_widescreen_setting(void) {
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
-    set_text_color(255, 255, 255);
-    if (!gConfig.widescreen) {
-        print_generic_string(10, 24, LANG_ARRAY(textCurrRatio43));
-    } else {
-        print_generic_string(10, 24, LANG_ARRAY(textCurrRatio169));
-    }
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
-    if (gPlayer1Controller->buttonPressed & L_TRIG){
-        gConfig.widescreen ^= 1;
-        save_file_set_widescreen_mode(gConfig.widescreen);
-    }
-}
-#endif
 
 static void render_hacktice_setting(int x, int y)
 {
@@ -2076,10 +2072,6 @@ s32 render_pause_courses_and_castle(void) {
             }
             break;
     }
-#if defined(WIDE) && !defined(PUPPYCAM)
-        if (!Hacktice_gEnabled)
-            render_widescreen_setting();
-#endif
     gDialogTextAlpha += 25;
     if (gDialogTextAlpha > 250) {
         gDialogTextAlpha = 250;

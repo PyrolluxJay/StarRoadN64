@@ -100,16 +100,9 @@ struct SubMenu {
 bool configVIAntialiasing       = true;
 bool configVIDedither           = true;
 
-bool configNoFallDamage         = false;
-bool configFailWarp             = false;
-bool config45DegreeWallkicks    = false;
-bool configExtraWallkickFrames  = false;
-bool configFastSwimming         = false;
-bool configSteepSlopeJumps      = false;
-bool configNoLives              = false;
-bool configAllowExitLevel       = false;
-bool configFasterObjects        = false;
-bool configNoActSpecificObjects = false;
+#define OPTION(name) bool name = false;
+#include "options_menu_x.h"
+#undef OPTION
 
 u32 configPreset = 0;
 
@@ -141,6 +134,8 @@ static const char sPresetExplanation[]               = "Classic - close to origi
                                                        "Modern - more changes for a modern experience";
 static const char sAdvancedExplanation[]             = "Select exact patches you want to use.\n"
                                                        "Overrides the preset selection.";
+static const char sWideScreenExplanation[]           = "Squishes the game for widescreen support\n"
+                                                       "Set display mode to stretched 16:9.";
 
 static struct Option optsAudio[] = {
     DEF_OPT_TOGGLE("No fall damage"         , sFallDamageExplanation          , &configNoFallDamage),
@@ -153,6 +148,7 @@ static struct Option optsAudio[] = {
     DEF_OPT_TOGGLE("Allow extra exit level" , sAllowExitLevelExplanation      , &configAllowExitLevel),
     DEF_OPT_TOGGLE("Faster objects"         , sFasterObjectsExplanation       , &configFasterObjects),
     DEF_OPT_TOGGLE("No act specific objects", sNoActSpecificObjectsExplanation, &configNoActSpecificObjects),
+    DEF_OPT_TOGGLE("16:9 Widescreen"        , sWideScreenExplanation          , &configWideScreen),
 };
 
 static struct SubMenu menuAudio    = DEF_SUBMENU( optsAudio );
@@ -238,6 +234,52 @@ static void optmenu_draw_opt(const struct Option *opt, s16 x, s16 y, u8 sel) {
 
         default: break;
     };
+}
+
+void gen_preset()
+{
+    if (!configNoFallDamage
+     && !configFailWarp
+     && !config45DegreeWallkicks
+     && !configExtraWallkickFrames
+     && !configFastSwimming
+     && !configSteepSlopeJumps
+     && !configNoLives
+     && !configAllowExitLevel
+     && !configFasterObjects
+     && !configNoActSpecificObjects)
+    {
+        configPreset = 0;
+    }
+
+
+    if (!configNoFallDamage
+     && !configFailWarp
+     && !config45DegreeWallkicks
+     && !configExtraWallkickFrames
+     && !configFastSwimming
+     && !configSteepSlopeJumps
+     &&  configNoLives
+     &&  configAllowExitLevel
+     &&  configFasterObjects
+     &&  configNoActSpecificObjects)
+    {
+        configPreset = 1;
+    }
+
+    if (configNoFallDamage
+     && configFailWarp
+     && config45DegreeWallkicks
+     && configExtraWallkickFrames
+     && configFastSwimming
+     && configSteepSlopeJumps
+     && configNoLives
+     && configAllowExitLevel
+     && configFasterObjects
+     && configNoActSpecificObjects)
+    {
+        configPreset = 2;
+    }
 }
 
 extern void set_vi_mode_from_config();
@@ -370,6 +412,7 @@ void optmenu_toggle(void) {
         play_sound(SOUND_MENU_MARIO_CASTLE_WARP, gGlobalSoundSource);
         #endif
         optmenu_open = 0;
+        save_file_save_all_config();
 #ifndef TARGET_N64
         controller_reconfigure(); // rebind using new config values
         configfile_save(configfile_name());
