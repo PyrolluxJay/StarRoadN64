@@ -29,7 +29,7 @@
 
 #include "hacktice/main.h"
 
-#define STARS_TO_ENABLE_HACKTICE 0
+#define STARS_TO_ENABLE_HACKTICE 130
 
 u16 gDialogColorFadeTimer;
 s8 gLastDialogLineNum;
@@ -1605,16 +1605,11 @@ void render_pause_red_coins(void) {
     }
 }
 
-static const char pressBToHacktice[] = "PRESS B TO ENABLE HACKTICE";
-
 static void render_hacktice_setting(int x, int y)
 {
     bool hackticeAllowed = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= STARS_TO_ENABLE_HACKTICE;
     if (hackticeAllowed)
     {
-        if (!Hacktice_gEnabled)
-            print_generic_string(x, y, pressBToHacktice);
-
         if (gPlayer1Controller->buttonPressed & B_BUTTON)
             Hacktice_gEnabled = !Hacktice_gEnabled;
     }

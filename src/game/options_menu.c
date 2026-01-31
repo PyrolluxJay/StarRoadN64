@@ -394,8 +394,14 @@ void optmenu_draw(void) {
 
 //This has been separated for interesting reasons. Don't question it.
 void optmenu_draw_prompt(void) {
+    bool hackticeAllowed = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 130;
+
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     optmenu_draw_text(264, 212, optSmallStr[optmenu_open], 0);
+    if (hackticeAllowed)
+    {
+        optmenu_draw_text(54, 212, "Ⓑ hacktice", 0);
+    }
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 }
 
