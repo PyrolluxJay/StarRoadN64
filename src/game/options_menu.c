@@ -283,6 +283,49 @@ void gen_preset()
     }
 }
 
+void set_preset(u32 presetID)
+{
+    configPreset = presetID;
+    switch (presetID) {
+        case 0: // Classic
+            configNoFallDamage         = false;
+            configFailWarp             = false;
+            config45DegreeWallkicks    = false;
+            configExtraWallkickFrames  = false;
+            configFastSwimming         = false;
+            configSteepSlopeJumps      = false;
+            configNoLives              = false;
+            configAllowExitLevel       = false;
+            configFasterObjects        = false;
+            configNoActSpecificObjects = false;
+            break;
+        case 1: // QoL Only
+            configNoFallDamage         = false;
+            configFailWarp             = false;
+            config45DegreeWallkicks    = false;
+            configExtraWallkickFrames  = false;
+            configFastSwimming         = false;
+            configSteepSlopeJumps      = false;
+            configNoLives              = true;
+            configAllowExitLevel       = true;
+            configFasterObjects        = true;
+            configNoActSpecificObjects = true;
+            break;
+        case 2: // Modern
+            configNoFallDamage         = true;
+            configFailWarp             = true;
+            config45DegreeWallkicks    = true;
+            configExtraWallkickFrames  = true;
+            configFastSwimming         = true;
+            configSteepSlopeJumps      = true;
+            configNoLives              = true;
+            configAllowExitLevel       = true;
+            configFasterObjects        = true;
+            configNoActSpecificObjects = true;
+            break;
+    }
+}
+
 extern void set_vi_mode_from_config();
 static void optmenu_opt_change(struct Option *opt, s32 val) {
     switch (opt->type) {
@@ -301,44 +344,7 @@ static void optmenu_opt_change(struct Option *opt, s32 val) {
         case OPT_CHOICE:
             *opt->uval = wrap_add(*opt->uval, val, 0, opt->numChoices - 1);
             if (opt->uval == &configPreset) {
-                switch (configPreset) {
-                    case 0: // Classic
-                        configNoFallDamage         = false;
-                        configFailWarp             = false;
-                        config45DegreeWallkicks    = false;
-                        configExtraWallkickFrames  = false;
-                        configFastSwimming         = false;
-                        configSteepSlopeJumps      = false;
-                        configNoLives              = false;
-                        configAllowExitLevel       = false;
-                        configFasterObjects        = false;
-                        configNoActSpecificObjects = false;
-                        break;
-                    case 1: // QoL Only
-                        configNoFallDamage         = false;
-                        configFailWarp             = false;
-                        config45DegreeWallkicks    = false;
-                        configExtraWallkickFrames  = false;
-                        configFastSwimming         = false;
-                        configSteepSlopeJumps      = false;
-                        configNoLives              = true;
-                        configAllowExitLevel       = true;
-                        configFasterObjects        = true;
-                        configNoActSpecificObjects = true;
-                        break;
-                    case 2: // Modern
-                        configNoFallDamage         = true;
-                        configFailWarp             = true;
-                        config45DegreeWallkicks    = true;
-                        configExtraWallkickFrames  = true;
-                        configFastSwimming         = true;
-                        configSteepSlopeJumps      = true;
-                        configNoLives              = true;
-                        configAllowExitLevel       = true;
-                        configFasterObjects        = true;
-                        configNoActSpecificObjects = true;
-                        break;
-                }
+                set_preset(*opt->uval);
             }
             break;
 

@@ -19,6 +19,7 @@
 #include "game/segment7.h"
 #include "game/spawn_object.h"
 #include "game/rumble_init.h"
+#include "game/options_menu.h"
 #include "sm64.h"
 
 /**
@@ -93,7 +94,7 @@ static s8 sSelectedFileNum = 0;
 // coin high score, 1 for high score across all files.
 static s8 sScoreFileCoinScoreMode = 0;
 
-static s8 sSelectingTheFile = 0;
+static s8 sSelectingAdventure = 0;
 
 #ifdef MULTILANG
 // Index of the selected language in the above array.
@@ -804,6 +805,8 @@ void check_sound_mode_menu_clicked_buttons(struct Object *soundModeButton) {
     }
 }
 
+extern struct SaveBuffer gSaveBuffer;
+
 /**
  * Loads a save file selected after it goes into a full screen state
  * retuning sSelectedFileNum to a save value defined in fileNum.
@@ -811,7 +814,11 @@ void check_sound_mode_menu_clicked_buttons(struct Object *soundModeButton) {
 void load_main_menu_save_file(struct Object *fileButton, s32 fileNum) {
     if (fileButton->oMenuButtonState == MENU_BUTTON_STATE_FULLSCREEN) {
         sSelectedFileNum = fileNum;
-        sSelectingTheFile = 1;
+        if (sSelectingAdventure == 0)
+        {
+            sSelectingAdventure = gSaveBuffer.menuData.nonFirstBoot ? 3 : 1;
+            gSaveBuffer.menuData.nonFirstBoot = 1;
+        }
     }
 }
 
@@ -1440,12 +1447,53 @@ static const char sModernTitle[] = "Modern Preset";
 static const char sModernDesc1[] = "Quality of Life preset with";
 static const char sModernDesc2[] = "minimal improvement to Mario moveset.";
 
+static int get_selected_adventure_mode()
+{
+    f32 x = sCursorPos[0];
+    f32 y = sCursorPos[1];
+
+    if (ABS(x) > 120.f)
+    {
+        return 0;
+    }
+
+     if (76.0f > y && y > 40.0f) {
+        return 1;
+    } else if (25.0f > y && y > -10.0f) {
+        return 2;
+    } else if (-22.0f > y && y > -58.0f) {
+        return 3;
+    }
+
+    return 0;
+}
+
 static void print_select_adventure()
 {
+    int selectedMode = 0;
+    if (gDialogTextAlpha == 250)
+    {
+        selectedMode = get_selected_adventure_mode();
+    }
+
+    if (selectedMode && gPlayer1Controller->buttonPressed & A_BUTTON)
+    {
+        play_sound(SOUND_MENU_STAR_SOUND_OKEY_DOKEY, gGlobalSoundSource);
+        sSelectingAdventure = 2;
+        set_preset(selectedMode - 1);
+        save_file_save_all_config();
+    }
+
     gSPDisplayList(gDisplayListHead++, dl_shade_screen_begin);
-    gDPSetPrimColor(gDisplayListHead++, 0, 0, 0, 0, 0, gDialogTextAlpha * 2 / 3);
+
+    int unselectedAlpha = gDialogTextAlpha * 2 / 3;
+    int selectedAlpha   = gDialogTextAlpha * 5 / 6;
+
+    gDPSetPrimColor(gDisplayListHead++, 0, 0, 0, 0, 0, selectedMode == 1 ? selectedAlpha : unselectedAlpha);
     gDPFillRectangle(gDisplayListHead++, 40, 50 - 5 , SCREEN_WIDTH - 40, 74  + 12);
+    gDPSetPrimColor(gDisplayListHead++, 0, 0, 0, 0, 0, selectedMode == 2 ? selectedAlpha : unselectedAlpha);
     gDPFillRectangle(gDisplayListHead++, 40, 100 - 5, SCREEN_WIDTH - 40, 124 + 12);
+    gDPSetPrimColor(gDisplayListHead++, 0, 0, 0, 0, 0, selectedMode == 3 ? selectedAlpha : unselectedAlpha);
     gDPFillRectangle(gDisplayListHead++, 40, 150 - 5, SCREEN_WIDTH - 40, 174 + 12);
     gSPDisplayList(gDisplayListHead++, dl_shade_screen_end);
 
@@ -2201,7 +2249,7 @@ void print_save_file_scores(s8 fileIndex) {
 void print_file_select_strings(void) {
     create_dl_ortho_matrix();
 
-    if (sSelectingTheFile)
+    if (sSelectingAdventure == 1 || sSelectingAdventure == 2)
         print_select_adventure();
 
     switch (sSelectedButtonID) {
@@ -2296,7 +2344,7 @@ s32 lvl_init_menu_values_and_cursor_pos(UNUSED s32 arg, UNUSED s32 unused) {
  */
 s32 lvl_update_obj_and_load_file_selected(UNUSED s32 arg, UNUSED s32 unused) {
     area_update_objects();
-    return sSelectingTheFile ? 0 : sSelectedFileNum;
+    return sSelectingAdventure == 1 ? 0 : sSelectedFileNum;
 }
 
 STATIC_ASSERT(SOUND_MODE_COUNT == MENU_BUTTON_SOUND_OPTION_MAX - MENU_BUTTON_SOUND_OPTION_MIN, "Mismatch between number of sound modes in audio code and file select!");

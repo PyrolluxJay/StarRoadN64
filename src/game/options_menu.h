@@ -21,5 +21,6 @@ extern u32 configPreset;
 #define configLives (!configNoLives)
 
 void gen_preset();
+void set_preset(u32 presetID);
 
 #endif // OPTIONS_MENU_H
