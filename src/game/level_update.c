@@ -894,6 +894,7 @@ void initiate_delayed_warp(void) {
                     save_file_reload();
                     gCurrLevelNum = LEVEL_DED;
                     gCurrCourseNum = COURSE_NONE;
+                    gMarioState->health = 0x880;
                     warp_special(WARP_SPECIAL_MARIO_HEAD_DIZZY);
                     break;
 
