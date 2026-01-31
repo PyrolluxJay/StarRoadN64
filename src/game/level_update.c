@@ -283,7 +283,14 @@ void set_mario_initial_cap_powerup(struct MarioState *m) {
     }
 }
 
+u8 gWantCameraResetAfterWarp = 0;
 void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg) {
+    if (gWantCameraResetAfterWarp)
+    {
+        set_camera_mode(gCamera, CAMERA_MODE_8_DIRECTIONS, 0);        
+        gMarioObject->oIntangibleTimer = 0;
+    }
+
     switch (spawnType) {
         case MARIO_SPAWN_DOOR_WARP:
             set_mario_action(m, ACT_WARP_DOOR_SPAWN, actionArg);
@@ -340,6 +347,8 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
             set_mario_action(m, ACT_SPECIAL_DEATH_EXIT, 0);
             break;
     }
+
+    gWantCameraResetAfterWarp = 0;
 
 #ifdef PREVENT_DEATH_LOOP
     if (m->isDead) {

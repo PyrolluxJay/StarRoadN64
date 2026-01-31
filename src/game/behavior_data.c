@@ -723,6 +723,7 @@ const BehaviorScript bhvFishGroup[] = {
     END_LOOP(),
 };
 
+extern void bhv_cannon_base_init();
 const BehaviorScript bhvCannon[] = {
     BEGIN(OBJ_LIST_LEVEL),
     OR_INT(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -732,6 +733,7 @@ const BehaviorScript bhvCannon[] = {
     SET_HOME(),
     SET_HITBOX(/*Radius*/ 150, /*Height*/ 150),
     SET_INT(oIntangibleTimer, 0),
+    CALL_NATIVE(bhv_cannon_base_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_cannon_base_loop),
     END_LOOP(),
@@ -6552,6 +6554,7 @@ const BehaviorScript bhvStarRoadMMMCannon[] = {
     SET_HOME(),
     SET_HITBOX(150,166),
     SET_INT(oIntangibleTimer,0),
+    CALL_NATIVE( bhv_cannon_base_init),
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_cannon_base_loop),
     END_LOOP(),
@@ -6775,6 +6778,7 @@ const BehaviorScript bhvStarRoadSRCannon[] = {
     SET_HOME(),
     SET_HITBOX(150,166),
     SET_INT(oIntangibleTimer,0),
+    CALL_NATIVE( bhv_cannon_base_init),
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_cannon_base_loop),
     END_LOOP(),

@@ -1,15 +1,18 @@
 // cannon.inc.c
+#include "game/options_menu.h"
+#include "game/print.h"
 
 void bhv_cannon_base_unused_loop(void) {
     o->oPosY += o->oVelY;
 }
 
+extern const BehaviorScript bhvStarRoadSRCannon[];
 void opened_cannon_act_idle(void) { // act 0
     if (o->oTimer == 0) {
         o->oInteractStatus = INT_STATUS_NONE;
         vec3f_copy(&o->oPosVec, &o->oHomeVec);
         o->oMoveAnglePitch = 0;
-        o->oMoveAngleYaw   = (s16)(o->oBehParams2ndByte << 8);
+        o->oMoveAngleYaw   = o->oCannonBaseAngle;
         o->oCannonAngle    = 0;
         o->oCannonIsActive = FALSE;
         cur_obj_enable_rendering();
@@ -21,7 +24,59 @@ void opened_cannon_act_idle(void) { // act 0
         cur_obj_enable_rendering();
         if (o->oInteractStatus & INT_STATUS_INTERACTED
          && (!(o->oInteractStatus & INT_STATUS_TOUCHED_BOB_OMB))) { // bob-omb explodes when it gets into a cannon
-            o->oAction = 4;
+            if (0) // if (o->behavior == bhvStarRoadSRCannon)
+            {
+                // I am hoping that compiler is smart enough to optimize this out
+                for (int i = 0; i <= 68; i++)
+                {
+                    o->oPosY += 5.0f;
+                    f32 horizontalVel = (f32)(((i / 2) & 0x1) - 0.5f) * 2; 
+                    o->oPosX += horizontalVel;
+                    o->oPosZ += horizontalVel;
+
+                    if (i > 67) {
+                        horizontalVel *= 2;
+                        o->oPosX += horizontalVel;
+                        o->oPosZ += horizontalVel;
+                    }
+                }
+
+                for (int i = 0; i <= 26; i++)
+                {
+                    if (i < 4) {
+                        f32 horizontalVel = ((f32)(((i / 2) & 0x1) - 0.5f) * 4.0f);
+                        o->oPosX += horizontalVel;
+                        o->oPosZ += horizontalVel;
+                    } else {
+                        if (i >= 6) {
+                            if (i < 22) {
+                                o->oMoveAngleYaw =
+                                    ((sins(o->oCannonAngle) * 0x4000) + o->oCannonBaseAngle);
+                                o->oCannonAngle += 0x400;
+                            } else if (i >= 26) {
+                                o->oCannonAngle = 0;
+                                o->oAction = 5;
+                            }
+                        }
+                    }
+                }
+
+                for (int i = 0; i <= 25; i++)
+                {
+                    if (i >= 4) {
+                        if (i < 20) {
+                            o->oCannonAngle += 0x400;
+                            o->oMoveAnglePitch = (sins(o->oCannonAngle) * 0x2000);
+                        } else if (i >= 25) {
+                            o->oAction = 1;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                o->oAction = 4;
+            }
             o->oCannonIsActive = TRUE;
             o->oCannonTimeSinceActivated = 1;
         } else {
@@ -65,7 +120,7 @@ void opened_cannon_act_turning_yaw(void) { // act 6
         if (o->oTimer >= 6) {
             if (o->oTimer < 22) {
                 o->oMoveAngleYaw =
-                    ((sins(o->oCannonAngle) * 0x4000) + ((s16)(o->oBehParams2ndByte << 8)));
+                    ((sins(o->oCannonAngle) * 0x4000) + o->oCannonBaseAngle);
                 o->oCannonAngle += 0x400;
             } else if (o->oTimer >= 26) {
                 o->oCannonAngle = 0;
@@ -117,7 +172,43 @@ ObjActionFunc sOpenedCannonActions[] = {
     opened_cannon_act_turning_yaw,
 };
 
+extern u8 gWantCameraResetAfterWarp;
+void bhv_cannon_base_init()
+{
+    o->oCannonBaseAngle = (s16)(o->oBehParams2ndByte << 8);
+}
+
 void bhv_cannon_base_loop(void) {
+    int canFastWarp = configFasterObjects && (gCurrLevelNum == LEVEL_BOB || gCurrLevelNum == LEVEL_JRB || gCurrLevelNum == LEVEL_RR);
+    if (canFastWarp)
+    {
+        if (o->oAction >= 4 || o->oAction == 1)
+        {
+            o->oCannonQuickWarpActive = 1;
+        }
+        else if (o->oCannonQuickWarpActive)
+        {
+            if (gMarioStates->action == ACT_SHOT_FROM_CANNON || gMarioStates->action == ACT_IN_CANNON)
+            {
+                print_text_aligned(160, 40, "PRESS L TO WARP BACK", TEXT_ALIGN_CENTER);
+                if (gPlayer1Controller->buttonDown & L_TRIG)
+                {
+                    gMarioObject->oIntangibleTimer = -1;
+                    gMarioStates->interactObj = o;
+                    gMarioStates->usedObj = o;
+                    o->oBehParams = 0xef << 16;
+                    o->oBehParams2ndByte = 0xef;
+                    level_trigger_warp(gMarioStates, WARP_OP_TELEPORT);
+                    gWantCameraResetAfterWarp = 1;
+                }
+            }
+            else
+            {
+                o->oCannonQuickWarpActive = 0;
+            }
+        }
+    }
+
     cur_obj_call_action_function(sOpenedCannonActions);
 
     if (o->oCannonTimeSinceActivated) {
