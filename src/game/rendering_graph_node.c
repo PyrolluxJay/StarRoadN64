@@ -844,6 +844,11 @@ void geo_process_batch_generated_list(struct GraphNodeBatchGenerated *node) {
 void geo_process_background(struct GraphNodeBackground *node) {
     Gfx *list = NULL;
 
+    if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD && gMarioStates->pos[1] < 0)
+    {
+        return;
+    }
+
     if (node->fnNode.func != NULL) {
         list = node->fnNode.func(GEO_CONTEXT_RENDER, &node->fnNode.node,
                                  gMatStack[gMatStackIndex]);
