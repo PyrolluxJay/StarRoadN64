@@ -21,6 +21,10 @@
 extern const GeoLayout Geo_jrb_1_0x1901700[];
 #define jrb_area_1 Geo_jrb_1_0x1901700
 #define bhvLargeFishGroup bhvTankFishGroup
+
+extern const BehaviorScript bhvStarRoadShyguy[];
+#define bhvKlepto bhvStarRoadShyguy
+extern const GeoLayout shyguy_geo[];
 /* Fast64 end persistent block [scripts] */
 
 const LevelScript level_jrb_entry[] = {
@@ -48,6 +52,7 @@ const LevelScript level_jrb_entry[] = {
 	LOAD_MODEL_FROM_GEO(36, castle_door_3_stars_geo),
 	LOAD_MODEL_FROM_GEO(37, key_door_geo),
 	LOAD_MODEL_FROM_GEO(38, castle_door_geo),
+	LOAD_MODEL_FROM_GEO(32, shyguy_geo),
 	// LOAD_MODEL_FROM_DL(132,0x08025f08,4),
 	// LOAD_MODEL_FROM_DL(158,0x0302c8a0,4),
 	// LOAD_MODEL_FROM_DL(159,0x0302bcd0,4),
@@ -85,7 +90,7 @@ const LevelScript level_jrb_entry[] = {
 		OBJECT_WITH_ACTS(129,-6230,-216,3700,0,0,0,0x0, bhvHiddenObject,63),
 		OBJECT_WITH_ACTS(129,-5852,-8,3550,0,0,0,0x0, bhvHiddenObject,63),
 		OBJECT_WITH_ACTS(137,-4969,722,3381,0,31,0,0xd0000, bhvExclamationBox,63),
-		OBJECT_WITH_ACTS(86,-6609,1420,-6078,0,180,0,0x0, bhvHoot,48),
+		OBJECT_WITH_ACTS(86,-6609,1420,-6078,0,180,0,0x0, bhvHoot,32),
 		OBJECT_WITH_ACTS(122,5723,3847,4792,0,0,0,0x5000000, bhvStar,63),
 		OBJECT_WITH_ACTS(0,-4736,-1857,2710,0,0,0,0x0, bhvLargeFishGroup,63),
 		OBJECT_WITH_ACTS(180,5912,-722,2352,0,0,0,0x0, bhvFireSpitter,63),
@@ -140,18 +145,18 @@ const LevelScript level_jrb_entry[] = {
 		OBJECT_WITH_ACTS(0,-5611,973,-6741,270,90,0,0x130000, bhvCoinFormation,63),
 		OBJECT_WITH_ACTS(24,-2861,211,-2931,0,0,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(24,1643,256,2395,0,0,0,0x0, bhvTree,63),
-		OBJECT_WITH_ACTS(220,2559,253,5451,0,0,0,0x0, bhvFlyGuy,127),
-		OBJECT_WITH_ACTS(220,4614,-753,-5937,0,0,0,0x0, bhvFlyGuy,191),
-		OBJECT_WITH_ACTS(220,1174,-363,4014,0,0,0,0x0, bhvFlyGuy,127),
-		OBJECT_WITH_ACTS(220,-5312,969,-5996,0,0,0,0x0, bhvFlyGuy,255),
-		OBJECT_WITH_ACTS(137,5953,-522,-4011,0,35,0,0x50000, bhvExclamationBox,81),
-		OBJECT_WITH_ACTS(100,-6688,653,-3128,0,90,0,0x0, bhvPiranhaPlant,9),
+		OBJECT_WITH_ACTS(32,2559,253,5451,0,0,0,0x0, bhvKlepto,127),
+		OBJECT_WITH_ACTS(32,4614,-753,-5937,0,0,0,0x0, bhvKlepto,191),
+		OBJECT_WITH_ACTS(32,1174,-363,4014,0,0,0,0x0, bhvKlepto,127),
+		OBJECT_WITH_ACTS(32,-5312,969,-5996,0,0,0,0x0, bhvKlepto,255),
+		OBJECT_WITH_ACTS_FORCE_ACTIVE(137,5953,-522,-4011,0,35,0,0x50000, bhvExclamationBox,81),
+		OBJECT_WITH_ACTS_FORCE_ACTIVE(100,-6688,653,-3128,0,90,0,0x0, bhvPiranhaPlant,9),
 		OBJECT_WITH_ACTS(24,1826,-903,-6691,0,0,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(24,885,-829,-561,0,0,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(24,4842,-829,-3070,0,0,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(24,-6378,751,-809,0,0,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(24,551,-929,-5144,0,0,0,0x0, bhvTree,63),
-		OBJECT_WITH_ACTS(220,406,-829,-2076,0,0,0,0x0, bhvFlyGuy,63),
+		OBJECT_WITH_ACTS(32,406,-829,-2076,0,0,0,0x0, bhvKlepto,63),
 
 		WARP_NODE(1,12,1,10,0),
 		WARP_NODE(13,12,1,14,0),
