@@ -97,8 +97,8 @@ struct SubMenu {
 
 /* submenu definitions */
 
-bool configVIAntialiasing       = true;
-bool configVIDedither           = true;
+bool configVIAntialiasing       = false;
+bool configVIDedither           = false;
 
 #define OPTION(name) bool name = false;
 #include "options_menu_x.h"
