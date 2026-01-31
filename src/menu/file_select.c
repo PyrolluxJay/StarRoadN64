@@ -93,6 +93,8 @@ static s8 sSelectedFileNum = 0;
 // coin high score, 1 for high score across all files.
 static s8 sScoreFileCoinScoreMode = 0;
 
+static s8 sSelectingTheFile = 0;
+
 #ifdef MULTILANG
 // Index of the selected language in the above array.
 static s8 sSelectedLanguageIndex = LANGUAGE_ENGLISH;
@@ -809,6 +811,7 @@ void check_sound_mode_menu_clicked_buttons(struct Object *soundModeButton) {
 void load_main_menu_save_file(struct Object *fileButton, s32 fileNum) {
     if (fileButton->oMenuButtonState == MENU_BUTTON_STATE_FULLSCREEN) {
         sSelectedFileNum = fileNum;
+        sSelectingTheFile = 1;
     }
 }
 
@@ -1418,6 +1421,54 @@ void print_main_menu_strings(void) {
     print_menu_generic_string(207, 65, LANG_ARRAY(textMarioB));
     print_menu_generic_string(92, 105, LANG_ARRAY(textMarioC));
     print_menu_generic_string(207, 105, LANG_ARRAY(textMarioD));
+    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
+}
+
+static const char sChoose[] = "Choose your experience:";
+static const char sCanChange1[] = "You can change any configs";
+static const char sCanChange2[] = "in Pause Menu options.";
+
+static const char sClassicTitle[] = "Classic Preset";
+static const char sClassicDesc1[] = "Play N64 compatible original";
+static const char sClassicDesc2[] = "Star Road with minimal changes.";
+
+static const char sQoLTitle[] = "Quality of Life Preset";
+static const char sQoLDesc1[] = "Adds modifications to levels that";
+static const char sQoLDesc2[] = "improve gameplay experience.";
+
+static const char sModernTitle[] = "Modern Preset";
+static const char sModernDesc1[] = "Quality of Life preset with";
+static const char sModernDesc2[] = "minimal improvement to Mario moveset.";
+
+static void print_select_adventure()
+{
+    gSPDisplayList(gDisplayListHead++, dl_shade_screen_begin);
+    gDPSetPrimColor(gDisplayListHead++, 0, 0, 0, 0, 0, gDialogTextAlpha * 2 / 3);
+    gDPFillRectangle(gDisplayListHead++, 40, 50 - 5 , SCREEN_WIDTH - 40, 74  + 12);
+    gDPFillRectangle(gDisplayListHead++, 40, 100 - 5, SCREEN_WIDTH - 40, 124 + 12);
+    gDPFillRectangle(gDisplayListHead++, 40, 150 - 5, SCREEN_WIDTH - 40, 174 + 12);
+    gSPDisplayList(gDisplayListHead++, dl_shade_screen_end);
+
+    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
+
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, gDialogTextAlpha);
+    print_menu_generic_string_aligned(160, 20, sChoose, TEXT_ALIGN_CENTER);
+    print_menu_generic_string_aligned(160, 204, sCanChange1, TEXT_ALIGN_CENTER);
+    print_menu_generic_string_aligned(160, 214, sCanChange2, TEXT_ALIGN_CENTER);
+
+    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
+    print_menu_generic_string_aligned(160, 50, sClassicTitle, TEXT_ALIGN_CENTER);
+    print_menu_generic_string_aligned(160, 64, sClassicDesc1, TEXT_ALIGN_CENTER);
+    print_menu_generic_string_aligned(160, 74, sClassicDesc2, TEXT_ALIGN_CENTER);
+
+    print_menu_generic_string_aligned(160, 100, sQoLTitle, TEXT_ALIGN_CENTER);
+    print_menu_generic_string_aligned(160, 114, sQoLDesc1, TEXT_ALIGN_CENTER);
+    print_menu_generic_string_aligned(160, 124, sQoLDesc2, TEXT_ALIGN_CENTER);
+
+    print_menu_generic_string_aligned(160, 150, sModernTitle, TEXT_ALIGN_CENTER);
+    print_menu_generic_string_aligned(160, 164, sModernDesc1, TEXT_ALIGN_CENTER);
+    print_menu_generic_string_aligned(160, 174, sModernDesc2, TEXT_ALIGN_CENTER);
+
     gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
 }
 
@@ -2149,6 +2200,10 @@ void print_save_file_scores(s8 fileIndex) {
  */
 void print_file_select_strings(void) {
     create_dl_ortho_matrix();
+
+    if (sSelectingTheFile)
+        print_select_adventure();
+
     switch (sSelectedButtonID) {
         case MENU_BUTTON_NONE:         print_main_menu_strings();                               break;
         case MENU_BUTTON_SCORE:        print_score_menu_strings(); sScoreFileCoinScoreMode = 0; break;
@@ -2241,7 +2296,7 @@ s32 lvl_init_menu_values_and_cursor_pos(UNUSED s32 arg, UNUSED s32 unused) {
  */
 s32 lvl_update_obj_and_load_file_selected(UNUSED s32 arg, UNUSED s32 unused) {
     area_update_objects();
-    return sSelectedFileNum;
+    return sSelectingTheFile ? 0 : sSelectedFileNum;
 }
 
 STATIC_ASSERT(SOUND_MODE_COUNT == MENU_BUTTON_SOUND_OPTION_MAX - MENU_BUTTON_SOUND_OPTION_MIN, "Mismatch between number of sound modes in audio code and file select!");

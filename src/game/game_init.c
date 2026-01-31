@@ -36,6 +36,8 @@
 #include "hacktice/main.h"
 #include "hacktice/soft_reset.h"
 
+#include "options_menu.h"
+
 // Emulators that the Instant Input patch should not be applied to
 #define INSTANT_INPUT_BLACKLIST (EMU_CONSOLE | EMU_WIIVC | EMU_ARES | EMU_SIMPLE64 | EMU_CEN64)
 
@@ -776,6 +778,7 @@ void thread5_game_loop(UNUSED void *arg) {
     set_sound_mode(save_file_get_sound_mode());
 
     save_file_load_all_config();
+    gen_preset();
 
     render_init();
 
