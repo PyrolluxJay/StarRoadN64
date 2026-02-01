@@ -1,4 +1,4 @@
-
+#include "game/options_menu.h"
 /**
  * Behavior for bhvFlyGuy.
  */
@@ -17,6 +17,15 @@ static struct ObjectHitbox sFlyGuyHitbox = {
     /* hurtboxRadius:     */ 40,
     /* hurtboxHeight:     */ 50,
 };
+
+extern const BehaviorScript bhvStarRoadBee[];
+
+static inline int nerf_star_road_bee(void) {
+    if (!configFasterObjects)
+        return 0;
+
+    return o->behavior == bhvStarRoadBee;
+}
 
 /**
  * Unused jitter amounts.
@@ -60,7 +69,7 @@ static void fly_guy_act_idle(void) {
 static void fly_guy_act_approach_mario(void) {
     // If we are >2000 units from home or Mario is <2000 units from us
     if (o->oDistanceToMario >= 25000.0f || o->oDistanceToMario < 2000.0f) {
-        obj_forward_vel_approach(10.0f, 0.5f);
+        obj_forward_vel_approach(nerf_star_road_bee() ? 6.f : 10.f, 0.5f);
 
         // Turn toward home or Mario
         obj_face_yaw_approach(o->oAngleToMario, 0x400);
@@ -78,8 +87,8 @@ static void fly_guy_act_approach_mario(void) {
                 o->oAction = FLY_GUY_ACT_LUNGE;
                 o->oFlyGuyLungeTargetPitch = obj_turn_pitch_toward_mario(-200.0f, 0);
 
-                o->oForwardVel = 25.0f * coss(o->oFlyGuyLungeTargetPitch);
-                o->oVelY = 25.0f * -sins(o->oFlyGuyLungeTargetPitch);
+                o->oForwardVel = (nerf_star_road_bee() ? 15.f : 25.f) * coss(o->oFlyGuyLungeTargetPitch);
+                o->oVelY = (nerf_star_road_bee() ? 15.f : 25.f) * -sins(o->oFlyGuyLungeTargetPitch);
                 o->oFlyGuyLungeYDecel = -o->oVelY / 30.0f;
             }
         }
@@ -116,7 +125,7 @@ static void fly_guy_act_lunge(void) {
 
         // Continue moving upward until at least 200 units above mario
         if (o->oPosY < gMarioObject->oPosY + 200.0f) {
-            obj_y_vel_approach(20.0f, 0.5f);
+            obj_y_vel_approach(nerf_star_road_bee() ? 12.f : 20.0f, 0.5f);
         } else if (obj_y_vel_approach(0.0f, 0.5f)) {
             // Wait until roll is zero
             if (o->oFaceAngleRoll == 0) {
