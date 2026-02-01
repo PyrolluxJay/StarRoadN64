@@ -252,6 +252,7 @@ void gen_preset()
      && !configNoActSpecificObjects)
     {
         configPreset = 0;
+        return;
     }
 
 
@@ -267,6 +268,7 @@ void gen_preset()
      &&  configNoActSpecificObjects)
     {
         configPreset = 1;
+        return;
     }
 
     if (configNoFallDamage
@@ -281,7 +283,10 @@ void gen_preset()
      && configNoActSpecificObjects)
     {
         configPreset = 2;
+        return;
     }
+
+    configPreset = 3;
 }
 
 void set_preset(u32 presetID)
@@ -338,7 +343,7 @@ static void optmenu_opt_change(struct Option *opt, s32 val) {
             }
             else
             {
-                configPreset = 3; // Custom
+                gen_preset();
             }
             break;
 
@@ -489,10 +494,26 @@ void optmenu_check_buttons(void) {
         }
     } else if (gPlayer1Controller->buttonPressed & A_BUTTON) {
         if (allowInput) {
-            #ifndef nosound
-            play_sound(SOUND_MENU_CHANGE_SELECT, gGlobalSoundSource);
-            #endif
-            optmenu_opt_change(&currentMenu->opts[currentMenu->select], 0);
+            struct Option* opt = &currentMenu->opts[currentMenu->select];
+            if (opt->type == OPT_SUBMENU)
+            {
+                #ifndef nosound
+                play_sound(SOUND_MENU_CHANGE_SELECT, gGlobalSoundSource);
+                #endif
+                optmenu_opt_change(opt, 0);
+            }
+            else
+            {
+                if (currentMenu->prev) {
+                    #ifndef nosound
+                    play_sound(SOUND_MENU_CHANGE_SELECT, gGlobalSoundSource);
+                    #endif
+                    currentMenu = currentMenu->prev;
+                } else {
+                    // can't go back, exit the menu altogether
+                    optmenu_toggle();
+                }
+            }
         }
     } else if (gPlayer1Controller->buttonPressed & B_BUTTON) {
         if (allowInput) {
