@@ -124,7 +124,7 @@ void whomp_prepare_jump(void) {
 
 void whomp_jump(void) {
     if (o->oTimer == 0) {
-        o->oVelY = 60.0f;
+        o->oVelY = 40.0f;
     }
 
     if (o->oTimer >= 8) {
