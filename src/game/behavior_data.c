@@ -2685,6 +2685,7 @@ const BehaviorScript bhvExclamationBox[] = {
     CALL_NATIVE(bhv_init_room),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_exclamation_box_loop),
+        SET_FLOAT(oDrawingDistance, 6000),
     END_LOOP(),
 };
 
