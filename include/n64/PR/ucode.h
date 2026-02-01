@@ -250,6 +250,8 @@ extern u64 gspL3DZEX2_PosLight_xbusDataStart[],
 extern u64 gspF3DEX3_fifoTextStart[], gspF3DEX3_fifoTextEnd[];
 extern u64 gspF3DEX3_fifoDataStart[], gspF3DEX3_fifoDataEnd[];
 
+extern u64 gspF3DEX3_CR1_fifoTextStart[], gspF3DEX3_CR1_fifoTextEnd[];
+
 /**************************************************************************
  *
  * decomp ucode names

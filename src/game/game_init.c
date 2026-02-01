@@ -31,6 +31,7 @@
 #include "vc_ultra.h"
 #include "profiling.h"
 #include "emutest.h"
+#include "game/level_update.h"
 
 #include "hacktice/cfg.h"
 #include "hacktice/main.h"
@@ -291,10 +292,43 @@ void create_gfx_task_structure(void) {
     gGfxSPTask->task.t.ucode_size = ((u8 *) gspL3DEX2_fifoTextEnd - (u8 *) gspL3DEX2_fifoTextStart);
     gGfxSPTask->task.t.ucode_data_size = ((u8 *) gspL3DEX2_fifoDataEnd - (u8 *) gspL3DEX2_fifoDataStart);
 #elif   F3DEX3
-    gGfxSPTask->task.t.ucode = gspF3DEX3_fifoTextStart;
-    gGfxSPTask->task.t.ucode_data = gspF3DEX3_fifoDataStart;
-    gGfxSPTask->task.t.ucode_size = ((u8 *) gspF3DEX3_fifoTextEnd - (u8 *) gspF3DEX3_fifoTextStart);
-    gGfxSPTask->task.t.ucode_data_size = ((u8 *) gspF3DEX3_fifoDataEnd - (u8 *) gspF3DEX3_fifoDataStart);
+
+#if 0
+#define UCODE_TEXT_START gspF3DEX3_fifoTextStart
+#define UCODE_TEXT_END   gspF3DEX3_fifoTextEnd
+#define UCODE_DATA_START gspF3DEX3_fifoDataStart
+#define UCODE_DATA_END   gspF3DEX3_fifoDataEnd
+#endif
+
+#if 0
+#define UCODE_TEXT_START gspF3DEX3_CR1_fifoTextStart
+#define UCODE_TEXT_END   gspF3DEX3_CR1_fifoTextEnd
+#define UCODE_DATA_START gspF3DEX3_fifoDataStart
+#define UCODE_DATA_END   gspF3DEX3_fifoDataEnd
+#endif
+
+#if 1
+#if 0
+    int sCR = 1;
+    if (gPlayer1Controller->buttonPressed & L_TRIG)
+    {
+        sCR = 3 - sCR;
+    }
+    print_text_fmt_int(20, 20, "%d", sCR);
+#else
+    int sCR = (gCurrCourseNum == COURSE_RR && gMarioStates->pos[1] > 4000.f ? 1 : 2)
+#endif
+
+#define UCODE_TEXT_START (sCR == 1 ? gspF3DEX3_CR1_fifoTextStart : gspF3DEX3_fifoTextStart)
+#define UCODE_TEXT_END   (sCR == 1 ? gspF3DEX3_CR1_fifoTextEnd   : gspF3DEX3_fifoTextEnd  )
+#define UCODE_DATA_START gspF3DEX3_fifoDataStart
+#define UCODE_DATA_END   gspF3DEX3_fifoDataEnd
+#endif
+
+    gGfxSPTask->task.t.ucode = UCODE_TEXT_START;
+    gGfxSPTask->task.t.ucode_data = UCODE_DATA_START;
+    gGfxSPTask->task.t.ucode_size = ((u8 *) UCODE_TEXT_END - (u8 *) UCODE_TEXT_START);
+    gGfxSPTask->task.t.ucode_data_size = ((u8 *) UCODE_DATA_END - (u8 *) UCODE_DATA_START);
 #elif  F3DZEX_GBI_2
     gGfxSPTask->task.t.ucode = gspF3DZEX2_PosLight_fifoTextStart;
     gGfxSPTask->task.t.ucode_data = gspF3DZEX2_PosLight_fifoDataStart;
