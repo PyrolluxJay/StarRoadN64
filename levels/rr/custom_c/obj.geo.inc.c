@@ -24,7 +24,7 @@ const GeoLayout geo_star_road_sr_pushing[]= {
     GEO_SHADOW(50,180,0),
     GEO_OPEN_NODE(),
     GEO_DISPLAY_LIST(LAYER_OPAQUE,DL_ssl_geo_000764_0x70228a8),
-    GEO_DISPLAY_LIST(LAYER_ALPHA,DL_ssl_geo_000764_0x70229e8),
+    // GEO_DISPLAY_LIST(LAYER_ALPHA,DL_ssl_geo_000764_0x70229e8),
     GEO_CLOSE_NODE(),
     GEO_CLOSE_NODE(),
     GEO_END(),

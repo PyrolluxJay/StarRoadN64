@@ -2952,6 +2952,7 @@ gsDPSetCycleType(G_CYC_2CYCLE),
 gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_TEX_EDGE2),
 gsSPTexture(65535, 65535, 0, 0, 1),
 
+#if 0
 gsDPSetTextureImage(0, 2, 1, bowser_1_1__texture_0E003010),
 gsDPSetTile(0, 2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0),
 gsDPLoadSync(),
@@ -2962,6 +2963,7 @@ gsDPSetTileSize(0, 0, 0, 124, 252),
 gsDPTileSync(),
 	gsSPVertex(DL_bowser_1_1_0xe027d00_0_vtxopt, 4, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
+#endif
 gsDPSetTextureImage(0, 2, 1, bowser_1_1__texture_0E009010),
 gsDPSetTile(0, 2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0),
 gsDPLoadSync(),
@@ -2975,6 +2977,7 @@ gsDPTileSync(),
 	gsSP1Triangle(5, 11, 6, 0),
 	gsSPTriSnake(9, 8, 10, 11, G_SNAKE_LEFT, 5, G_SNAKE_LEFT, 13, G_SNAKE_LEFT, 14, G_SNAKE_RIGHT),
 	gsSPContinueSnake(15, G_SNAKE_LEFT, 16, G_SNAKE_LEFT, 7, G_SNAKE_RIGHT, 12, G_SNAKE_RIGHT, 5, G_SNAKE_LEFT, 6, G_SNAKE_LEFT, 8, G_SNAKE_LEFT, G_SNAKE_LAST | 9, G_SNAKE_LEFT),
+#if 0
 gsDPSetTextureImage(0, 2, 1, bowser_1_1__texture_0E003010),
 gsDPSetTile(0, 2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0),
 gsDPLoadSync(),
@@ -3030,6 +3033,7 @@ gsDPTileSync(),
 	gsSP2Triangles(52, 53, 54, 0, 52, 55, 53, 0),
 	gsSPVertex(DL_bowser_1_1_0xe027d00_2_vtxopt + 168, 6, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
+#endif
 
 gsSPTexture(65535, 65535, 0, 0, 0),
 gsDPPipeSync(),

@@ -142,6 +142,7 @@ static const LevelScript goto_mario_head_regular[] = {
     EXIT_AND_EXECUTE_WITH_CODE(/*seg*/ SEGMENT_MENU_INTRO, _introSegmentRomStart, _introSegmentRomEnd, level_intro_mario_head_regular, _introSegmentBssStart, _introSegmentBssEnd),
 };
 
+extern const LevelScript level_ded_entry[];
 static const LevelScript goto_mario_head_dizzy[] = {
     EXECUTE_WITH_CODE(/*seg*/ SEGMENT_LEVEL_SCRIPT, _dedSegmentRomStart, _dedSegmentRomEnd, level_ded_entry, _dedSegmentBssStart, _dedSegmentBssEnd),
 };
