@@ -273,7 +273,7 @@ static void platform_on_track_act_move_along_track(void) {
                 }
                 else
                 {
-                    o->oForwardVel = 15.0f;
+                    o->oForwardVel = sDoFasterObjects ? 15.0f : 10.f;
                 }
             }
 
