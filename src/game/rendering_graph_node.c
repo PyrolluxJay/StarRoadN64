@@ -845,29 +845,29 @@ void geo_process_batch_generated_list(struct GraphNodeBatchGenerated *node) {
 void geo_process_background(struct GraphNodeBackground *node) {
     Gfx *list = NULL;
 
+    int wantBgFn = node->fnNode.func != NULL;
+    u32 color = node->background;
     if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD && gMarioStates->pos[1] < 0)
     {
-        return;
+        wantBgFn = 0;
+        color = 0x000000FF;
     }
 
-    if (node->fnNode.func != NULL) {
+    if (wantBgFn) {
         list = node->fnNode.func(GEO_CONTEXT_RENDER, &node->fnNode.node,
                                  gMatStack[gMatStackIndex]);
     }
     if (list != NULL) {
         geo_append_display_list((void *) VIRTUAL_TO_PHYSICAL(list), GET_GRAPH_NODE_LAYER(node->fnNode.node.flags));
     } else if (gCurGraphNodeMasterList != NULL) {
-#ifndef F3DEX_GBI_2E
-        Gfx *gfxStart = alloc_display_list(sizeof(Gfx) * 7);
-#else
-        Gfx *gfxStart = alloc_display_list(sizeof(Gfx) * 8);
-#endif
+        Gfx *gfxStart = alloc_display_list(sizeof(Gfx) * 9);
         Gfx *gfx = gfxStart;
 
         gDPPipeSync(gfx++);
         gDPSetCycleType(gfx++, G_CYC_FILL);
-        gDPSetFillColor(gfx++, node->background);
+        gDPSetFillColor(gfx++, color);
         *gfx++ = gFillRectCmd;
+        gSPFlush(gfx++);
         gDPPipeSync(gfx++);
         gDPSetCycleType(gfx++, G_CYC_1CYCLE);
         gSPFlush(gfx++);

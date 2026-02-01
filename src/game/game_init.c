@@ -212,6 +212,7 @@ void clear_framebuffer(s32 color) {
 
     gDPSetFillColor(tempGfxHead++, color);
     *tempGfxHead++ = gFillRectCmd;
+    gSPFlush(tempGfxHead++);
 
     gDPPipeSync(tempGfxHead++);
 

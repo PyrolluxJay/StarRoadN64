@@ -1548,6 +1548,7 @@ void shade_screen(void) {
 
     gSPDisplayList(dlHead++, dl_shade_screen_begin);
     *(dlHead++) = gFillRectCmd;
+    gSPFlush(dlHead++);
     gSPDisplayList(dlHead++, dl_shade_screen_end);
 
     gDisplayListHead = dlHead;
