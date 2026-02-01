@@ -850,7 +850,7 @@ void geo_process_background(struct GraphNodeBackground *node) {
     if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD && gMarioStates->pos[1] < 0)
     {
         wantBgFn = 0;
-        color = 0x000000FF;
+        color = 1;
     }
 
     if (wantBgFn) {
