@@ -84,6 +84,10 @@ void LevelReset_onNormal()
     {
         sWarpDest.areaIdx = 1;
         sWarpDest.nodeId = 0xa;
+        if (LevelConv_SM64Levels_C3 == sWarpDest.levelNum)
+        {
+            sWarpDest.nodeId = 1;
+        }
         resetCommon();
     }
 
@@ -92,6 +96,10 @@ void LevelReset_onNormal()
         sWarpDest.type = 2;
         sWarpDest.areaIdx = 1;
         sWarpDest.nodeId = 0xa;
+        if (LevelConv_SM64Levels_C3 == sWarpDest.levelNum)
+        {
+            sWarpDest.nodeId = 1;
+        }
         gMarioStates->health = 0x880;
         sCurrPlayMode = 0x4;
         gHudDisplay.timer = 0;
