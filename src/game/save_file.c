@@ -450,7 +450,8 @@ void save_file_reload(void) {
  * Update the current save file after collecting a star or a key.
  * If coin score is greater than the current high score, update it.
  */
-void save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
+int save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
+    int saved = 0;
     s32 fileIndex = gCurrSaveFileNum - 1;
     s32 courseIndex = COURSE_NUM_TO_INDEX(gCurrCourseNum);
 #ifdef GLOBAL_STAR_IDS
@@ -507,10 +508,13 @@ void save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
 #else
             if (!(save_file_get_star_flags(fileIndex, courseIndex) & starFlag)) {
                 save_file_set_star_flags(fileIndex, courseIndex, starFlag);
+                saved = 1;
             }
 #endif
             break;
     }
+
+    return saved;
 }
 
 s32 save_file_exists(s32 fileIndex) {
