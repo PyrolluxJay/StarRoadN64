@@ -316,7 +316,7 @@ void create_gfx_task_structure(void) {
     }
     print_text_fmt_int(20, 20, "%d", sCR);
 #else
-    int sCR = (gCurrCourseNum == COURSE_RR && gMarioStates->pos[1] > 4000.f ? 1 : 2)
+    int sCR = (gCurrCourseNum == COURSE_RR && gMarioStates->pos[1] > 4000.f ? 1 : 2);
 #endif
 
 #define UCODE_TEXT_START (sCR == 1 ? gspF3DEX3_CR1_fifoTextStart : gspF3DEX3_fifoTextStart)
