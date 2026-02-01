@@ -201,6 +201,7 @@ static void optmenu_draw_box(s16 x1, s16 y1, s16 x2, s16 y2, u8 r, u8 g, u8 b) {
 }
 
 static void optmenu_draw_text(s16 x, s16 y, const char *str, u8 col) {
+    gDPPipeSync(gDisplayListHead++);
     gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
     print_generic_string_aligned(x+1, y-1, str, TEXT_ALIGN_CENTER);
     if (col == 0) {
