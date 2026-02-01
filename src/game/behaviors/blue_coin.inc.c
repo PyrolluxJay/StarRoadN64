@@ -34,13 +34,11 @@ void bhv_hidden_blue_coin_loop(void) {
                 o->oAction = HIDDEN_BLUE_COIN_ACT_ACTIVE;
             }
 
-#ifdef BLUE_COIN_SWITCH_PREVIEW
-            if (gMarioObject->platform == blueCoinSwitch) {
+            if (gMarioObject->platform == blueCoinSwitch && configFasterObjects) {
                 cur_obj_enable_rendering();
             } else {
                 cur_obj_disable_rendering();
             }
-#endif
 
             break;
 
