@@ -162,6 +162,8 @@ struct Object *spawn_star(struct Object *starObj, f32 x, f32 y, f32 z) {
     vec3f_set(&starObj->oHomeVec, x, y, z);
     starObj->oFaceAnglePitch = 0;
     starObj->oFaceAngleRoll = 0;
+    starObj->oMoveAnglePitch = 0;
+    starObj->oMoveAngleRoll = 0;
     return starObj;
 }
 
