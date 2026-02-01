@@ -184,11 +184,25 @@ void bhv_cannon_base_loop(void) {
     {
         if (o->oAction >= 4 || o->oAction == 1)
         {
-            o->oCannonQuickWarpActive = 1;
+            o->oCannonQuickWarpActive = 100;
         }
         else if (o->oCannonQuickWarpActive)
         {
-            if (gMarioStates->action == ACT_SHOT_FROM_CANNON || gMarioStates->action == ACT_IN_CANNON)
+            int beingShotFromCannon = (gMarioStates->action == ACT_SHOT_FROM_CANNON || gMarioStates->action == ACT_IN_CANNON);
+            if (!beingShotFromCannon)
+            {
+                o->oCannonQuickWarpActive--;
+            }
+         
+            if (gMarioStates->action == ACT_STAR_DANCE_NO_EXIT
+             || gMarioStates->action == ACT_STAR_DANCE_WATER
+             || gMarioStates->action == ACT_STAR_DANCE_EXIT
+             || gMarioStates->action == ACT_FALL_AFTER_STAR_GRAB)
+            {
+                o->oCannonQuickWarpActive = 0;
+            }
+
+            if (o->oCannonQuickWarpActive)
             {
                 print_text_aligned(160, 40, "PRESS L TO WARP BACK", TEXT_ALIGN_CENTER);
                 if (gPlayer1Controller->buttonDown & L_TRIG)
@@ -200,11 +214,8 @@ void bhv_cannon_base_loop(void) {
                     o->oBehParams2ndByte = 0xef;
                     level_trigger_warp(gMarioStates, WARP_OP_TELEPORT);
                     gWantCameraResetAfterWarp = 1;
+                    o->oCannonQuickWarpActive = 0;
                 }
-            }
-            else
-            {
-                o->oCannonQuickWarpActive = 0;
             }
         }
     }
