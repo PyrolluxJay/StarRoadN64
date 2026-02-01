@@ -387,7 +387,7 @@ void init_layer_freelist(void) {
     }
 }
 
-u32 m64_read_u8(struct M64ScriptState *state) {
+static inline u32 m64_read_u8(struct M64ScriptState *state) {
 #if defined(VERSION_EU) || defined(VERSION_SH)
     return *(state->pc++);
 #else
@@ -396,13 +396,13 @@ u32 m64_read_u8(struct M64ScriptState *state) {
 #endif
 }
 
-s32 m64_read_s16(struct M64ScriptState *state) {
+static inline s32 m64_read_s16(struct M64ScriptState *state) {
     s16 ret = *(state->pc++) << 8;
     ret = *(state->pc++) | ret;
     return ret;
 }
 
-u32 m64_read_compressed_u16(struct M64ScriptState *state) {
+static inline u32 m64_read_compressed_u16(struct M64ScriptState *state) {
     u16 ret = *(state->pc++);
     if (ret & 0x80) {
         ret = (ret << 8) & 0x7f00;
