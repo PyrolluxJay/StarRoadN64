@@ -193,7 +193,7 @@ void bhv_cannon_base_loop(void) {
             {
                 o->oCannonQuickWarpActive--;
             }
-         
+
             if (gMarioStates->action == ACT_STAR_DANCE_NO_EXIT
              || gMarioStates->action == ACT_STAR_DANCE_WATER
              || gMarioStates->action == ACT_STAR_DANCE_EXIT

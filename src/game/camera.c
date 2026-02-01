@@ -10241,8 +10241,12 @@ struct Cutscene sCutsceneCapSwitchPress[] = {
  * Cutscene that plays when Mario opens a sliding star door.
  */
 struct Cutscene sCutsceneSlidingDoorsOpen[] = {
+#ifndef FORCED_CAMERA_MODE
     { cutscene_sliding_doors_open, 50 },
     { cutscene_double_doors_end, 0 }
+#else
+    { cutscene_door_end, 0 }
+#endif
 };
 
 /**
