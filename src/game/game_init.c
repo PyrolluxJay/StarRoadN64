@@ -142,11 +142,6 @@ const Gfx init_rsp[] = {
     gsSPClearGeometryMode(G_CULL_FRONT | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD),
     gsSPSetGeometryMode(G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK | G_LIGHTING),
     gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
-#ifdef USE_FRUSTRATIO2
-    gsSPClipRatio(FRUSTRATIO_2),
-#else
-    gsSPClipRatio(FRUSTRATIO_1),
-#endif
     gsSPEndDisplayList(),
 };
 
@@ -293,7 +288,7 @@ void create_gfx_task_structure(void) {
     gGfxSPTask->task.t.ucode_data_size = ((u8 *) gspL3DEX2_fifoDataEnd - (u8 *) gspL3DEX2_fifoDataStart);
 #elif   F3DEX3
 
-#if 0
+#if 1
 #define UCODE_TEXT_START gspF3DEX3_fifoTextStart
 #define UCODE_TEXT_END   gspF3DEX3_fifoTextEnd
 #define UCODE_DATA_START gspF3DEX3_fifoDataStart
@@ -307,7 +302,7 @@ void create_gfx_task_structure(void) {
 #define UCODE_DATA_END   gspF3DEX3_fifoDataEnd
 #endif
 
-#if 1
+#if 0
 #if 0
     int sCR = 1;
     if (gPlayer1Controller->buttonPressed & L_TRIG)
