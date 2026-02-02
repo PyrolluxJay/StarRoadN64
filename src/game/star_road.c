@@ -81,10 +81,10 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
             
             // CCCoral
             case 2:
-                active = gMarioStates->pos[1] < 1783;
+                active = gMarioStates->pos[1] < 2500.f;
                 break;
             case 3:
-                active = gMarioStates->pos[1] >= 1783;
+                active = gMarioStates->pos[1] >= 2500.f;
                 break;
             
             case 4:
