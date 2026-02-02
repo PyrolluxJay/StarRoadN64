@@ -778,7 +778,7 @@ s32 act_unlocking_key_door(struct MarioState *m) {
     m->faceAngle[1] = m->usedObj->oMoveAngleYaw;
 
     m->pos[0] = m->usedObj->oPosX + coss(m->faceAngle[1]) * 75.0f;
-    m->pos[2] = m->usedObj->oPosZ + sins(m->faceAngle[1]) * 75.0f;
+    m->pos[2] = m->usedObj->oPosZ - sins(m->faceAngle[1]) * 75.0f;
 
     if (m->actionArg & WARP_FLAG_DOOR_FLIP_MARIO) {
         m->faceAngle[1] += 0x8000;
