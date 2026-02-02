@@ -6013,6 +6013,7 @@ const BehaviorScript bhvSwingPlatform[] = {
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_swing_platform_update),
         CALL_NATIVE(load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 10000),
     END_LOOP(),
 };
 
@@ -6634,6 +6635,7 @@ const BehaviorScript bhvStarRoadCSSwing[] = {
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_swing_platform_update),
         CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 10000),
     END_LOOP(),
 };
 
@@ -6644,9 +6646,10 @@ const BehaviorScript bhvStarRoadCSDrop[] = {
     ADD_FLOAT(oPosY,65230),
     SET_HOME(),
     BEGIN_LOOP(),
-    CALL_NATIVE( bhv_lll_sinking_rock_block_loop),
-    CALL_NATIVE( bhv_lll_sinking_rock_block_loop),
-    CALL_NATIVE( load_object_collision_model),
+        CALL_NATIVE( bhv_lll_sinking_rock_block_loop),
+        CALL_NATIVE( bhv_lll_sinking_rock_block_loop),
+        CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 10000),
     END_LOOP(),
 };
 
@@ -6659,6 +6662,7 @@ const BehaviorScript bhvStarRoadCSWhomp[] = {
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_butterfly_loop),
         CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 10000),
     END_LOOP(),
 };
 
