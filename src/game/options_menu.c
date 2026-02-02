@@ -126,7 +126,7 @@ static const char sLivesExplanation[]                = "Disables lives system";
 static const char sAllowExitLevelExplanation[]       = "Adds extra pause option to exit\n"
                                                        "immediately outside the level or\n"
                                                        "back to the castle grounds.";
-static const char sFasterObjectsExplanation[]        = "Increases speed of most slow objects.\n"
+static const char sFasterObjectsExplanation[]        = "Improves behavior of lots of objects.\n"
                                                        "Moving platforms speed depends on Mario position.\n"
                                                        "Nerfs enemies speeds.";
 static const char sNoActSpecificObjectsExplanation[] = "Removes unnecessary act specific objects.";
