@@ -137,6 +137,8 @@ static const char sAdvancedExplanation[]             = "Select exact patches you
                                                        "Overrides the preset selection.";
 static const char sWideScreenExplanation[]           = "Squishes the game for widescreen support\n"
                                                        "Set display mode to stretched 16:9.";
+static const char sHardModeExplanation[]             = "Enables Hard Mode.\n"
+                                                       "Any damage kills.";
 
 static struct Option optsAudio[] = {
     DEF_OPT_TOGGLE("No fall damage"         , sFallDamageExplanation          , &configNoFallDamage),
@@ -150,6 +152,7 @@ static struct Option optsAudio[] = {
     DEF_OPT_TOGGLE("Better objects"         , sFasterObjectsExplanation       , &configFasterObjects),
     DEF_OPT_TOGGLE("No act specific objects", sNoActSpecificObjectsExplanation, &configNoActSpecificObjects),
     DEF_OPT_TOGGLE("16:9 Widescreen"        , sWideScreenExplanation          , &configWideScreen),
+    DEF_OPT_TOGGLE("Hard Mode"              , sHardModeExplanation            , &configHardMode),
 };
 
 static struct SubMenu menuAudio    = DEF_SUBMENU( optsAudio );

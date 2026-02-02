@@ -1460,6 +1460,10 @@ void update_mario_health(struct MarioState *m) {
         if (m->hurtCounter > 0) {
             m->health -= 0x40;
             m->hurtCounter--;
+            if (configHardMode)
+            {
+                m->health = 0xff;
+            }
         }
 
         if (m->health > 0x880) m->health = 0x880;
