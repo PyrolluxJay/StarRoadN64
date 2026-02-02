@@ -135,7 +135,6 @@ extern f32 sZeroZoomDist;
 extern s16 sCUpCameraPitch;
 extern s16 sModeOffsetYaw;
 extern s16 sSpiralStairsYawOffset;
-extern s16 s8DirModeBaseYaw;
 extern s16 s8DirModeYawOffset;
 extern f32 sPanDistance;
 extern f32 sCannonYOffset;
@@ -305,10 +304,6 @@ s16 sModeOffsetYaw;
  */
 s16 sSpiralStairsYawOffset;
 
-/**
- * The constant offset to 8-direction mode's yaw.
- */
-s16 s8DirModeBaseYaw;
 /**
  * Player-controlled yaw offset in 8-direction mode, a multiple of 45 degrees.
  */
@@ -868,7 +863,7 @@ s32 update_radial_camera(struct Camera *c, Vec3f focus, Vec3f pos) {
  * Update the camera during 8 directional mode
  */
 s32 update_8_directions_camera(struct Camera *c, Vec3f focus, Vec3f pos) {
-    s16 camYaw = s8DirModeBaseYaw + s8DirModeYawOffset;
+    s16 camYaw = s8DirModeYawOffset;
     s16 pitch = look_down_slopes(camYaw);
     f32 posY;
     f32 focusY;
@@ -1101,19 +1096,12 @@ void mode_radial_camera(struct Camera *c) {
     pan_ahead_of_player(c);
 }
 
-s32 snap_to_45_degrees(s16 angle) {
-    if (angle % DEGREES(45)) {
-        s16 d1 = ABS(angle) % DEGREES(45);
-        s16 d2 = DEGREES(45) - d1;
-        if (angle > 0) {
-            if (d1 < d2) return angle - d1;
-            else return angle + d2;
-        } else {
-            if (d1 < d2) return angle + d1;
-            else return angle - d2;
-        }
-    }
-    return angle;
+static inline s16 snap_to_45_degrees(s32 angle) {
+    return (angle + 0x1000) & 0xc000;
+}
+
+static inline s16 snap_to_45_degrees_flip(s32 angle) {
+    return (angle + 0x9000) & 0xc000;
 }
 
 /**
@@ -2884,6 +2872,7 @@ void update_camera(struct Camera *c) {
             if (gPlayer1Controller->buttonPressed & R_TRIG) {
                 if (set_cam_angle(0) == CAM_ANGLE_LAKITU) {
                     set_cam_angle(CAM_ANGLE_MARIO);
+                    s8DirModeYawOffset = snap_to_45_degrees_flip(gMarioStates->faceAngle[1]);
                 } else {
                     set_cam_angle(CAM_ANGLE_LAKITU);
                 }
@@ -3149,8 +3138,7 @@ void reset_camera(struct Camera *c) {
     sZeroZoomDist = 0.f;
     sBehindMarioSoundTimer = 0;
     sCSideButtonYaw = 0;
-    s8DirModeBaseYaw = gCurrLevelNum == LEVEL_DED ? -0x4000 : 0;
-    s8DirModeYawOffset = 0;
+    s8DirModeYawOffset = gCurrLevelNum == LEVEL_DED ? -0x4000 : 0;
     c->doorStatus = DOOR_DEFAULT;
     sMarioCamState->headRotation[0] = 0;
     sMarioCamState->headRotation[1] = 0;
@@ -5216,7 +5204,6 @@ void set_camera_mode_8_directions(struct Camera *c) {
     if (c->mode != CAMERA_MODE_8_DIRECTIONS) {
         c->mode = CAMERA_MODE_8_DIRECTIONS;
         sStatusFlags &= ~CAM_FLAG_SMOOTH_MOVEMENT;
-        s8DirModeBaseYaw = 0;
         s8DirModeYawOffset = 0;
     }
 }
@@ -5330,7 +5317,6 @@ void check_blocking_area_processing(UNUSED const u8 *mode) {
 
 void cam_rr_exit_building_side(struct Camera *c) {
     set_camera_mode_8_directions(c);
-    s8DirModeBaseYaw = DEGREES(90);
 }
 
 void cam_rr_exit_building_top(struct Camera *c) {
@@ -5380,7 +5366,6 @@ void cam_cotmc_exit_waterfall(UNUSED struct Camera *c) {
 void cam_sl_snowman_head_8dir(struct Camera *c) {
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
     transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 60);
-    s8DirModeBaseYaw = 0x1D27;
 }
 
 /**
@@ -6211,7 +6196,6 @@ s16 camera_course_processing(struct Camera *c) {
                     switch (sMarioGeometry.currFloorType) {
                         case SURFACE_CAMERA_8_DIR:
                             transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 90);
-                            s8DirModeBaseYaw = DEGREES(90);
                             break;
 
                         case SURFACE_BOSS_FIGHT_CAMERA:
