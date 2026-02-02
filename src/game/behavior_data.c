@@ -5281,6 +5281,7 @@ const BehaviorScript bhvWigglerHead[] = {
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_wiggler_update),
         CALL_NATIVE( bhv_wiggler_update),
+        SET_FLOAT(oDrawingDistance, 10000),
     END_LOOP(),
 };
 
