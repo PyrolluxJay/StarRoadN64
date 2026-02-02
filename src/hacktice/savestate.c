@@ -46,6 +46,8 @@ static void resetCamera()
     }
 }
 
+extern struct DmaHandlerList gMarioAnimsBuf; 
+
 void SaveState_onNormal()
 {
     if (sMustSaveState)
@@ -54,8 +56,13 @@ void SaveState_onNormal()
         Hacktice_gState->area  = gCurrAreaIndex;
         Hacktice_gState->level = gCurrLevelNum;
         Hacktice_gState->size = sizeof(State);
-        memcpy(Hacktice_gState->memory, _hackticeStateDataStart0, _hackticeStateDataEnd0 - _hackticeStateDataStart0);
-        memcpy(Hacktice_gState->memory + (_hackticeStateDataEnd0 - _hackticeStateDataStart0), _hackticeStateDataStart1, _hackticeStateDataEnd1 - _hackticeStateDataStart1);
+        u8* memory = (u8*) Hacktice_gState->memory;
+#define STATE_MEM_PUSH(dest, src, size) memcpy(dest, src, size); dest += (size);
+        STATE_MEM_PUSH(memory, _hackticeStateDataStart0, _hackticeStateDataEnd0 - _hackticeStateDataStart0);
+        STATE_MEM_PUSH(memory, _hackticeStateDataStart1, _hackticeStateDataEnd1 - _hackticeStateDataStart1);
+        STATE_MEM_PUSH(memory, gMarioAnimsMemAlloc     , MARIO_ANIMS_POOL_SIZE);
+        STATE_MEM_PUSH(memory, &gMarioAnimsBuf         , sizeof(gMarioAnimsBuf));
+#undef STATE_MEM_PUSH
     }
     else
     {
@@ -63,8 +70,14 @@ void SaveState_onNormal()
         {
             if (Hacktice_gState->area == gCurrAreaIndex && Hacktice_gState->level == gCurrLevelNum)
             {
-                memcpy(_hackticeStateDataStart0, Hacktice_gState->memory, _hackticeStateDataEnd0 - _hackticeStateDataStart0);
-                memcpy(_hackticeStateDataStart1, Hacktice_gState->memory + (_hackticeStateDataEnd0 - _hackticeStateDataStart0), _hackticeStateDataEnd1 - _hackticeStateDataStart1);
+                Vec3f pos = { gMarioStates->pos[0], gMarioStates->pos[1], gMarioStates->pos[2]};
+                u8* memory = (u8*) Hacktice_gState->memory;
+#define STATE_MEM_POP(dest, src, size) memcpy(dest, src, size); src += (size);
+                STATE_MEM_POP(_hackticeStateDataStart0, memory, _hackticeStateDataEnd0 - _hackticeStateDataStart0);
+                STATE_MEM_POP(_hackticeStateDataStart1, memory, _hackticeStateDataEnd1 - _hackticeStateDataStart1);
+                STATE_MEM_POP(gMarioAnimsMemAlloc     , memory, MARIO_ANIMS_POOL_SIZE);
+                STATE_MEM_POP(&gMarioAnimsBuf         , memory, sizeof(gMarioAnimsBuf));
+#undef STATE_MEM_POP
                 resetCamera();
             }
         }
