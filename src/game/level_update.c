@@ -284,12 +284,25 @@ void set_mario_initial_cap_powerup(struct MarioState *m) {
     }
 }
 
+extern s16 s8DirModeYawOffset;
 u8 gWantCameraResetAfterWarp = 0;
 void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg) {
     if (gWantCameraResetAfterWarp)
     {
         set_camera_mode(gCamera, CAMERA_MODE_8_DIRECTIONS, 0);        
         gMarioObject->oIntangibleTimer = 0;
+        switch (gCurrLevelNum)
+        {
+            case LEVEL_BOB:
+                s8DirModeYawOffset = 0x8000;
+                break;
+            case LEVEL_JRB:
+                s8DirModeYawOffset = 0x4000;
+                break;
+            case LEVEL_RR:
+                s8DirModeYawOffset = 0x8000;
+                break;
+        }
     }
 
     switch (spawnType) {

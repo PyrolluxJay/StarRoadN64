@@ -476,7 +476,7 @@ void render_hud_timer(void) {
     u16 timerMins = timerValFrames / (30 * 60);
     u16 timerSecs = (timerValFrames - (timerMins * 1800)) / 30;
     u16 timerFracSecs = ((timerValFrames - (timerMins * 1800) - (timerSecs * 30)) & 0xFFFF) / 3;
-    u16 timerFracMSecs = ((timerValFrames - (timerMins * 1800) - (timerSecs * 30)) & 0xFFFF) * 3.33333333333f;
+    u16 timerFracMSecs = ((timerValFrames - (timerMins * 1800) - (timerSecs * 30)) & 0xFFFF) * 10 / 3;
 
     if (!Hacktice_gEnabled)
         sprintf(str, LANG_ARRAY(textTime), timerMins, timerSecs, timerFracSecs);
