@@ -539,6 +539,7 @@ const BehaviorScript bhvCapSwitchBase[] = {
     LOAD_COLLISION_DATA(capswitch_collision_05003448),
     BEGIN_LOOP(),
         CALL_NATIVE(load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 10000),
     END_LOOP(),
 };
 
@@ -549,6 +550,7 @@ const BehaviorScript bhvCapSwitch[] = {
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_cap_switch_loop),
         CALL_NATIVE(load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 10000),
     END_LOOP(),
 };
 
