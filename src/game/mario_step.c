@@ -509,12 +509,11 @@ s32 perform_air_quarter_step(struct MarioState *m, Vec3f intendedPos, u32 stepAr
         if (m->vel[1] >= 0.0f) {
             m->vel[1] = 0.0f;
 
-#ifdef HANGING_FIX
-            // Grab ceiling unless they just were grabbing a ceiling
-            if (!(m->prevAction & ACT_FLAG_HANGING) && ceil != NULL && ceil->type == SURFACE_HANGABLE) {
-#else
-            if ((stepArg & AIR_STEP_CHECK_HANG) && ceil != NULL && ceil->type == SURFACE_HANGABLE) {
-#endif
+            int c1 = !(m->prevAction & ACT_FLAG_HANGING) && ceil != NULL && ceil->type == SURFACE_HANGABLE;
+            int c2 = (stepArg & AIR_STEP_CHECK_HANG) && ceil != NULL && ceil->type == SURFACE_HANGABLE;
+
+            int cond = configSteepSlopeJumps ? c1 : c2;
+            if (cond) {
                 return AIR_STEP_GRABBED_CEILING;
             }
 

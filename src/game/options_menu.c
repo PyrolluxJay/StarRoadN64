@@ -120,8 +120,8 @@ static const char sExtraWallkickFramesExplanation[]  = "Gives 3 extra frames to\
                                                        "perform wallkicks.";
 static const char sFastSwimmingExplanation[]         = "Increases swimming movement speed.\n"
                                                        "Hold A for fastest swim.";
-static const char sSteepSlopeJumpsExplanation[]      = "Allows proper jumps on slopes\n"
-                                                       "that are very steep.";
+static const char sSteepSlopeJumpsExplanation[]      = "Fixes small movement issues.\n"
+                                                       "jumps on steep slopes and vines movement.";
 static const char sLivesExplanation[]                = "Disables lives system";
 static const char sAllowExitLevelExplanation[]       = "Adds extra pause option to exit\n"
                                                        "immediately outside the level or\n"
@@ -146,7 +146,7 @@ static struct Option optsAudio[] = {
     DEF_OPT_TOGGLE("45 degree wallkicks"    , s45DegreeWallkicksExplanation   , &config45DegreeWallkicks),
     DEF_OPT_TOGGLE("Extra wallkick frames"  , sExtraWallkickFramesExplanation , &configExtraWallkickFrames),
     DEF_OPT_TOGGLE("Faster swimming"        , sFastSwimmingExplanation        , &configFastSwimming),
-    DEF_OPT_TOGGLE("Steep slope jumps"      , sSteepSlopeJumpsExplanation     , &configSteepSlopeJumps),
+    DEF_OPT_TOGGLE("Fixed movement"         , sSteepSlopeJumpsExplanation     , &configSteepSlopeJumps),
     DEF_OPT_TOGGLE("No lives"               , sLivesExplanation               , &configNoLives),
     DEF_OPT_TOGGLE("Allow extra exit level" , sAllowExitLevelExplanation      , &configAllowExitLevel),
     DEF_OPT_TOGGLE("Better objects"         , sFasterObjectsExplanation       , &configFasterObjects),
