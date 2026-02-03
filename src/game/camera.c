@@ -3138,17 +3138,7 @@ void reset_camera(struct Camera *c) {
     sZeroZoomDist = 0.f;
     sBehindMarioSoundTimer = 0;
     sCSideButtonYaw = 0;
-    switch (gCurrLevelNum)
-    {
-        case LEVEL_SSL:
-            s8DirModeYawOffset = -0x4000;
-            break;
-        case LEVEL_DED:
-            s8DirModeYawOffset = -0x4000;
-            break;
-        default:
-            s8DirModeYawOffset = 0;
-    }
+    s8DirModeYawOffset = gCurrLevelNum == LEVEL_DED ? -0x4000 : 0;
     c->doorStatus = DOOR_DEFAULT;
     sMarioCamState->headRotation[0] = 0;
     sMarioCamState->headRotation[1] = 0;

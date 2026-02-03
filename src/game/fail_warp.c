@@ -133,7 +133,18 @@ void fail_warp_init_mario_after_quick_warp_reset_camera(struct Object* spawnObje
     if (spawnObject != &gFailWarpSpoofedWarpObject)
     {
         reset_camera(gCurrentArea->camera);
-        s8DirModeYawOffset = (gMarioStates->faceAngle[1] + 0x9000) & 0xe000;
+        if (gCurrLevelNum == LEVEL_LLL)
+        {
+            s8DirModeYawOffset = 0xC000;
+        }
+        else if (gCurrLevelNum == LEVEL_BITDW)
+        {
+            s8DirModeYawOffset = 0x2000;
+        }
+        else
+        {
+            s8DirModeYawOffset = (gMarioStates->faceAngle[1] + 0x9000) & 0xe000;
+        }
     }
 }
 
