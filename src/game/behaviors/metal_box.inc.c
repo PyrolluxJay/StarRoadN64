@@ -31,7 +31,7 @@ void bhv_pushable_loop(void) {
         s16 angleToMario = obj_angle_to_object(o, gMarioObject);
         if (abs_angle_diff(angleToMario, gMarioObject->oMoveAngleYaw) > 0x4000) {
             o->oMoveAngleYaw = (s16)((gMarioObject->oMoveAngleYaw + 0x2000) & 0xc000);
-            const f32 vel = configFasterObjects ? 20.f : 4.f;
+            const f32 vel = configFasterObjects ? 10.f : 4.f;
             if (check_if_moving_over_floor(vel + 4.0f, 150.0f)) {
                 o->oForwardVel = vel;
                 if (configFasterObjects)
