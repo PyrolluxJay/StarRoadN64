@@ -2067,6 +2067,7 @@ const BehaviorScript bhvStarRoadBowserStub[] = {
     SET_INTERACT_TYPE(INTERACT_DAMAGE),
     SET_HITBOX(/*Radius*/ 100, /*Height*/ 300),
     SET_INT(oInteractionSubtype, INT_SUBTYPE_BIG_KNOCKBACK),
+    SET_INT(oDamageOrCoinValue, 2),
     CALL_NATIVE(bhv_bowser_init),
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
