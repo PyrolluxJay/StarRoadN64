@@ -16,6 +16,7 @@
 #include "camera.h"
 #include "level_table.h"
 #include "rumble_init.h"
+#include "options_menu.h"
 
 #include "config.h"
 
@@ -297,7 +298,7 @@ s32 update_hang_moving(struct MarioState *m) {
 #ifdef BETTER_HANGING
     f32 maxSpeed = (m->intendedMag / 2.0f);
 #else
-    f32 maxSpeed = HANGING_SPEED;
+    f32 maxSpeed = configFasterObjects ? 20.f : HANGING_SPEED;
 #endif
 
     m->forwardVel += 1.0f;
