@@ -810,9 +810,12 @@ static void bhv_koopa_update_impl(void) {
 
 void bhv_koopa_update(void) {
     bhv_koopa_update_impl();
-    if (o->oKoopaMovementType == KOOPA_BP_KOOPA_THE_QUICK_BOB
-     || o->oKoopaMovementType == KOOPA_BP_KOOPA_THE_QUICK_THI)
-        bhv_koopa_update_impl();
+    if (gCurrLevelNum != LEVEL_PSS)
+    {
+        if (o->oKoopaMovementType == KOOPA_BP_KOOPA_THE_QUICK_BOB
+        || o->oKoopaMovementType == KOOPA_BP_KOOPA_THE_QUICK_THI)
+            bhv_koopa_update_impl();
+    }
 }
 
 /**
