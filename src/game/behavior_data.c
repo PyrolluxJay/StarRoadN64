@@ -5805,6 +5805,7 @@ const BehaviorScript bhvFirePiranhaPlant[] = {
     CALL_NATIVE(bhv_fire_piranha_plant_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_fire_piranha_plant_update),
+        CALL_NATIVE(bhv_fire_piranha_plant_update),
     END_LOOP(),
 };
 
