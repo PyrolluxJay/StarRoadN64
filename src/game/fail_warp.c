@@ -166,6 +166,24 @@ void fail_warp_init_mario_after_quick_warp_reset_camera(struct Object* spawnObje
                     break;
             }
         }
+
+        if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD)
+        {
+            if (spawnObject->behavior == bhvFlyingWarp)
+            {
+                if (8 == spawnObject->oBehParams2ndByte || 9 == spawnObject->oBehParams2ndByte)
+                {
+                    s8DirModeYawOffset = 0x8000 + s8DirModeYawOffset;
+                }
+            }
+            if (spawnObject->behavior == bhvWarp)
+            {
+                if (32 == spawnObject->oBehParams2ndByte)
+                {
+                    s8DirModeYawOffset = 0x8000 + s8DirModeYawOffset;
+                }
+            }
+        }
     }
 }
 
