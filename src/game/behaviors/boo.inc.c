@@ -1,6 +1,6 @@
 // boo.inc.c
 
-#define SPAWN_CASTLE_BOO_STAR_REQUIREMENT 120
+#define SPAWN_CASTLE_BOO_STAR_REQUIREMENT 121
 
 static struct ObjectHitbox sBooGivingStarHitbox = {
     /* interactType:      */ 0,
