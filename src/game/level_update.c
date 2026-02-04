@@ -1506,12 +1506,12 @@ void lvl_show_time()
 
 void peach_init_igt()
 {
-    if (gCurrCourseNum == COURSE_END)
+    if (gCurrLevelNum == LEVEL_ENDING)
         lvl_calc_igt();
 }
 
 void peach_show_igt()
 {
-    if (gCurrCourseNum == COURSE_END)
+    if (gCurrLevelNum == LEVEL_ENDING)
         lvl_show_time();
 }
