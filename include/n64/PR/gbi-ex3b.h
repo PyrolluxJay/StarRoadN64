@@ -3056,6 +3056,7 @@ _DW({                                         \
     gsMoveWd(G_MW_FX, G_MWO_FRESNEL_SCALE, \
         (_SHIFTL((scale), 16, 16) | _SHIFTL((offset), 0, 16)))
 
+#if 0
 /**
  * Attribute offsets
  * These are added to ST values after vertices are loaded and transformed.
@@ -3073,7 +3074,12 @@ _DW({                                         \
 #define gsSPAttrOffsetST(s, t) \
     gsMoveWd(G_MW_FX, G_MWO_ATTR_OFFSET_S, \
         (_SHIFTL((s), 16, 16) | _SHIFTL((t), 0, 16)))
-
+#else
+#define gSPAttrOffsetZ(pkt, z) \
+    gMoveHalfwd(pkt, G_MW_FX, G_MWO_ATTR_OFFSET_S, z)
+#define gsSPAttrOffsetZ(z) \
+    gsMoveHalfwd(G_MW_FX, G_MWO_ATTR_OFFSET_S, z)
+#endif
     
 /**
  * Alpha compare culling. This was originally created as an optimization for cel

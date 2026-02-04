@@ -9162,6 +9162,7 @@ static Vtx DL_jrb_1_0xe054c20_4_vtxopt[] = {
 
 Gfx DL_jrb_1_0xe054c20[] = {
 gsSPSetGeometryMode(G_FOG),
+gsSPAttrOffsetZ(-2),
 gsSPLightColor(LIGHT_1, 0xFFFFFFFF),
 gsSPLightColor(LIGHT_2, 0x7F7F7FFF),
 gsDPPipeSync(),
@@ -9257,6 +9258,8 @@ gsDPSetRenderMode(G_RM_AA_ZB_TEX_EDGE, G_RM_NOOP2),
 gsSPGeometryMode(G_FOG, 0),
 gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, SHADE,0, 0, 0, SHADE, 0, 0, 0, SHADE),
 gsSPGeometryMode(0, G_CULL_BACK|G_LIGHTING),
+
+gsSPAttrOffsetZ(0),
 gsSPEndDisplayList(),
 };
 
