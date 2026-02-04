@@ -7161,6 +7161,7 @@ static Vtx DL_castle_grounds_1_0xe07a170_8_vtxopt[] = {
 };
 
 Gfx DL_castle_grounds_1_0xe07a170[] = {
+gsSPAttrOffsetZ(-2),
 gsDPPipeSync(),
 gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE,TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE),
 gsDPSetTile(0, 2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0),
@@ -7327,6 +7328,7 @@ gsDPSetTileSize(0, 0, 0, 124, 252),
 gsSPTexture(65535, 65535, 0, 0, 0),
 gsDPPipeSync(),
 gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE,TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE),
+gsSPAttrOffsetZ(0),
 gsSPEndDisplayList(),
 };
 

@@ -148,7 +148,7 @@ const LevelScript level_ttc_entry[] = {
 		OBJECT_WITH_ACTS(188,3789,1026,-3711,0,0,0,0x0, bhvBobomb,63),
 		OBJECT_WITH_ACTS(102,-4915,-774,501,0,0,0,0x0, bhvDDDPole,63),
 		OBJECT_WITH_ACTS(0,-4248,-817,-2779,0,0,90,0x110000, bhvCoinFormation,63),
-		OBJECT_WITH_ACTS(31,-873,-774,192,0,0,0,0x0, bhvStaticObject,63),
+		OBJECT_WITH_ACTS(31,-873,-774,210,0,0,0,0x0, bhvStaticObject,63),
 		OBJECT_WITH_ACTS(0,5060,1026,-6156,0,0,0,0x0, bhvCoinFormation,63),
 		OBJECT_WITH_ACTS(0,1456,426,-443,0,0,0,0x0, bhvGoombaTripletSpawner,63),
 		OBJECT_WITH_ACTS(116,1835,-1224,2941,0,0,0,0x0, bhvOneCoin,63),
