@@ -60,6 +60,7 @@ ALIGNED8 u8 geo_bitdw_000510__texture_0700C8E0[] = {
 #include "levels/wmotr/custom_textures/geo_bitdw_000510_0x700c8e0_custom.rgba16.inc.c"
 };
 Gfx DL_geo_bitdw_000510_0x700ab78[] = {
+    gsSPTexture(65535, 65535, 0, 0, 1),
     gsDPPipeSync(),
     gsSPGeometryMode(0, 0),
     gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE),
@@ -97,6 +98,9 @@ Gfx DL_geo_bitdw_000510_0x700ab78[] = {
     gsSPVertex(VB_geo_bitdw_000510_0x700a8f8, 15, 0),
     gsSP2Triangles(0, 1, 2, 0,3, 4, 5, 0),
     gsSP1Triangle(6, 7, 8, 0),
+    gsSPTexture(65535, 65535, 0, 0, 0),
+    gsDPPipeSync(),
+    gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, SHADE, 0, 0, 0, SHADE, 0, 0, 0, SHADE),
     gsSPEndDisplayList(),
 };
 
