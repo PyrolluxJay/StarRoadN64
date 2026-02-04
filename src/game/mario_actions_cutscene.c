@@ -999,6 +999,14 @@ s32 act_emerge_from_pipe(struct MarioState *m) {
         mario_set_forward_vel(m, 0.0f);
         play_mario_landing_sound(m, SOUND_ACTION_TERRAIN_LANDING);
     }
+
+    if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD && gMarioStates->pos[1] < gMarioStates->waterLevel)
+    {
+        set_mario_action(m, ACT_JUMP_LAND_STOP, 0);
+        mario_set_forward_vel(m, 0.0f);
+        play_mario_landing_sound(m, SOUND_ACTION_TERRAIN_LANDING);
+    }
+
     return FALSE;
 }
 
