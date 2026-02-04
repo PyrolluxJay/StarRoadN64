@@ -585,11 +585,11 @@ holding down Ⓡ, which will \n\
 make it zoom in. \n\
 Much better!"))
 
-DEFINE_DIALOG(DIALOG_062,1,4,30,200, _("Finding your adventure\n\
+DEFINE_DIALOG(DIALOG_062,1,5,30,200, _("Finding your adventure\n\
 too easy so far? Try\n\
-pressing 'L' on the file\n\
-select screen for an\n\
-extra challenge!"))
+turning on hard mode in\n\
+the advanced options for\n\
+an extra challenge!"))
 
 DEFINE_DIALOG(DIALOG_063,1,5,30,200, _("I AM ERROR."))
 
@@ -775,6 +775,10 @@ DEFINE_DIALOG(DIALOG_078,1,4,30,200, _("★★★★★★★★★★★★★\
  Super Mario Star Road \n\
        by Skelux\n\
 ★★★★★★★★★★★★★\n\
+Decomp port by\n\
+aglab2, Dackage and\n\
+Pyrollux Jay\n\
+\n\
 Special thanks to:\n\
 Frauber - Bug fixing and\n\
 tools used.\n\

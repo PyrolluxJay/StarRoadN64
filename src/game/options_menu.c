@@ -141,18 +141,18 @@ static const char sHardModeExplanation[]             = "Enables Hard Mode.\n"
                                                        "Any damage kills.";
 
 static struct Option optsAudio[] = {
-    DEF_OPT_TOGGLE("No fall damage"         , sFallDamageExplanation          , &configNoFallDamage),
-    DEF_OPT_TOGGLE("Fail warps"             , sFailWarpExplanation            , &configFailWarp),
-    DEF_OPT_TOGGLE("45 degree wallkicks"    , s45DegreeWallkicksExplanation   , &config45DegreeWallkicks),
-    DEF_OPT_TOGGLE("Extra wallkick frames"  , sExtraWallkickFramesExplanation , &configExtraWallkickFrames),
-    DEF_OPT_TOGGLE("Faster swimming"        , sFastSwimmingExplanation        , &configFastSwimming),
-    DEF_OPT_TOGGLE("Fixed movement"         , sSteepSlopeJumpsExplanation     , &configSteepSlopeJumps),
-    DEF_OPT_TOGGLE("No lives"               , sLivesExplanation               , &configNoLives),
-    DEF_OPT_TOGGLE("Allow extra exit level" , sAllowExitLevelExplanation      , &configAllowExitLevel),
-    DEF_OPT_TOGGLE("Better objects"         , sFasterObjectsExplanation       , &configFasterObjects),
-    DEF_OPT_TOGGLE("No act specific objects", sNoActSpecificObjectsExplanation, &configNoActSpecificObjects),
-    DEF_OPT_TOGGLE("16:9 Widescreen"        , sWideScreenExplanation          , &configWideScreen),
-    DEF_OPT_TOGGLE("Hard Mode"              , sHardModeExplanation            , &configHardMode),
+    DEF_OPT_TOGGLE("No fall damage"               , sFallDamageExplanation          , &configNoFallDamage),
+    DEF_OPT_TOGGLE("Fail warps"                   , sFailWarpExplanation            , &configFailWarp),
+    DEF_OPT_TOGGLE("45 degree wallkicks"          , s45DegreeWallkicksExplanation   , &config45DegreeWallkicks),
+    DEF_OPT_TOGGLE("Extra wallkick frames"        , sExtraWallkickFramesExplanation , &configExtraWallkickFrames),
+    DEF_OPT_TOGGLE("Faster swimming"              , sFastSwimmingExplanation        , &configFastSwimming),
+    DEF_OPT_TOGGLE("Fixed movement"               , sSteepSlopeJumpsExplanation     , &configSteepSlopeJumps),
+    DEF_OPT_TOGGLE("No lives"                     , sLivesExplanation               , &configNoLives),
+    DEF_OPT_TOGGLE("Allow extra exit level"       , sAllowExitLevelExplanation      , &configAllowExitLevel),
+    DEF_OPT_TOGGLE("Better objects"               , sFasterObjectsExplanation       , &configFasterObjects),
+    DEF_OPT_TOGGLE("Reduced act specific objects" , sNoActSpecificObjectsExplanation, &configNoActSpecificObjects),
+    DEF_OPT_TOGGLE("16:9 Widescreen"              , sWideScreenExplanation          , &configWideScreen),
+    DEF_OPT_TOGGLE("Hard Mode"                    , sHardModeExplanation            , &configHardMode),
 };
 
 static struct SubMenu menuAudio    = DEF_SUBMENU( optsAudio );
