@@ -43,7 +43,7 @@ const LevelScript level_bowser_3_entry[] = {
 		OBJECT(MODEL_NONE, 0, 1307, 0, 0, 183, 0, 0x000a0000, bhvSpinAirborneCircleWarp),
 		TERRAIN(bowser_3_area_1_collision),
 		MACRO_OBJECTS(bowser_3_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, 0x2e),
+		SET_BACKGROUND_MUSIC(0x00, 0x33),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */

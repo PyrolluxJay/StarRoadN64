@@ -113,11 +113,16 @@ void fail_warp_pre_level_trigger_warp(struct MarioState *m, s32* warpOp)
     spoof_warp(m);
 }
 
+extern void set_camera_mode_boss_fight(struct Camera *c);
 void fail_warp_init_mario_after_quick_warp(struct MarioState *m)
 {
     set_mario_action(m, ACT_IDLE, 0);
     struct Camera* camera = gCurrentArea->camera;
-    set_camera_mode_8_directions(camera);
+    if (gCurrLevelNum != LEVEL_BOWSER_3)
+        set_camera_mode_8_directions(camera);
+    else
+        set_camera_mode_boss_fight(camera);
+
     reset_camera(camera);
     s8DirModeYawOffset = sSafePosCameraYaw & 0xe000;
     // makes paracam not trigger after escaping water
