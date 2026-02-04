@@ -1097,11 +1097,11 @@ void mode_radial_camera(struct Camera *c) {
 }
 
 static inline s16 snap_to_45_degrees(s32 angle) {
-    return (angle + 0x1000) & 0xc000;
+    return (angle + 0x1000) & 0xe000;
 }
 
 static inline s16 snap_to_45_degrees_flip(s32 angle) {
-    return (angle + 0x9000) & 0xc000;
+    return (angle + 0x9000) & 0xe000;
 }
 
 /**
