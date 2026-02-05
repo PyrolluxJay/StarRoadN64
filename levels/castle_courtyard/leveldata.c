@@ -13,4 +13,5 @@
 #include "levels/castle_courtyard/custom_c/movtextNew.inc.c"
 #include "levels/castle_courtyard/custom_c/custom.modelopt_n.inc.c"
 #include "levels/castle_courtyard/custom_c/custom.modelopt_p.inc.c"
+#include "levels/castle_courtyard/custom_c/custom.modelopt_u.inc.c"
 #include "ow2_water/model.inc.c"

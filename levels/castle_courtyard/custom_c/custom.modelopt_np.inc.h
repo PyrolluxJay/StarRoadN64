@@ -5,4 +5,6 @@ extern Gfx DL_castle_courtyard_1_0xe072a00_n[];
 extern Gfx DL_castle_courtyard_1_0xe08fbb0_n[];
 extern Gfx DL_castle_courtyard_1_0xe072a00_p[];
 extern Gfx DL_castle_courtyard_1_0xe08fbb0_p[];
+extern Gfx DL_castle_courtyard_1_0xe072a00_u[];
+extern Gfx DL_castle_courtyard_1_0xe08fbb0_u[];
 #endif
