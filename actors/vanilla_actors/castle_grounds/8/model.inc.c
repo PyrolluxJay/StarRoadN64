@@ -18,6 +18,7 @@ static const Gfx castle_grounds_seg7_dl_0700BC30[] = {
 
 // 0x0700BC68 - 0x0700BCD8
 const Gfx castle_grounds_seg7_dl_0700BC68[] = {
+    gsSPAttrOffsetZ(50),
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATERGBA, G_CC_MODULATERGBA),
     gsSPClearGeometryMode(G_LIGHTING),
@@ -31,5 +32,6 @@ const Gfx castle_grounds_seg7_dl_0700BC68[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
     gsSPSetGeometryMode(G_LIGHTING),
+    gsSPAttrOffsetZ(0),
     gsSPEndDisplayList(),
 };
