@@ -31,7 +31,6 @@ extern const GeoLayout shyguy_geo[];
 const LevelScript level_sl_entry[] = {
 	INIT_LEVEL(),
 	LOAD_MIO0(0x07, _sl_segment_7SegmentRomStart, _sl_segment_7SegmentRomEnd), 
-	LOAD_MIO0(0x0A, _water_skybox_mio0SegmentRomStart, _water_skybox_mio0SegmentRomEnd), 
 	LOAD_VANILLA_OBJECTS(0, sl, snow),
 	LOAD_MIO0(        /*seg*/ 0x0B, _effect_mio0SegmentRomStart, _effect_mio0SegmentRomEnd),
 	LOAD_MIO0(0xA,_ccm_skybox_mio0SegmentRomStart,_ccm_skybox_mio0SegmentRomEnd),

@@ -175,7 +175,7 @@ static ALWAYS_INLINE void* main_pool_region_try_alloc_from_end_freeable(struct M
 }
 
 void *main_pool_alloc_ex(int region, u32 size, s32 alignment) {
-    if (1) // (0 == region)
+    if (0 == region)
     {
         return main_pool_region_alloc_from_start(&sMainPool.regions[0], size, alignment, MAIN_POOL_ALLOC_FORCE);
     }

@@ -28,7 +28,6 @@ extern const GeoLayout Geo_castle_grounds_1_0x1c81700[];
 const LevelScript level_castle_grounds_entry[] = {
 	INIT_LEVEL(),
 	LOAD_MIO0(0x07, _castle_grounds_segment_7SegmentRomStart, _castle_grounds_segment_7SegmentRomEnd), 
-	LOAD_MIO0(0x0A, _water_skybox_mio0SegmentRomStart, _water_skybox_mio0SegmentRomEnd), 
 	LOAD_VANILLA_OBJECTS(0, wf, grass),
 	LOAD_MIO0(0xA,_cloud_floor_skybox_mio0SegmentRomStart,_cloud_floor_skybox_mio0SegmentRomEnd),
 	LOAD_MIO0(8,_common0_mio0SegmentRomStart,_common0_mio0SegmentRomEnd),

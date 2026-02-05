@@ -108,6 +108,7 @@ const char *credits20[] = { "1EXECUTIVE PRODUCER", "HIROSHI YAMAUCHI" };
 
 
 struct CreditsEntry sCreditsSequence[] = {
+    /*
     { LEVEL_CASTLE_GROUNDS, 1, 1, -128, { 0, 8000, 0 }, NULL },
     { LEVEL_BOB, 1, 1, 117, { 713, 3918, -3889 }, credits01 },
     { LEVEL_WF, 1, 50, 46, { 347, 5376, 326 }, credits02 },
@@ -130,6 +131,7 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_DDD, 2, -111, -64, { 3948, 1185, -104 }, credits19 },
     { LEVEL_CCM, 1, 33, 31, { 3169, -4607, 5240 }, credits20 },
     { LEVEL_CASTLE_GROUNDS, 1, 1, -128, { 0, 906, -1200 }, NULL },
+     */
     { LEVEL_NONE, 0, 1, 0, { 0, 0, 0 }, NULL },
 };
 

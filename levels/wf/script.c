@@ -26,7 +26,6 @@ extern const GeoLayout Geo_wf_1_0x2381700[];
 const LevelScript level_wf_entry[] = {
 	INIT_LEVEL(),
 	LOAD_MIO0(0x07, _wf_segment_7SegmentRomStart, _wf_segment_7SegmentRomEnd), 
-	LOAD_MIO0(0x0A, _water_skybox_mio0SegmentRomStart, _water_skybox_mio0SegmentRomEnd), 
 	LOAD_VANILLA_OBJECTS(0, bob, generic),
 	LOAD_MIO0(0xA,_cloud_floor_skybox_mio0SegmentRomStart,_cloud_floor_skybox_mio0SegmentRomEnd),
 	LOAD_MIO0(8,_common0_mio0SegmentRomStart,_common0_mio0SegmentRomEnd),

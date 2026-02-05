@@ -9316,6 +9316,7 @@ extern struct CutsceneSplinePoint sCcmOutsideCreditsSplineFocus[];
  * Follow splines through the courses of the game.
  */
 void cutscene_credits(struct Camera *c) {
+    return;
     struct CutsceneSplinePoint *focus, *pos;
 
     cutscene_event(cutscene_credits_reset_spline, c, 0, 0);

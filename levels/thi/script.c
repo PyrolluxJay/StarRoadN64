@@ -49,7 +49,6 @@ extern const GeoLayout bhv_star_road_fff_sink[];
 const LevelScript level_thi_entry[] = {
 	INIT_LEVEL(),
 	LOAD_MIO0(0x07, _thi_segment_7SegmentRomStart, _thi_segment_7SegmentRomEnd), 
-	LOAD_MIO0(0x0A, _water_skybox_mio0SegmentRomStart, _water_skybox_mio0SegmentRomEnd), 
 	LOAD_VANILLA_OBJECTS(0, bbh, spooky),
 	LOAD_MIO0(        /*seg*/ 0x0B, _effect_mio0SegmentRomStart, _effect_mio0SegmentRomEnd),
 	LOAD_MIO0(0xA,_bitfs_skybox_mio0SegmentRomStart,_bitfs_skybox_mio0SegmentRomEnd),
