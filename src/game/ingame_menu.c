@@ -2190,6 +2190,7 @@ LangArray textClear = DEFINE_LANGUAGE_ARRAY(
 #define COURSE_COMPLETE_COINS_Y 103
 #define CONGRATULATIONS_COINS_Y 111
 
+extern u8 gLastCompletedLevelNum;
 void render_course_complete_lvl_info_and_hud_str(void) {
     char *name;
 
@@ -2221,7 +2222,7 @@ void render_course_complete_lvl_info_and_hud_str(void) {
         print_generic_string(COURSE_COMPLETE_COURSE_X,      COURSE_COMPLETE_COURSE_Y, str);
 
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
-    } else if (gLastCompletedCourseNum == COURSE_BITDW || gLastCompletedCourseNum == COURSE_BITFS) { // Bowser courses
+    } else if (gLastCompletedLevelNum == LEVEL_BOWSER_1 || gLastCompletedLevelNum == LEVEL_BOWSER_2) { // Bowser courses
         name = segmented_to_virtual(courseNameTbl[COURSE_NUM_TO_INDEX(gLastCompletedCourseNum)]);
         u32 clearX = get_string_width(name, main_font_lut, &main_font_utf8_lut) + COURSE_COMPLETE_COURSE_X + 16;
 

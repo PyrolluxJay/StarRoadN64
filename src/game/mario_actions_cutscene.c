@@ -1091,6 +1091,7 @@ s32 act_falling_exit_airborne(struct MarioState *m) {
     return FALSE;
 }
 
+extern u8 gLastCompletedLevelNum;
 s32 act_exit_land_save_dialog(struct MarioState *m) {
     s32 animFrame;
     stationary_ground_step(m);
@@ -1100,8 +1101,8 @@ s32 act_exit_land_save_dialog(struct MarioState *m) {
             set_mario_animation(m, m->actionArg == 0 ? MARIO_ANIM_GENERAL_LAND
                                                      : MARIO_ANIM_LAND_FROM_SINGLE_JUMP);
             if (is_anim_past_end(m)) {
-                if (gLastCompletedCourseNum != COURSE_BITDW
-                    && gLastCompletedCourseNum != COURSE_BITFS) {
+                if (gLastCompletedLevelNum != LEVEL_BOWSER_1
+                    && gLastCompletedLevelNum != LEVEL_BOWSER_2) {
                     enable_time_stop();
                 }
 
@@ -1112,8 +1113,8 @@ s32 act_exit_land_save_dialog(struct MarioState *m) {
                 if (!(m->flags & MARIO_CAP_ON_HEAD)) {
                     m->actionState = ACT_STATE_EXIT_LAND_SAVE_DIALOG_NO_CAP; // star exit without cap
                 }
-                if (gLastCompletedCourseNum == COURSE_BITDW
-                 || gLastCompletedCourseNum == COURSE_BITFS) {
+                if (gLastCompletedLevelNum == LEVEL_BOWSER_1
+                 || gLastCompletedLevelNum == LEVEL_BOWSER_2) {
                     m->actionState = ACT_STATE_EXIT_LAND_SAVE_DIALOG_KEY; // key exit
                 }
             }

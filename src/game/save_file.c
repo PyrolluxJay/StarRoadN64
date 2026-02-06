@@ -39,6 +39,7 @@ s8 gMainMenuDataModified;
 s8 gSaveFileModified;
 
 u8 gLastCompletedCourseNum = COURSE_NONE;
+u8 gLastCompletedLevelNum = LEVEL_NONE;
 u8 gLastCompletedStarNum = 0;
 s8 sUnusedGotGlobalCoinHiScore = FALSE;
 u8 gGotFileCoinHiScore = FALSE;
@@ -462,6 +463,7 @@ int save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
 #endif
 
     gLastCompletedCourseNum = courseIndex + 1;
+    gLastCompletedLevelNum = gCurrLevelNum;
     gLastCompletedStarNum = starIndex + 1;
     sUnusedGotGlobalCoinHiScore = FALSE;
     gGotFileCoinHiScore = FALSE;
