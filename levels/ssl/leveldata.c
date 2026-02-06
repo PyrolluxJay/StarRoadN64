@@ -13,6 +13,16 @@
 #include "levels/ssl/areas/1/movtext.inc.c"
 #include "levels/ssl/areas/2/movtext.inc.c"
 
+const Gfx zo_enter[] = {
+    gsSPAttrOffsetZ(-5),
+    gsSPEndDisplayList(),
+};
+
+const Gfx zo_exit[] = {
+    gsSPAttrOffsetZ(0),
+    gsSPEndDisplayList(),
+};
+
 #include "levels/ssl/leveldata.inc.c"
 #include "levels/ssl/custom_c/textureNew.inc.c"
 #include "levels/ssl/custom_c/movtextNew.inc.c"

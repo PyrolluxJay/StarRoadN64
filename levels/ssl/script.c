@@ -42,6 +42,7 @@ extern const BehaviorScript bhvStarRoadLLFLillypad[]; // 18 = 0x12
 
 extern const GeoLayout star_road_llf_mushroom_geo[];
 extern const GeoLayout star_road_llf_lillypad_geo[];
+extern const GeoLayout purple_switch_zo_geo[];
 /* Fast64 end persistent block [scripts] */
 
 const LevelScript level_ssl_entry[] = {
@@ -67,7 +68,7 @@ const LevelScript level_ssl_entry[] = {
 	LOAD_MODEL_FROM_GEO(34, castle_door_0_star_geo),
 	LOAD_MODEL_FROM_GEO(35, castle_door_1_star_geo),
 	LOAD_MODEL_FROM_GEO(36, castle_door_3_stars_geo),
-	LOAD_MODEL_FROM_GEO(37, key_door_geo),
+	LOAD_MODEL_FROM_GEO(37, purple_switch_zo_geo),
 	LOAD_MODEL_FROM_GEO(38, castle_door_geo),
 	// LOAD_MODEL_FROM_GEO(88,0x0500c778),
 	// LOAD_MODEL_FROM_DL(132,0x08025f08,4),
@@ -99,7 +100,7 @@ const LevelScript level_ssl_entry[] = {
 		OBJECT_WITH_ACTS(58,6219,159,967,0,107,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(58,-3475,-759,3825,0,-95,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(87,5052,159,770,0,0,0,0x0, bhvWigglerHead,1),
-		OBJECT_WITH_ACTS(207,-2928,-534,-6325,0,265,0,0x0, bhvFloorSwitchHiddenObjects,63),
+		OBJECT_WITH_ACTS(37,-2928,-534,-6325,0,265,0,0x0, bhvFloorSwitchHiddenObjects,63),
 		OBJECT_WITH_ACTS(122,-43,3914,1846,0,0,0,0x1000000, bhvStar,63),
 		OBJECT_WITH_ACTS(188,-1732,-759,1068,0,88,0,0x8c0000, bhvBobombBuddy,127),
 		OBJECT_WITH_ACTS(129,4319,-510,-5946,0,45,0,0x0, bhvHiddenObject,63),
