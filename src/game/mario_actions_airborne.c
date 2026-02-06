@@ -2011,7 +2011,8 @@ s32 mario_execute_airborne_action(struct MarioState *m) {
     }
 
 #ifndef NO_FALL_DAMAGE_SOUND
-    play_far_fall_sound(m);
+    if (!configNoFallDamage)
+        play_far_fall_sound(m);
 #endif
 
     /* clang-format off */
