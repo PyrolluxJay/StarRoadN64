@@ -3492,17 +3492,20 @@ const BehaviorScript bhvSLSnowmanWind[] = {
 // The penguin that walks erratically along the ice bridge in front of the Snowman in SL.
 // Blocks strong wind particles, allowing Mario to walk behind it.
 const BehaviorScript bhvSLWalkingPenguin[] = {
-    BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(penguin_seg5_collision_05008B88),
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags,9289),
     LOAD_ANIMATIONS(oAnimations, penguin_seg5_anims_05008B74),
-    ANIMATE(PENGUIN_ANIM_WALK),
-    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 0, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
-    SCALE(/*Unused*/ 0, /*Field*/ 600),
+    ANIMATE(3),
+    SET_INTERACT_TYPE(8388608),
+    SET_HITBOX(100,60),
+    SET_INT(oYoshiChosenHome,0),
     SET_HOME(),
+    SCALE(0,256),
+    CALL_NATIVE( bhv_bobomb_buddy_init),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_sl_walking_penguin_loop),
-        CALL_NATIVE(load_object_collision_model),
+        SET_INT(oIntangibleTimer,0),
+        CALL_NATIVE( bhv_bobomb_buddy_loop),
+        BEGIN(OBJ_LIST_PLAYER),
     END_LOOP(),
 };
 
