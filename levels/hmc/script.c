@@ -227,6 +227,8 @@ const LevelScript level_hmc_entry[] = {
 		OBJECT_WITH_ACTS(118,3225,3691,-6772,0,0,0,0x0, bhvHiddenBlueCoin,63),
 		OBJECT_WITH_ACTS(140,3397,2874,-4660,0,0,0,0x0, bhvBlueCoinSwitch,63),
 		OBJECT_WITH_ACTS(0,4248,-5641,2792,0,0,0,0x0, bhvLargeFishGroup,63),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,5<<24, bhvRedCoinRadar, 31),
+		
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),
 		WARP_NODE(12,9,1,11,0),

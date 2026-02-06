@@ -202,6 +202,7 @@ const LevelScript level_ccm_entry[] = {
 		OBJECT_WITH_ACTS(174,-2819,3547,1687,0,180,0,0x0, bhvSmallBomp,63),
 		OBJECT_WITH_ACTS(174,4881,1392,-3438,0,0,0,0x0, bhvSmallBomp,63),
 		OBJECT_WITH_ACTS(124,-2721,2292,1514,0,0,0,0x710000, bhvMessagePanel,63),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,5<<24, bhvRedCoinRadar, 31),
 
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),

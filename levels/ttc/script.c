@@ -195,6 +195,7 @@ const LevelScript level_ttc_entry[] = {
 		OBJECT_WITH_ACTS(57,4672,927,-4132,-2,0,6,0x0, bhvWfSlidingTowerPlatform,63),
 		OBJECT_WITH_ACTS(57,4662,927,-4705,-7,0,-3,0x0, bhvWfSlidingTowerPlatform,63),
 		OBJECT_WITH_ACTS(0,804,2078,-2794,0,90,0,0x0, bhvFlamethrower,32),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,5<<24, bhvRedCoinRadar, 31),
 
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),

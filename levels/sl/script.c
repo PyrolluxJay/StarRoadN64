@@ -184,6 +184,7 @@ const LevelScript level_sl_entry[] = {
 		OBJECT_WITH_ACTS(116,-1175,-609,2591,0,0,0,0x0, bhvMoneybagHidden,63),
 		OBJECT_WITH_ACTS(85,-752,-684,3750,0,0,0,0x0, bhvMrBlizzard,63),
 		OBJECT_WITH_ACTS(0,3025,1586,-5441,0,0,0,0x0, bhvCoinFormation,63),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,5<<24, bhvRedCoinRadar, 31),
 
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),

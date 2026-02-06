@@ -158,6 +158,7 @@ const LevelScript level_jrb_entry[] = {
 		OBJECT_WITH_ACTS(24,-6378,751,-809,0,0,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(24,551,-929,-5144,0,0,0,0x0, bhvTree,63),
 		OBJECT_WITH_ACTS(32,406,-829,-2076,0,0,0,0x0, bhvKlepto,63),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,3<<24, bhvRedCoinRadar, 31),
 
 		WARP_NODE(1,12,1,10,0),
 		WARP_NODE(13,12,1,14,0),

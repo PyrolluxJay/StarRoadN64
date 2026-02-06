@@ -816,8 +816,8 @@ void load_main_menu_save_file(struct Object *fileButton, s32 fileNum) {
         sSelectedFileNum = fileNum;
         if (sSelectingAdventure == 0)
         {
-            sSelectingAdventure = gSaveBuffer.menuData.nonFirstBoot ? 3 : 1;
-            gSaveBuffer.menuData.nonFirstBoot = 1;
+            sSelectingAdventure = (gSaveBuffer.menuData.coinScoreAges[0] & 0x40000000) ? 3 : 1;
+            gSaveBuffer.menuData.coinScoreAges[0] |= 0x40000000;
         }
     }
 }

@@ -223,6 +223,7 @@ const LevelScript level_lll_entry[] = {
 		OBJECT_WITH_ACTS(0,-1965,-938,2994,0,338,0,0xb0000, bhvFadingWarp,63),
 		OBJECT_WITH_ACTS(0,-3091,1935,-2327,0,0,0,0xc0000, bhvFadingWarp,63),
 		OBJECT_WITH_ACTS(0,3793,-3974,-5695,0,0,0,0x20000, bhvCoinFormation,31),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,4<<24, bhvRedCoinRadar, 31),
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,22,1,12,0),
 		WARP_NODE(12,22,1,11,0),

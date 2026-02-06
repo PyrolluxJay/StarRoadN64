@@ -2,6 +2,7 @@
 #include "game/level_update.h"
 #include "game/save_file.h"
 #include "game/object_list_processor.h"
+#include "options_menu.h"
 
 extern void seq_player_play_sequence(u8 player, u8 seqId, u16 arg2);
 
@@ -137,4 +138,93 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
     }
 
     return NULL;
+}
+
+void bhv_red_coin_radar_init()
+{
+    int act = o->oBehParams >> 24;
+    if (0 == act)
+        return;
+
+    if (gCurrActNum != act)
+    {
+        cur_obj_hide();
+    }
+}
+
+extern const BehaviorScript bhvRedCoin[];
+static struct Object *cur_obj_find_nearest_object_with_behavior_y_biased(const BehaviorScript *behavior) {
+    uintptr_t *behaviorAddr = behavior;
+    struct ObjectNode *listHead = &gObjectLists[get_object_list_from_behavior(behaviorAddr)];
+    struct Object *obj = (struct Object *) listHead->next;
+    struct Object *closestObj = NULL;
+    f32 minDist = 0x200000000;
+
+    while (obj != (struct Object *) listHead) {
+        if (obj->behavior == behaviorAddr
+            && obj->activeFlags != ACTIVE_FLAG_DEACTIVATED
+            && obj != o
+        ) {
+            f32 dx = o->oPosX - obj->oPosX;
+            f32 dy = o->oPosY - obj->oPosY;
+            f32 dz = o->oPosZ - obj->oPosZ;
+            f32 objDist = dx*dx + 10*dy*dy + dz*dz;
+            if (objDist < minDist) {
+                closestObj = obj;
+                minDist = objDist;
+            }
+        }
+
+        obj = (struct Object *) obj->header.next;
+    }
+
+    return closestObj;
+}
+
+#include "game/game_init.h"
+#include "engine/math_util.h"
+
+void bhv_red_coin_radar_loop()
+{
+    if (configRedCoinRadar == 0)
+    {
+        cur_obj_hide();
+        return;
+    };
+
+    if (gPlayer1Controller->buttonPressed & L_TRIG)
+    {
+        if (obj_is_hidden(o))
+        {
+            cur_obj_unhide();
+        }
+        else
+        {
+            cur_obj_hide();
+        }
+    }
+    
+    obj_scale(o, 0.528f);
+    struct Object* red = cur_obj_find_nearest_object_with_behavior_y_biased((void*) bhvRedCoin);
+    if (!red)
+    {
+        o->activeFlags = 0;
+        return;
+    }
+
+    o->oPosX = gMarioStates->pos[0];
+    o->oPosY = gMarioStates->pos[1] + 150.f;
+    o->oPosZ = gMarioStates->pos[2];
+
+    f32 dx = o->oPosX - red->oPosX;
+    f32 dy = o->oPosY - red->oPosY;
+    f32 dz = o->oPosZ - red->oPosZ;
+    f32 l = sqrtf(dx*dx + dz*dz);
+
+    s16 yaw = atan2s(dz, dx) + 0x8000;
+    s16 pitch = atan2s(l, dy);
+    o->oFaceAngleYaw = yaw;
+    o->oPosX += sins(yaw) * 80.f;
+    o->oPosZ += coss(yaw) * 80.f;
+    o->oFaceAnglePitch = pitch;
 }

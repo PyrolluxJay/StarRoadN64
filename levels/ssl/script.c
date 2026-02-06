@@ -177,6 +177,7 @@ const LevelScript level_ssl_entry[] = {
 		OBJECT_WITH_ACTS_FORCE_INACTIVE(129,-25,233,2375,0,0,0,0x0, bhvHiddenObject,1),
 		OBJECT_WITH_ACTS(0,-1591,1035,1496,0,0,0,0x0, bhvHidden1upInPoleSpawner,63),
 		OBJECT_WITH_ACTS(18,3178,-526,-3525,0,150,0,0x0, Bhv_Custom_0x1300496c,63),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,5<<24, bhvRedCoinRadar, 31),
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),
 		WARP_NODE(12,9,1,11,0),

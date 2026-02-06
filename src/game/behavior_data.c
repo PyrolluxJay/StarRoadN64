@@ -6936,3 +6936,14 @@ const BehaviorScript bhvStarRoadIGT[] = {
         CALL_NATIVE( lvl_show_time ),
     END_LOOP(),
 };
+
+extern void bhv_red_coin_radar_init();
+extern void bhv_red_coin_radar_loop();
+const BehaviorScript bhvRedCoinRadar[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE( bhv_red_coin_radar_init ),
+    BEGIN_LOOP(),
+        CALL_NATIVE( bhv_red_coin_radar_loop ),
+    END_LOOP(),
+};

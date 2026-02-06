@@ -191,6 +191,7 @@ const LevelScript level_wdw_entry[] = {
 		OBJECT_WITH_ACTS(123,-2857,2453,871,0,270,0,0x0, bhvBeginningPeach,31),
 		OBJECT_WITH_ACTS(123,-2357,2453,871,0,270,0,0x0, bhvBeginningPeach,31),
 		OBJECT_WITH_ACTS(0,2734,1162,-6430,321,0,0,0x0, bhvWarpPipe,63),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,6<<24, bhvRedCoinRadar, 31),
 
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,11,1,12,0),

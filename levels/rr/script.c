@@ -239,6 +239,8 @@ const LevelScript level_rr_entry[] = {
 		OBJECT_WITH_ACTS(122,-186,-3269,-4125,0,0,0,0x5000000, bhvStar,63),
 		OBJECT_WITH_ACTS(0,3156,-5765,-6841,0,0,0,0x2000000, bhvEyerokBoss,63),
 		OBJECT_WITH_ACTS(118,-2126,-1000,-6033,0,0,0,0x0, bhvHiddenBlueCoin,63),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,5<<24, bhvRedCoinRadar, 31),
+
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),
 		WARP_NODE(12,9,1,11,0),

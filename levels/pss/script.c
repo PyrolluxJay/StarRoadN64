@@ -125,6 +125,7 @@ const LevelScript level_pss_entry[] = {
 		OBJECT_WITH_ACTS(85,-1437,3,3550,0,0,0,0x10000, bhvMontyMole,31),
 		OBJECT_WITH_ACTS(85,-1437,3,3550,0,0,0,0x20000, bhvMontyMole,31),
 		OBJECT_WITH_ACTS(85,-1437,3,3550,0,0,0,0x30000, bhvMontyMole,31),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,0<<24, bhvRedCoinRadar, 31),
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,27,1,12,0),
 		WARP_NODE(12,27,1,11,0),

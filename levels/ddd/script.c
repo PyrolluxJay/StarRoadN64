@@ -169,6 +169,7 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT_WITH_ACTS(54,-5057,633,-1752,132,0,27,0x0, Bhv_Custom_0x13004854,31),
 		OBJECT_WITH_ACTS(0,1991,2426,1268,0,0,0,0x20000, bhvCoinFormation,63),
 		OBJECT_WITH_ACTS(129,-4195,33,-6188,0,30,0,0x0, bhvJumpingBox,63),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,5<<24, bhvRedCoinRadar, 31),
 
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),

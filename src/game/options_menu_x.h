@@ -1,3 +1,4 @@
+OPTION(configRedCoinRadar)
 OPTION(configNoFallDamage)
 OPTION(configFailWarp)
 OPTION(config45DegreeWallkicks)

@@ -60,7 +60,6 @@ struct MainMenuSaveData {
     u32 coinScoreAges[NUM_SAVE_FILES];
 
     u8 soundMode: 1;
-    u8 nonFirstBoot: 1;
     u8 configVIAntialiasing : 1;
     u8 configVIDedither : 1;
 #define OPTION(name) u8 name: 1;

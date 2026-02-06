@@ -125,6 +125,7 @@ const LevelScript level_sa_entry[] = {
 		OBJECT_WITH_ACTS(0,559,-3437,4062,0,90,0,0x0, bhvCoinFormation,31),
 		OBJECT_WITH_ACTS(0,1500,2913,2602,0,100,0,0x0, bhvCoinFormation,31),
 		OBJECT_WITH_ACTS(0,5628,-5340,-3230,0,0,0,0x0, bhvCoinFormation,31),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,0<<24, bhvRedCoinRadar, 31),
 
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),

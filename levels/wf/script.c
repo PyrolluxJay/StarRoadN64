@@ -166,6 +166,7 @@ const LevelScript level_wf_entry[] = {
 		OBJECT_WITH_ACTS(0,-5342,-99,-1267,0,180,0,0xe0000, bhvFadingWarp,63),
 		OBJECT_WITH_ACTS(129,4231,2077,5389,0,0,0,0x0, bhvHiddenObject,63),
 		OBJECT_WITH_ACTS(129,5420,1302,5164,0,0,0,0x0, bhvHiddenObject,63),
+		OBJECT_WITH_ACTS(MODEL_RED_COIN_RADAR,0,0,0,0,0,0,5<<24, bhvRedCoinRadar, 31),
 
 		WARP_NODE(10,9,1,10,0),
 		WARP_NODE(11,9,1,12,0),

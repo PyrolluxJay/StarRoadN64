@@ -196,4 +196,16 @@ extern const GeoLayout test_platform_geo[];
 extern const Gfx unknown_seg8_dl_08026260[];
 extern const Collision unknown_seg8_collision_080262F8[];
 
+extern const GeoLayout redcoinradar_geo[];
+extern Lights1 redcoinradar_f3d_material_lights;
+extern u8 redcoinradar_omm_texture_hud_arrow_ci8[];
+extern u8 redcoinradar_omm_texture_hud_arrow_ci8_pal_rgba16[];
+extern Vtx redcoinradar_Plane_mesh_layer_4_vtx_cull[8];
+extern Vtx redcoinradar_Plane_mesh_layer_4_vtx_0[4];
+extern Gfx redcoinradar_Plane_mesh_layer_4_tri_0[];
+extern Gfx mat_redcoinradar_f3d_material[];
+extern Gfx mat_revert_redcoinradar_f3d_material[];
+extern Gfx redcoinradar_Plane_mesh_layer_4[];
+extern Gfx redcoinradar_material_revert_render_settings[];
+
 #endif

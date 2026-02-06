@@ -139,6 +139,9 @@ static const char sWideScreenExplanation[]           = "Squishes the game for wi
                                                        "Set display mode to stretched 16:9.";
 static const char sHardModeExplanation[]             = "Enables Hard Mode.\n"
                                                        "Any damage kills.";
+static const char sRedCoinRadarExplanation[]         = "Shows red coins radar\n"
+                                                       "during reds missing.\n"
+                                                       "Toggleable with L trigger.";
 
 static struct Option optsAudio[] = {
     DEF_OPT_TOGGLE("No fall damage"               , sFallDamageExplanation          , &configNoFallDamage),
@@ -150,6 +153,7 @@ static struct Option optsAudio[] = {
     DEF_OPT_TOGGLE("No lives"                     , sLivesExplanation               , &configNoLives),
     DEF_OPT_TOGGLE("Allow extra exit level"       , sAllowExitLevelExplanation      , &configAllowExitLevel),
     DEF_OPT_TOGGLE("Better objects"               , sFasterObjectsExplanation       , &configFasterObjects),
+    DEF_OPT_TOGGLE("Red coin radar"               , sRedCoinRadarExplanation        , &configRedCoinRadar),
     DEF_OPT_TOGGLE("Reduced act specific objects" , sNoActSpecificObjectsExplanation, &configNoActSpecificObjects),
     DEF_OPT_TOGGLE("16:9 Widescreen"              , sWideScreenExplanation          , &configWideScreen),
     DEF_OPT_TOGGLE("Hard Mode"                    , sHardModeExplanation            , &configHardMode),
@@ -243,7 +247,8 @@ static void optmenu_draw_opt(const struct Option *opt, s16 x, s16 y, u8 sel) {
 
 void gen_preset()
 {
-    if (!configNoFallDamage
+    if (!configRedCoinRadar
+     && !configNoFallDamage
      && !configFailWarp
      && !config45DegreeWallkicks
      && !configExtraWallkickFrames
@@ -259,7 +264,8 @@ void gen_preset()
     }
 
 
-    if (!configNoFallDamage
+    if ( configRedCoinRadar
+     && !configNoFallDamage
      && !configFailWarp
      && !config45DegreeWallkicks
      && !configExtraWallkickFrames
@@ -274,7 +280,8 @@ void gen_preset()
         return;
     }
 
-    if (configNoFallDamage
+    if (configRedCoinRadar
+     && configNoFallDamage
      && configFailWarp
      && config45DegreeWallkicks
      && configExtraWallkickFrames
@@ -307,6 +314,7 @@ void set_preset(u32 presetID)
             configAllowExitLevel       = false;
             configFasterObjects        = false;
             configNoActSpecificObjects = false;
+            configRedCoinRadar         = false;
             break;
         case 1: // QoL Only
             configNoFallDamage         = false;
@@ -319,6 +327,7 @@ void set_preset(u32 presetID)
             configAllowExitLevel       = true;
             configFasterObjects        = true;
             configNoActSpecificObjects = true;
+            configRedCoinRadar         = true;
             break;
         case 2: // Modern
             configNoFallDamage         = true;
@@ -331,6 +340,7 @@ void set_preset(u32 presetID)
             configAllowExitLevel       = true;
             configFasterObjects        = true;
             configNoActSpecificObjects = true;
+            configRedCoinRadar         = true;
             break;
     }
 }
