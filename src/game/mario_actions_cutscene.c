@@ -1522,6 +1522,7 @@ s32 act_squished(struct MarioState *m) {
         case ACT_STATE_SQUISHED_SCALING:
             if (spaceUnderCeil > 160.0f) {
                 m->squishTimer = 0;
+                m->input &= ~INPUT_SQUISHED;
                 return set_mario_action(m, ACT_IDLE, 0);
             }
 
@@ -1588,6 +1589,7 @@ s32 act_squished(struct MarioState *m) {
         if (perform_ground_step(m) == GROUND_STEP_LEFT_GROUND) {
             // instant un-squish
             m->squishTimer = 0;
+            m->input &= ~INPUT_SQUISHED;
             set_mario_action(m, ACT_IDLE, 0);
             return FALSE;
         }
