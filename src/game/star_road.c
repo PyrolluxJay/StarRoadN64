@@ -228,3 +228,17 @@ void bhv_red_coin_radar_loop()
     o->oPosZ += coss(yaw) * 80.f;
     o->oFaceAnglePitch = pitch;
 }
+
+extern void load_object_collision_model();
+void ssl_star_road_fff_pillar_loop()
+{
+    if (gMarioStates->pos[1] < 540)
+    {
+        cur_obj_hide();
+    }
+    else
+    {
+        cur_obj_unhide();
+        load_object_collision_model();
+    }
+}

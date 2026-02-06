@@ -6729,12 +6729,18 @@ const BehaviorScript bhvStarRoadFFFLava[] = {
     GOTO( Bhv_Custom_0x13004864),
 };
 
+extern void ssl_star_road_fff_pillar_loop();
 extern const Collision col_geo_bbh_000628_0xdd160d[];
 const BehaviorScript bhvStarRoadFFFPillar[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags,17),
     LOAD_COLLISION_DATA(col_geo_bbh_000628_0xdd160d),
-    GOTO( Bhv_Custom_0x13004864),
+    CALL_NATIVE( bhv_ssl_moving_pyramid_wall_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE( bhv_ssl_moving_pyramid_wall_loop),
+        CALL_NATIVE( ssl_star_road_fff_pillar_loop),
+        SET_FLOAT(oDrawingDistance, 20000),
+    END_LOOP(),
 };
 
 const BehaviorScript bhvStarRoadFFFAutoscroller[] = {
