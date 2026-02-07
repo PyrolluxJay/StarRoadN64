@@ -1527,6 +1527,8 @@ void bowser_free_update(void) {
     // Jump on stage if Bowser has fallen off
     if (bowser_check_fallen_off_stage()) {
         o->oAction = BOWSER_ACT_JUMP_ONTO_STAGE;
+        o->oTimer = 0;
+        o->oSubAction = 0;
     }
     // Check floor height and platform
     if ((o->oFloor != NULL) && (o->oFloor->object != NULL)) {
