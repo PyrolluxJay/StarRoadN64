@@ -165,26 +165,35 @@ static void apply_water_current(struct MarioState *m, Vec3f step) {
 
 static u32 perform_water_step(struct MarioState *m) {
     u32 stepResult;
-    Vec3f nextPos;
-    Vec3f step;
     struct Object *marioObj = m->marioObj;
 
-    vec3f_copy(step, m->vel);
+    Vec3f qvel;
+    vec3f_copy(qvel, m->vel);
+    qvel[0] /= 4.f;
+    qvel[1] /= 4.f;
+    qvel[2] /= 4.f;
 
-    if (m->action & ACT_FLAG_SWIMMING) {
-        apply_water_current(m, step);
+    for (int i = 0; i < 4; i++)
+    {
+        Vec3f step;
+        vec3f_copy(step, qvel);
+
+        Vec3f nextPos;
+        nextPos[0] = m->pos[0] + step[0];
+        nextPos[1] = m->pos[1] + step[1];
+        nextPos[2] = m->pos[2] + step[2];
+
+        if (nextPos[1] > m->waterLevel - 80) {
+            nextPos[1] = m->waterLevel - 80;
+            m->vel[1] = 0.0f;
+            qvel[1] = 0.0f;
+        }
+
+        stepResult = perform_water_full_step(m, nextPos);
+        if (stepResult == WATER_STEP_CANCELLED) {
+            break;
+        }
     }
-
-    nextPos[0] = m->pos[0] + step[0];
-    nextPos[1] = m->pos[1] + step[1];
-    nextPos[2] = m->pos[2] + step[2];
-
-    if (nextPos[1] > m->waterLevel - 80) {
-        nextPos[1] = m->waterLevel - 80;
-        m->vel[1] = 0.0f;
-    }
-
-    stepResult = perform_water_full_step(m, nextPos);
 
     vec3f_copy(marioObj->header.gfx.pos, m->pos);
     vec3s_set(marioObj->header.gfx.angle, -m->faceAngle[0], m->faceAngle[1], m->faceAngle[2]);
