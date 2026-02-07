@@ -2,6 +2,8 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
 
 #include "game/water.h"
 
+extern Gfx DL_castle_courtyard_1_0xe08fbb0_n_alpha[];
+
 const GeoLayout Geo_castle_courtyard_1_0x2541700[]= {
 GEO_NODE_SCREEN_AREA(10,160,120,160,120),
 GEO_OPEN_NODE(),
@@ -21,7 +23,7 @@ GEO_OPEN_NODE(),
 GEO_ASM(0, geo_star_road_cull),
 GEO_DISPLAY_LIST(LAYER_OPAQUE,DL_castle_courtyard_1_0xe072a00_n),
 GEO_ASM(0, geo_star_road_cull),
-GEO_DISPLAY_LIST(LAYER_TRANSPARENT,DL_castle_courtyard_1_0xe08fbb0_n),
+GEO_DISPLAY_LIST(LAYER_ALPHA,DL_castle_courtyard_1_0xe08fbb0_n),
 GEO_ASM(1, geo_star_road_cull),
 GEO_DISPLAY_LIST(LAYER_OPAQUE,DL_castle_courtyard_1_0xe072a00_p),
 GEO_ASM(1, geo_star_road_cull),

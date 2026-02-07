@@ -1836,6 +1836,7 @@ const BehaviorScript bhvBreakableBox[] = {
     OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_DONT_CALC_COLL_DIST)),
     LOAD_COLLISION_DATA(breakable_box_seg8_collision),
     SET_FLOAT(oCollisionDistance, 1000),
+    SET_FLOAT(oDrawingDistance, 5000),
     CALL_NATIVE(bhv_init_room),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_breakable_box_loop),
