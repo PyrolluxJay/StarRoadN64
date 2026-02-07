@@ -1,7 +1,7 @@
 #include "types.h"
 #include "surface_terrains.h"
 
-const Trajectory KoopaBoB_path[] = {
+const Trajectory KoopaBoB_path[] __attribute__((section(".data"))) = {
 	TRAJECTORY_POS(0,-4832,-2096,-4532),
 	TRAJECTORY_POS(1,-2989,-2002,-3879),
 	TRAJECTORY_POS(2,-1813,-1998,-6239),
@@ -19,7 +19,7 @@ const Trajectory KoopaBoB_path[] = {
 	TRAJECTORY_POS(14,-3103,1358,3251),
 	TRAJECTORY_END(),
 };
-const Trajectory KoopaTHI_path[] = {
+const Trajectory KoopaTHI_path[] __attribute__((section(".data"))) = {
 	TRAJECTORY_POS(0,-272,-675,-1443),
 	TRAJECTORY_POS(1,-472,-392,15),
 	TRAJECTORY_POS(2,-2096,368,-409),
@@ -47,7 +47,7 @@ const Trajectory KoopaTHI_path[] = {
 	TRAJECTORY_POS(24,-3989,4554,2852),
 	TRAJECTORY_END(),
 };
-const Trajectory rr_seg7_trajectory_0702EC3C_RM2C_path[] = {
+const Trajectory rr_seg7_trajectory_0702EC3C_RM2C_path[] __attribute__((section(".data"))) = {
 	TRAJECTORY_POS(0,-2450,-890,4599),
 	TRAJECTORY_POS(1,-685,-161,5630),
 	TRAJECTORY_POS(2,2287,1245,5825),
@@ -66,7 +66,7 @@ const Trajectory rr_seg7_trajectory_0702EC3C_RM2C_path[] = {
 	TRAJECTORY_POS(15,-2855,6689,5674),
 	TRAJECTORY_END(),
 };
-const Trajectory rr_seg7_trajectory_0702ECC0_RM2C_path[] = {
+const Trajectory rr_seg7_trajectory_0702ECC0_RM2C_path[] __attribute__((section(".data"))) = {
 	TRAJECTORY_POS(0,-451,642,4457),
 	TRAJECTORY_POS(1,221,382,4358),
 	TRAJECTORY_POS(2,881,69,3606),
@@ -101,7 +101,7 @@ const Trajectory rr_seg7_trajectory_0702ECC0_RM2C_path[] = {
 	TRAJECTORY_POS(31,-1153,1944,5423),
 	TRAJECTORY_END(),
 };
-const Trajectory ccm_seg7_trajectory_0701669C_RM2C_path[] = {
+const Trajectory ccm_seg7_trajectory_0701669C_RM2C_path[] __attribute__((section(".data"))) = {
 	TRAJECTORY_POS(0,6965,-938,-5751),
 	TRAJECTORY_POS(1,5951,-938,-2630),
 	TRAJECTORY_POS(2,5941,-938,-669),
@@ -121,7 +121,7 @@ const Trajectory ccm_seg7_trajectory_0701669C_RM2C_path[] = {
 	TRAJECTORY_POS(16,-4596,1785,-3291),
 	TRAJECTORY_END(),
 };
-const Trajectory bitfs_seg7_trajectory_070159AC_RM2C_path[] = {
+const Trajectory bitfs_seg7_trajectory_070159AC_RM2C_path[] __attribute__((section(".data"))) = {
 	TRAJECTORY_POS(0,-2521,2863,3114),
 	TRAJECTORY_POS(1,-3082,2863,2918),
 	TRAJECTORY_POS(2,-3650,2863,2826),
@@ -140,7 +140,7 @@ const Trajectory bitfs_seg7_trajectory_070159AC_RM2C_path[] = {
 };
 //hmc_seg7_trajectory_0702B86C_RM2C Has the default vanilla value or an unrecognizable pointer
 
-const Trajectory hmc_seg7_trajectory_0702B86C_RM2C_path[] = {
+const Trajectory hmc_seg7_trajectory_0702B86C_RM2C_path[] __attribute__((section(".data"))) = {
     TRAJECTORY_POS(0, /*pos*/ 1272, 2000, 5120),
     TRAJECTORY_POS(1, /*pos*/ 1272, 2000, 3500),
     TRAJECTORY_POS(2, /*pos*/ 1800, 2100, 3000),
@@ -159,7 +159,7 @@ const Trajectory hmc_seg7_trajectory_0702B86C_RM2C_path[] = {
 };
 //lll_seg7_trajectory_0702856C_RM2C Has the default vanilla value or an unrecognizable pointer
 
-const Trajectory lll_seg7_trajectory_0702856C_RM2C_path[] = {
+const Trajectory lll_seg7_trajectory_0702856C_RM2C_path[] __attribute__((section(".data"))) = {
     TRAJECTORY_POS(0, /*pos*/  -764,     0,  1664),
     TRAJECTORY_POS(1, /*pos*/   -70,     0,  1410),
     TRAJECTORY_POS(2, /*pos*/   625,   100,  1157),
@@ -194,7 +194,7 @@ const Trajectory lll_seg7_trajectory_0702856C_RM2C_path[] = {
 };
 //lll_seg7_trajectory_07028660_RM2C Has the default vanilla value or an unrecognizable pointer
 
-const Trajectory lll_seg7_trajectory_07028660_RM2C_path[] = {
+const Trajectory lll_seg7_trajectory_07028660_RM2C_path[] __attribute__((section(".data"))) = {
     TRAJECTORY_POS(0, /*pos*/   184,   980, -1366),
     TRAJECTORY_POS(1, /*pos*/   294,   990, -1329),
     TRAJECTORY_POS(2, /*pos*/   386,  1000, -1256),
@@ -228,7 +228,7 @@ const Trajectory lll_seg7_trajectory_07028660_RM2C_path[] = {
 };
 //rr_seg7_trajectory_0702ED9C_RM2C Has the default vanilla value or an unrecognizable pointer
 
-const Trajectory rr_seg7_trajectory_0702ED9C_RM2C_path[] = {
+const Trajectory rr_seg7_trajectory_0702ED9C_RM2C_path[] __attribute__((section(".data"))) = {
     TRAJECTORY_POS(0, /*pos*/  1580,   980,  -180),
     TRAJECTORY_POS(1, /*pos*/  2740,  1140,  -140),
     TRAJECTORY_POS(2, /*pos*/  3440,  1340,   260),
@@ -273,7 +273,7 @@ const Trajectory rr_seg7_trajectory_0702ED9C_RM2C_path[] = {
 };
 //rr_seg7_trajectory_0702EEE0_RM2C Has the default vanilla value or an unrecognizable pointer
 
-const Trajectory rr_seg7_trajectory_0702EEE0_RM2C_path[] = {
+const Trajectory rr_seg7_trajectory_0702EEE0_RM2C_path[] __attribute__((section(".data"))) = {
     TRAJECTORY_POS(0, /*pos*/   540,   925,  -160),
     TRAJECTORY_POS(1, /*pos*/  -425,  1020,  -160),
     TRAJECTORY_POS(2, /*pos*/ -1160,  1620,  -160),
@@ -318,7 +318,7 @@ const Trajectory rr_seg7_trajectory_0702EEE0_RM2C_path[] = {
     TRAJECTORY_POS(41, /*pos*/ -4200,  6740, -5100),
     TRAJECTORY_END(),
 };
-const Trajectory ccm_seg7_trajectory_penguin_race_RM2C_path[] = {
+const Trajectory ccm_seg7_trajectory_penguin_race_RM2C_path[] __attribute__((section(".data"))) = {
 	TRAJECTORY_POS(0,4780,-253,-5872),
 	TRAJECTORY_POS(1,5421,-415,-5646),
 	TRAJECTORY_POS(2,6135,-537,-5184),

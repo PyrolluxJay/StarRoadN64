@@ -172,9 +172,6 @@ SECTIONS
       KEEP(BUILD_DIR/asm/entry.o(.text*));
       KEEP(BUILD_DIR/asm/n64_assert.o(.text*));
       KEEP(BUILD_DIR/asm/setgp.o(.text*));
-#ifdef EEP
-      KEEP(BUILD_DIR/asm/vc_bin.o(.text*));
-#endif
       KEEP(BUILD_DIR/asm/emux.o(.text*));
       KEEP(BUILD_DIR/asm/pj64_get_count_factor_asm.o(.text*));
       KEEP(BUILD_DIR/asm/round.o(.text*));

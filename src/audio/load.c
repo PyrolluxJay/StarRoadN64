@@ -33,8 +33,8 @@ struct AudioListItem gLayerFreeList;
 struct NotePool gNoteFreeLists;
 
 OSMesgQueue gCurrAudioFrameDmaQueue;
-OSMesg gCurrAudioFrameDmaMesgBufs[AUDIO_FRAME_DMA_QUEUE_SIZE];
-OSIoMesg gCurrAudioFrameDmaIoMesgBufs[AUDIO_FRAME_DMA_QUEUE_SIZE];
+OSMesg gCurrAudioFrameDmaMesgBufs[AUDIO_FRAME_DMA_QUEUE_SIZE] __attribute__((section(".bss")));
+OSIoMesg gCurrAudioFrameDmaIoMesgBufs[AUDIO_FRAME_DMA_QUEUE_SIZE] __attribute__((section(".bss")));
 
 OSMesgQueue gAudioDmaMesgQueue;
 OSMesg gAudioDmaMesg;

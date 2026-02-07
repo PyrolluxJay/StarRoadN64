@@ -151,8 +151,7 @@ GCC_MAIN_OPT_FLAGS = \
 GCC_COLLISION_OPT_FLAGS = \
   $(GCC_MAIN_OPT_FLAGS) -Os -ffast-math -ftrapping-math -fno-associative-math \
   -ffunction-sections \
-  -fdata-sections \
-  -falign-functions=32
+  -fdata-sections
 
 AUDIO_COLLISION_OPT_FLAGS = \
   -Os -ffast-math -ftrapping-math -fno-associative-math $(GCC_MAIN_OPT_FLAGS) \
@@ -163,8 +162,7 @@ AUDIO_COLLISION_OPT_FLAGS = \
 GCC_MATH_UTIL_OPT_FLAGS = \
   $(GCC_MAIN_OPT_FLAGS) -Os -ffast-math -ftrapping-math -fno-associative-math \
   -ffunction-sections \
-  -fdata-sections \
-  -falign-functions=32
+  -fdata-sections
 #   - setting any sort of -finline-limit has shown to worsen performance with math_util.c,
 #     lower values were the worst, the higher you go - the closer performance gets to not setting it at all
 
@@ -172,8 +170,7 @@ GCC_MATH_UTIL_OPT_FLAGS = \
 GCC_GRAPH_NODE_OPT_FLAGS = \
   $(GCC_MAIN_OPT_FLAGS) -Os -ffast-math -ftrapping-math -fno-associative-math \
   -ffunction-sections \
-  -fdata-sections \
-  -falign-functions=32
+  -fdata-sections
 #==============================================================================#
 
 ifeq ($(COMPILER),gcc)
@@ -225,8 +222,8 @@ else ifeq ($(UNF),1)
   ULTRALIB := ultra
   DEFINES += _FINALROM=1 NDEBUG=1 OVERWRITE_OSPRINT=1
 else
-  ULTRALIB := ultra_rom
-#  ULTRALIB := gultra_rom_eabi3_oddreg3
+#  ULTRALIB := ultra_rom
+  ULTRALIB := gultra_rom_eabi3_oddreg3
   DEFINES += _FINALROM=1 NDEBUG=1 OVERWRITE_OSPRINT=0
 endif
 
@@ -494,8 +491,8 @@ endif
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 DEF_INC_CFLAGS := $(foreach i,$(INCLUDE_DIRS),-I$(i)) $(C_DEFINES)
-ABI := -mabi=32 -mhard-float -mno-memcpy -fsingle-precision-constant
-# ABI := -mno-memcpy -mabi=eabi -mgp32 -mfp32 -Wdouble-promotion -fsingle-precision-constant -mhard-float -msingle-float -modd-spreg
+# ABI := -mabi=32 -mhard-float -mno-memcpy -fsingle-precision-constant
+ABI := -mno-memcpy -mabi=eabi -mgp32 -mfp32 -Wdouble-promotion -fsingle-precision-constant -mhard-float -msingle-float -modd-spreg
 
 # C compiler options
 CFLAGS = $(OPT_FLAGS) $(TARGET_CFLAGS) $(MIPSISET) $(DEF_INC_CFLAGS) -gdwarf-4
@@ -842,7 +839,7 @@ $(BUILD_DIR)/src/game/texscroll.o: src/game/texscroll.c
 	$(V)$(CC) -c -G 0 $(CFLAGS) -MMD -MF $(BUILD_DIR)/src/game/texscroll.d  -o $@ $<
 $(BUILD_DIR)/src/%.o: src/%.c
 	$(call print,Compiling with sdata:,$<,$@)
-	$(V)$(CC) -c -G 1024 $(CFLAGS) -MMD -MF $(BUILD_DIR)/src/$*.d  -o $@ $<
+	$(V)$(CC) -c -G 4000 $(CFLAGS) -MMD -MF $(BUILD_DIR)/src/$*.d  -o $@ $<
 
 $(BUILD_DIR)/%.o: %.c
 	$(call print,Compiling:,$<,$@)
