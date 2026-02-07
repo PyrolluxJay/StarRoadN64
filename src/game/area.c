@@ -493,6 +493,9 @@ void play_transition_after_delay(s16 transType, s16 time, u8 red, u8 green, u8 b
     play_transition(transType, time, red, green, blue);
 }
 
+const char* gExtraTexts[2] = {0};
+u16 gExtraGuides[2] = {0};
+
 void render_game(void) {
     PROFILER_GET_SNAPSHOT_TYPE(PROFILER_DELTA_COLLISION);
     if (gCurrentArea != NULL && !gWarpTransition.pauseRendering) {
@@ -506,6 +509,26 @@ void render_game(void) {
         gSPViewport(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(&gViewport));
 
         render_hud();
+
+        for (int i = 0; i < 2; i++)
+        {
+            u16 extraGuide = gExtraGuides[i];
+            if (!extraGuide)
+                continue;
+
+            gExtraGuides[i] = extraGuide - 1;
+            const char* extraText = gExtraTexts[i];
+
+            gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+
+            gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, CLAMP((int) extraGuide * 16, 0, 255));
+            print_generic_string_aligned(160 - 2, 20 + 18 * i - 2, extraText, TEXT_ALIGN_CENTER);
+            gDPPipeSync(gDisplayListHead++);
+            gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, CLAMP((int) extraGuide * 16, 0, 255));
+            print_generic_string_aligned(160, 20 + 18 * i, extraText, TEXT_ALIGN_CENTER);
+
+            gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+        }
 
         render_text_labels();
 #ifdef PUPPYPRINT

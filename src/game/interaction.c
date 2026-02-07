@@ -765,7 +765,7 @@ u32 interact_water_ring(struct MarioState *m, UNUSED u32 interactType, struct Ob
     return FALSE;
 }
 
-extern const BehaviorScript bhvStarRoadIGT[];
+extern void lvl_calc_igt();
 u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
     u32 starIndex;
     u32 starGrabAction = ACT_STAR_DANCE_EXIT;
@@ -842,7 +842,7 @@ u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct O
 
         if (saved && 130 == m->numStars)
         {
-            spawn_object(obj, 0, bhvStarRoadIGT);
+            lvl_calc_igt();
         }
 
         if (!noExit) {

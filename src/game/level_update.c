@@ -1477,6 +1477,9 @@ s32 lvl_play_the_end_screen_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) 
     return TRUE;
 }
 
+extern const char* gExtraTexts[2];
+extern u16 gExtraGuides[2];
+
 extern struct SaveBuffer gSaveBuffer __attribute__((section(".bss.gSaveBuffer")));
 static char sGameTime[] = "Game Time  0 00 00.00";
 void lvl_calc_igt()
@@ -1499,21 +1502,17 @@ void lvl_calc_igt()
     sprintf(sGameTime + 16, "%02d", s);
     sGameTime[18] = '.';
     sprintf(sGameTime + 19, "%02d", f);
-}
 
-void lvl_show_time()
-{
-    print_text_aligned(160, 40, sGameTime, TEXT_ALIGN_CENTER);
+    gExtraGuides[1] = 10*30;
+    gExtraTexts[1] = sGameTime;
+    gExtraGuides[0] = 10*30;
+    gExtraTexts[0] = preset_line();
 }
 
 void peach_init_igt()
 {
-    if (gCurrLevelNum == LEVEL_ENDING)
-        lvl_calc_igt();
-}
+    if (gCurrLevelNum != LEVEL_ENDING)
+        return;
 
-void peach_show_igt()
-{
-    if (gCurrLevelNum == LEVEL_ENDING)
-        lvl_show_time();
+    lvl_calc_igt();
 }

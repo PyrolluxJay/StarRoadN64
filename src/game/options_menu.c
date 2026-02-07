@@ -104,7 +104,14 @@ bool configVIDedither           = false;
 #include "options_menu_x.h"
 #undef OPTION
 
-u32 configPreset = 0;
+enum PresetId {
+    PRESET_CLASSIC = 0,
+    PRESET_QOL_ONLY,
+    PRESET_MODERN,
+    PRESET_CUSTOM,
+};
+
+static u32 configPreset = PRESET_CLASSIC;
 
 static const char sViAntialiasingExplanation[]       = "Smooths out jagged edges,\n"
                                                        "but adds more blur. Reduces performance.";
@@ -161,11 +168,13 @@ static struct Option optsAudio[] = {
 
 static struct SubMenu menuAudio    = DEF_SUBMENU( optsAudio );
 
+static char sCustomPresetBlueprint[32] = "Custom";
+
 static const char* sPresets[] = {
     "Classic",
     "QoL Only",
     "Modern",
-    "Custom",
+    sCustomPresetBlueprint,
 };
 
 static struct Option optsMain[] = {
@@ -245,104 +254,85 @@ static void optmenu_draw_opt(const struct Option *opt, s16 x, s16 y, u8 sel) {
     };
 }
 
+struct PresetConfig
+{
+    bool* base;
+    bool  defaults[PRESET_CUSTOM];
+};
+
+static const struct PresetConfig sPresetConfigs[] = {
+    { &configNoFallDamage,         { false, false, true  } },
+    { &configFailWarp,             { false, false, true  } },
+    { &config45DegreeWallkicks,    { false, false, true  } },
+    { &configExtraWallkickFrames,  { false, false, true  } },
+    { &configFastSwimming,         { false, false, true  } },
+    { &configSteepSlopeJumps,      { false, false, true  } },
+    { &configNoLives,              { false, true,  true  } },
+    { &configAllowExitLevel,       { false, true,  true  } },
+    { &configFasterObjects,        { false, true,  true  } },
+    { &configNoActSpecificObjects, { false, true,  true  } },
+    { &configRedCoinRadar,         { false, true,  true  } },
+    { &configHardMode,             { false, false, false } },
+};
+
 void gen_preset()
 {
-    if (!configRedCoinRadar
-     && !configNoFallDamage
-     && !configFailWarp
-     && !config45DegreeWallkicks
-     && !configExtraWallkickFrames
-     && !configFastSwimming
-     && !configSteepSlopeJumps
-     && !configNoLives
-     && !configAllowExitLevel
-     && !configFasterObjects
-     && !configNoActSpecificObjects)
+    for (int preset = 0; preset < PRESET_CUSTOM; ++preset)
     {
-        configPreset = 0;
-        return;
+        bool isMatch = true;
+        for (int i = 0; i < sizeof(sPresetConfigs) / sizeof(sPresetConfigs[0]); ++i)
+        {
+            const struct PresetConfig* config = &sPresetConfigs[i];
+
+            bool* presetValue = config->base;
+            if (*presetValue != config->defaults[preset])
+            {
+                isMatch = false;
+                break;
+            }
+        }
+
+        if (isMatch)
+        {
+            configPreset = preset;
+            return;
+        }
     }
 
+    configPreset = PRESET_CUSTOM;
 
-    if ( configRedCoinRadar
-     && !configNoFallDamage
-     && !configFailWarp
-     && !config45DegreeWallkicks
-     && !configExtraWallkickFrames
-     && !configFastSwimming
-     && !configSteepSlopeJumps
-     &&  configNoLives
-     &&  configAllowExitLevel
-     &&  configFasterObjects
-     &&  configNoActSpecificObjects)
+    u32 presetId = 0;
+    for (int i = 0; i < sizeof(sPresetConfigs) / sizeof(sPresetConfigs[0]); ++i)
     {
-        configPreset = 1;
-        return;
+        const struct PresetConfig* config = &sPresetConfigs[i];
+        bool* presetValue = config->base;
+        if (*presetValue)
+        {
+            presetId |= (1 << i);
+        }
     }
 
-    if (configRedCoinRadar
-     && configNoFallDamage
-     && configFailWarp
-     && config45DegreeWallkicks
-     && configExtraWallkickFrames
-     && configFastSwimming
-     && configSteepSlopeJumps
-     && configNoLives
-     && configAllowExitLevel
-     && configFasterObjects
-     && configNoActSpecificObjects)
-    {
-        configPreset = 2;
-        return;
-    }
-
-    configPreset = 3;
+    sprintf(sCustomPresetBlueprint, "Custom (id 0x%X)", presetId);
 }
 
 void set_preset(u32 presetID)
 {
+    // this should never happen, but I better be safe
+    if (presetID >= PRESET_CUSTOM)
+        return;
+
     configPreset = presetID;
-    switch (presetID) {
-        case 0: // Classic
-            configNoFallDamage         = false;
-            configFailWarp             = false;
-            config45DegreeWallkicks    = false;
-            configExtraWallkickFrames  = false;
-            configFastSwimming         = false;
-            configSteepSlopeJumps      = false;
-            configNoLives              = false;
-            configAllowExitLevel       = false;
-            configFasterObjects        = false;
-            configNoActSpecificObjects = false;
-            configRedCoinRadar         = false;
-            break;
-        case 1: // QoL Only
-            configNoFallDamage         = false;
-            configFailWarp             = false;
-            config45DegreeWallkicks    = false;
-            configExtraWallkickFrames  = false;
-            configFastSwimming         = false;
-            configSteepSlopeJumps      = false;
-            configNoLives              = true;
-            configAllowExitLevel       = true;
-            configFasterObjects        = true;
-            configNoActSpecificObjects = true;
-            configRedCoinRadar         = true;
-            break;
-        case 2: // Modern
-            configNoFallDamage         = true;
-            configFailWarp             = true;
-            config45DegreeWallkicks    = true;
-            configExtraWallkickFrames  = true;
-            configFastSwimming         = true;
-            configSteepSlopeJumps      = true;
-            configNoLives              = true;
-            configAllowExitLevel       = true;
-            configFasterObjects        = true;
-            configNoActSpecificObjects = true;
-            configRedCoinRadar         = true;
-            break;
+    for (int i = 0; i < sizeof(sPresetConfigs) / sizeof(sPresetConfigs[0]); ++i)
+    {
+        const struct PresetConfig* config = &sPresetConfigs[i];
+        bool* presetValue = config->base;
+        *presetValue = config->defaults[presetID];
     }
+}
+
+const char* preset_line()
+{
+    return sPresets[configPreset];
 }
 
 extern void set_vi_mode_from_config();

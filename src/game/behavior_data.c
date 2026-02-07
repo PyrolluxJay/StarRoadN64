@@ -6890,7 +6890,6 @@ const BehaviorScript bhvStarRoadB3SlidingPlatform[] = {
 };
 
 extern void peach_init_igt();
-extern void peach_show_igt();
 const BehaviorScript bhvStarRoadPeach[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags,16457),
@@ -6904,7 +6903,6 @@ const BehaviorScript bhvStarRoadPeach[] = {
     CALL_NATIVE( peach_init_igt ),
     BEGIN_LOOP(),
         CALL_NATIVE( bhv_toad_message_loop),
-        CALL_NATIVE( peach_show_igt ),
     END_LOOP(),
 };
 
@@ -6934,16 +6932,6 @@ const BehaviorScript bhvStarRoadHPBlock[] = {
         CALL_NATIVE( bhv_ssl_moving_pyramid_wall_loop),
         CALL_NATIVE( load_object_collision_model),
         SET_FLOAT(oDrawingDistance, 20000),
-    END_LOOP(),
-};
-
-extern void lvl_calc_igt();
-extern void lvl_show_time();
-const BehaviorScript bhvStarRoadIGT[] = {
-    BEGIN(OBJ_LIST_LEVEL),
-    CALL_NATIVE( lvl_calc_igt ),
-    BEGIN_LOOP(),
-        CALL_NATIVE( lvl_show_time ),
     END_LOOP(),
 };
 

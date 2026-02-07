@@ -16,11 +16,11 @@ extern bool configVIDedither;
 #include "options_menu_x.h"
 #undef OPTION
 
-extern u32 configPreset;
-
 #define configLives (!configNoLives)
 
 void gen_preset();
 void set_preset(u32 presetID);
+
+const char* preset_line();
 
 #endif // OPTIONS_MENU_H
