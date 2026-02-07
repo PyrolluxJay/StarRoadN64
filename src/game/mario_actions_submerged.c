@@ -198,6 +198,15 @@ static u32 perform_water_step(struct MarioState *m) {
     vec3f_copy(marioObj->header.gfx.pos, m->pos);
     vec3s_set(marioObj->header.gfx.angle, -m->faceAngle[0], m->faceAngle[1], m->faceAngle[2]);
 
+    if (gCurrCourseNum == COURSE_HMC)
+    {
+        f32 ceil = find_ceil(m->pos[0], m->floorHeight, m->pos[2], &m->ceil);
+        if (m->pos[1] > ceil)
+        {
+            m->pos[1] = ceil;
+        }
+    }
+
     return stepResult;
 }
 
