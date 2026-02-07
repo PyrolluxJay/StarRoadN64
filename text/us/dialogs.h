@@ -775,10 +775,10 @@ DEFINE_DIALOG(DIALOG_078,1,4,30,200, _("★★★★★★★★★★★★★\
  Super Mario Star Road \n\
        by Skelux\n\
 ★★★★★★★★★★★★★\n\
-Decomp port by\n\
-aglab2, Dackage and\n\
-Pyrollux Jay\n\
-\n\
+Decomp port by aglab2,\n\
+Dackage and Pyrollux Jay.\n\
+Built on HackerSM64 and\n\
+F3DEX3 by sauraen.\n\
 Special thanks to:\n\
 Frauber - Bug fixing and\n\
 tools used.\n\

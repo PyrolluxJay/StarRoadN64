@@ -10,4 +10,5 @@ enum {
     WATER_CH,
     WATER_CORAL,
     WATER_OW2,
+    WATER_ENDING,
 };

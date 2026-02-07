@@ -6798,6 +6798,7 @@ static Vtx DL_ending_1_0xe063110_65_vtxopt[] = {
 };
 
 Gfx DL_ending_1_0xe063110[] = {
+gsSPClipRatio(1),
 gsSPSetGeometryMode(G_FOG),
 gsSPLightColor(LIGHT_1, 0x727272ff),
 gsSPLightColor(LIGHT_2, 0x393939ff),
@@ -9293,6 +9294,7 @@ static Vtx DL_ending_1_0xe082470_8_vtxopt[] = {
 };
 
 Gfx DL_ending_1_0xe082470[] = {
+gsSPAttrOffsetZ(-2),
 gsSPSetGeometryMode(G_FOG),
 gsSPLightColor(LIGHT_1, 0x727272ff),
 gsSPLightColor(LIGHT_2, 0x393939ff),
@@ -9492,6 +9494,7 @@ gsDPSetRenderMode(G_RM_AA_ZB_TEX_EDGE, G_RM_NOOP2),
 gsSPGeometryMode(G_FOG, 0),
 gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, SHADE,0, 0, 0, SHADE, 0, 0, 0, SHADE),
 gsSPGeometryMode(0, G_CULL_BACK|G_LIGHTING),
+gsSPAttrOffsetZ(0),
 gsSPEndDisplayList(),
 };
 

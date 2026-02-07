@@ -13,6 +13,7 @@
 #include "levels/ccm/ch_water/header.h"
 #include "levels/hmc/coral_water/header.h"
 #include "levels/castle_courtyard/ow2_water/header.h"
+#include "levels/ending/cg_water/header.h"
 
 struct WaterConfig
 {
@@ -46,6 +47,8 @@ static struct WaterConfig get_water_config(int param)
             return WATER_DECL(coral_water_Plane_001_mesh, coral_water_Plane_001_mesh_vtx_0);
         case WATER_OW2:
             return WATER_DECL(ow2_water_node_001_mesh, ow2_water_node_001_mesh_vtx_0);
+        case WATER_ENDING:
+            return WATER_DECL(ending_cg_water_Plane_001_mesh, ending_cg_water_Plane_001_mesh_vtx_0);
         default:
             return (struct WaterConfig){0};
     }

@@ -10,4 +10,5 @@ extern const GeoLayout ending_geo_area_1[];
 extern const LevelScript level_ending_entry[];
 
 #include "header.inc.h"
+#include "cg_water/header.h"
 #endif
