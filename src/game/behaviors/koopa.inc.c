@@ -580,8 +580,26 @@ static void koopa_the_quick_animate_footsteps(void) {
  * Begin the race, then follow the race path. Avoid bowling balls by slowing
  * down or jumping. After finishing the race, enter the decelerate action.
  */
+extern void print_text_fmt_int(s16 x, s16 y, const char *str, s32 value);
 static void koopa_the_quick_act_race(void) {
     if (obj_begin_race(FALSE)) {
+        if (gCurrCourseNum == COURSE_LLL)
+        {
+            const Vec3f s1 = { 500 , 1871, -1431 };
+            const Vec3f s2 = { -750, 1485, -466  };
+
+            if (s1[0] > o->oPosX && o->oPosX > s2[0]
+             && s1[2] < o->oPosZ && o->oPosZ < s2[2]
+             && o->oPosY > 0) {
+                f32 progress = (o->oPosX - s1[0]) / (s2[0] - s1[0]);
+                // print_text_fmt_int(20, 20, "%d", (int) (10000 * progress));
+                f32 estY = s1[1] + progress * (s2[1] - s1[1]);
+                // print_text_fmt_int(20, 40, "%d", (int) (estY));
+                if (o->oPosY < estY)
+                    o->oPosY = estY;
+            }
+        }
+
         // Hitbox is slightly larger while racing
         cur_obj_push_mario_away_from_cylinder(180.0f, 300.0f);
 
