@@ -2872,9 +2872,9 @@ void update_camera(struct Camera *c) {
             if (gPlayer1Controller->buttonPressed & R_TRIG) {
                 if (set_cam_angle(0) == CAM_ANGLE_LAKITU) {
                     set_cam_angle(CAM_ANGLE_MARIO);
-                    s8DirModeYawOffset = snap_to_45_degrees_flip(gMarioStates->faceAngle[1]);
                 } else {
                     set_cam_angle(CAM_ANGLE_LAKITU);
+                    s8DirModeYawOffset = snap_to_45_degrees_flip(gMarioStates->faceAngle[1]);
                 }
             }
         }
