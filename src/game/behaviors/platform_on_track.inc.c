@@ -263,12 +263,18 @@ static void platform_on_track_act_move_along_track(void) {
                         ? (o->oDistanceToMario * coss(o->oAngleToMario - o->oMoveAngleYaw)) - 10.0f
                         : 5.0f;
 
-                    f32 decelRate = gMarioObject->platform == o ? 0.5f : 1.5f;
                     if (targetVel < 10.0f) {
                         targetVel = 10.0f;
                     } else if (targetVel > 26.0f) {
                         targetVel = 26.0f;
                     }
+
+                    if (gCamera->cutscene == CUTSCENE_PREPARE_CANNON)
+                    {
+                        o->oForwardVel = 0.f;
+                        o->oTimer = 0;
+                    }
+
                     obj_forward_vel_approach(targetVel, 0.5f);
                 }
                 else
