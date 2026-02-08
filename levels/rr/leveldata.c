@@ -13,6 +13,7 @@
 #include "levels/rr/custom_c/custom.modelopt.inc.c"
 #include "levels/rr/custom_c/custom.modelopt_l.inc.c"
 #include "levels/rr/custom_c/custom.modelopt_l2.inc.c"
+#include "levels/rr/custom_c/custom.modelopt_b.inc.c"
 #include "levels/rr/custom_c/obj.collision.inc.c"
 #include "levels/rr/custom_c/obj.model.inc.c"
 

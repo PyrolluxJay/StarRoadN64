@@ -15,9 +15,10 @@ VTX_SUFFIX = 'opt'
 # VTX_FILTER = lambda vtx: vtx.pos.y < -2316
 # VTX_SUFFIX = 'opt_l'
 
-#VTX_FILTER = lambda vtx: vtx.pos.y < -2316
-VTX_FILTER = lambda vtx: vtx.pos.z > 0 and vtx.pos.y > -1405
-VTX_SUFFIX = 'opt'
+# VTX_FILTER = lambda vtx: vtx.pos.y < -2316
+# VTX_SUFFIX = 'opt_l2'
+# TRI_FILTER = sr_tri_filter
+
 def sr_tri_filter(timage, tri):
     #if timage == 'rr_1__texture_0E010010':
     #    return True
@@ -41,6 +42,13 @@ def sr_tri_filter(timage, tri):
             return False
 
     return False
+
+# VTX_FILTER = lambda vtx: vtx.pos.z > 0 and vtx.pos.y > -1405
+# VTX_SUFFIX = 'opt'
+# TRI_FILTER = sr_tri_filter
+
+VTX_FILTER = lambda vtx: (vtx.pos.z > 0 and vtx.pos.y > -1405) or (vtx.pos.y < -3716)
+VTX_SUFFIX = 'opt_b'
 TRI_FILTER = sr_tri_filter
 
 # CCCoral

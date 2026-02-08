@@ -1,6 +1,8 @@
 Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 extern Gfx DL_rr_1_0xe06e8c0_l[];
 extern Gfx DL_rr_1_0xe06e8c0_l2[];
+extern Gfx DL_rr_1_0xe06e8c0_b[];
+extern Gfx DL_rr_1_0xe096f00_b[];
 extern Gfx DL_rr_1_0xe096f00_l[];
 extern Gfx DL_rr_1_0xe096f00_l_xlu[];
 const GeoLayout Geo_rr_1_0x1ba1700[]= {
@@ -23,6 +25,10 @@ GEO_ASM(5, geo_star_road_cull),
 GEO_DISPLAY_LIST(LAYER_OPAQUE,DL_rr_1_0xe06e8c0),
 GEO_ASM(5, geo_star_road_cull),
 GEO_DISPLAY_LIST(LAYER_TRANSPARENT,DL_rr_1_0xe096f00),
+GEO_ASM(12, geo_star_road_cull),
+GEO_DISPLAY_LIST(LAYER_OPAQUE,DL_rr_1_0xe06e8c0_b),
+GEO_ASM(12, geo_star_road_cull),
+GEO_DISPLAY_LIST(LAYER_TRANSPARENT,DL_rr_1_0xe096f00_b),
 GEO_ASM(6, geo_star_road_cull),
 GEO_DISPLAY_LIST(LAYER_OPAQUE,DL_rr_1_0xe06e8c0_l),
 GEO_ASM(6, geo_star_road_cull),

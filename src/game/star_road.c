@@ -104,6 +104,7 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
             case 6:
             case 7:
             case 11:
+            case 12:
                 // Rhombus checks for inside the dome
                 f32 rhombusPlus  = gMarioStates->pos[0] + gMarioStates->pos[2];
                 f32 rhombusMinus = gMarioStates->pos[0] - gMarioStates->pos[2];
@@ -119,7 +120,7 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
                 // Basic regions
                 bool aboveGround     = gMarioStates->pos[1] >= -1320;
                 bool inHouseEntrance = (-6600 < gMarioStates->pos[2] && gMarioStates->pos[2] < -1689)
-                                    && (0 < gMarioStates->pos[0] && gMarioStates->pos[0] < 6327);
+                                    && ( 1500 < gMarioStates->pos[0] && gMarioStates->pos[0] < 6327);
                 bool inHouse         = (-6600 < gMarioStates->pos[2] && gMarioStates->pos[2] < -1689)
                                     && (-5347 < gMarioStates->pos[0] && gMarioStates->pos[0] < 6327);
                 bool outOfHouse      = gMarioStates->pos[2] > 0.f && gMarioStates->pos[1] > -1954.f;
@@ -127,28 +128,34 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
 
                 bool skipInners = outOfHouse || veryHigh;
                 bool wantAllInners = !aboveGround || inHouseEntrance;
-                bool inside = inDome || inTube || !aboveGround;
+                bool insideTinyLod = inDome || inTube;
+                bool inside = insideTinyLod || !aboveGround;
 
                 // Below the ground parts + cut parts above
                 if (5 == param)
                 {
-                    active = !skipInners && (inside && wantAllInners);
+                    active = !insideTinyLod && !skipInners && (inside && wantAllInners);
                 }
                 // Above the ground - condition flip for 5==param
                 if (6 == param)
                 {
-                    active = !skipInners && (!inside || !wantAllInners);
+                    active = !insideTinyLod && !skipInners && (!inside || !wantAllInners);
                 }
                 // Above the ground but very far from house
                 if (11 == param)
                 {
-                    active = skipInners;
+                    active = !insideTinyLod && skipInners;
+                }
+                // Tiny lod exactly inside the tube/dome
+                if (12 == param)
+                {
+                    active = insideTinyLod;
                 }
 
                 // XLU bulb
                 if (7 == param)
                 {
-                    active = aboveGround && inHouse && !inHouseEntrance;
+                    active = aboveGround && inHouse && !inHouseEntrance && !insideTinyLod;
                 }
                 break;
 
