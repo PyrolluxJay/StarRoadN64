@@ -8,11 +8,39 @@ import shapely
 from shapely.ops import triangulate
 
 VTX_FILTER = None
+TRI_FILTER = None
 VTX_SUFFIX = 'opt'
 
 # SR filter
 # VTX_FILTER = lambda vtx: vtx.pos.y < -2316
 # VTX_SUFFIX = 'opt_l'
+
+VTX_FILTER = lambda vtx: vtx.pos.y < -2316
+VTX_SUFFIX = 'opt_l'
+def sr_tri_filter(timage, tri):
+    if timage == 'rr_1__texture_0E010010':
+        return True
+
+    if timage in [ 'rr_1__texture_0E007410', 'rr_1__texture_0E00AC10' ]:
+        want = [-1560 < v.pos.y and v.pos.y < 1380 for v in tri ]
+        if not all(want):
+            return False
+
+        v0, v1, v2 = tri
+        vec0 = v1.pos - v0.pos
+        vec1 = v2.pos - v0.pos
+        n = vec0 ^ vec1
+
+        if n.y == 0:
+            return False
+
+        if n.y < 0:
+            return True
+        else:
+            return False
+
+    return False
+TRI_FILTER = sr_tri_filter
 
 # CCCoral
 #VTX_FILTER = lambda vtx: vtx.pos.y < 373
@@ -23,8 +51,8 @@ VTX_SUFFIX = 'opt'
 #VTX_SUFFIX = 'opt_s'
 
 # Castke grounds?
-VTX_FILTER = lambda vtx: vtx.pos.y < 3270
-VTX_SUFFIX = 'opt_u'
+# VTX_FILTER = lambda vtx: vtx.pos.y < 3270
+# VTX_SUFFIX = 'opt_u'
 
 # VTX_FILTER = lambda vtx: vtx.pos.y > 2760
 # VTX_SUFFIX = 'opt_d'
@@ -894,7 +922,7 @@ class ModelMeshEntry(TriKit):
         triangles, snakes = TriKit.stripify(triangles)
         return RenderPass(vertices, [ list(tri) for tri in triangles ], snakes)
 
-    def compile(self, have_tile, vtx_filter):
+    def compile(self, have_tile, timage):
         assert self._base_vertices_model_entry, "compile() called twice"
         assert not self._base_vertices_model_entry.used
         self._base_vertices_model_entry.used = True
@@ -904,10 +932,11 @@ class ModelMeshEntry(TriKit):
         vtx_values = [ Vtx(vtx) for vtx in self._vertices ]
 
         triangles_altered = False
-        if vtx_filter:
-            vtx_skipped = [ vtx_filter(vtx) for vtx in vtx_values ]
+        if VTX_FILTER:
+            vtx_skipped = [ VTX_FILTER(vtx) for vtx in vtx_values ]
             old_tri_len = len(self._triangles)
             triangles = [ tri for tri in self._triangles if any(not vtx_skipped[vtx] for vtx in tri) ]
+            triangles = [ tri for tri in triangles if not TRI_FILTER(timage, [ vtx_values[vtx] for vtx in tri ]) ]
             triangles_altered = old_tri_len != len(triangles)
 
         if triangles_altered:
@@ -1269,7 +1298,7 @@ def _is_draw(line, nline):
 
     return False
 
-def optimize_model(model, vtx_filter=None):
+def optimize_model(model):
     for model_entry_idx in range(len(model.entries)):
         old_entry = model.entries[model_entry_idx]
         if not isinstance(old_entry, ModelRawEntry):
@@ -1283,23 +1312,20 @@ def optimize_model(model, vtx_filter=None):
 
         num = 0
         have_tile = None
+        timage = None
         for i in range(1, len(old_entry.data)):
             line = old_entry.data[i]
-            print(line)
-            if 'gsDPLoadTile' in line:
-                have_tile = True
-
+            print(line.strip())
             nline = old_entry.data[i+1] if i + 1 < len(old_entry.data) else None
             if not _is_draw(line, nline):
                 if entry:
-                    draws, vtxopt = entry.compile(have_tile, vtx_filter)
+                    draws, vtxopt = entry.compile(have_tile, timage)
                     have_tile = False
                     mlist.data.extend(draws)
                     mlist.opvtxs.append(vtxopt)
 
                     entry = None
                 mlist.data.append(line)
-                continue
             else:
                 if not entry:
                     entry = ModelMeshEntry(line, model, f'{mlist.name}_{num}', parser)
@@ -1312,6 +1338,13 @@ def optimize_model(model, vtx_filter=None):
                     vtx_arg_split = vtx_arg.split(' ')
                     _, vtx = model.find(vtx_arg_split[0])
                     vtx.used = True
+
+            if 'gsDPLoadTile' in line:
+                have_tile = True
+            if 'gsDPSetTextureImage' in line:
+                last_bracket = line.rfind(')')
+                last_comma = line.rfind(',', 0, last_bracket)
+                timage = line[last_comma + 1:last_bracket].strip()
 
         model.entries[model_entry_idx] = mlist
         #entry = ModelMeshEntry(old_entry.data[0], old_entry.data[1], model)
@@ -1454,7 +1487,7 @@ if '__main__' in __name__:
         header_patched_path = make_opt_name(header_path)
 
         model = load_model(model_path)
-        optimize_model(model, VTX_FILTER)
+        optimize_model(model)
         serialize_model(model, model_patched_path)
         patch_header(header_path, header_patched_path)
     else:

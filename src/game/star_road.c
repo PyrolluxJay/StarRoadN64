@@ -99,25 +99,54 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
                     active = 0;
                 break;
             
-            // SR c15
+            // SR c15, oh boy
             case 5:
-                active = gMarioStates->pos[1] < -1320
-                      || ((-6600 < gMarioStates->pos[2] && gMarioStates->pos[2] < -1689)
-                      && (0 < gMarioStates->pos[0] && gMarioStates->pos[0] < 6327));
-                break;
             case 6:
-                active = gMarioStates->pos[1] >= -1320
-                      && !((-6600 < gMarioStates->pos[2] && gMarioStates->pos[2] < -1689)
-                      && (0 < gMarioStates->pos[0] && gMarioStates->pos[0] < 6327));
-                break;
             case 7:
-                active = (gMarioStates->pos[1] >= -1320)
-                      && (-6600 < gMarioStates->pos[2] && gMarioStates->pos[2] < -1689)
-                      && (-5347 < gMarioStates->pos[0] && gMarioStates->pos[0] < 6327)
-                      && !((-6600 < gMarioStates->pos[2] && gMarioStates->pos[2] < -1689)
-                      && (0 < gMarioStates->pos[0] && gMarioStates->pos[0] < 6327));
+            case 11:
+                // Rhombus checks for inside the dome
+                f32 rhombusPlus  = gMarioStates->pos[0] + gMarioStates->pos[2];
+                f32 rhombusMinus = gMarioStates->pos[0] - gMarioStates->pos[2];
+                bool inDome = -3699.f < rhombusPlus  && rhombusPlus  < 3180.f
+                           && -1853.f < rhombusMinus && rhombusMinus < 11526.f
+                           && -1853.f < gMarioStates->pos[1] && gMarioStates->pos[1] < 1166.f
+                           && gMarioStates->ceilHeight < 607.f;
+
+                // Basic regions
+                bool aboveGround     = gMarioStates->pos[1] >= -1320;
+                bool inHouseEntrance = (-6600 < gMarioStates->pos[2] && gMarioStates->pos[2] < -1689)
+                                    && (0 < gMarioStates->pos[0] && gMarioStates->pos[0] < 6327);
+                bool inHouse         = (-6600 < gMarioStates->pos[2] && gMarioStates->pos[2] < -1689)
+                                    && (-5347 < gMarioStates->pos[0] && gMarioStates->pos[0] < 6327);
+                bool outOfHouse      = gMarioStates->pos[2] > 0.f && gMarioStates->pos[1] > -1954.f;
+                bool veryHigh        = gMarioStates->pos[1] > 1166.f;
+
+                bool skipInners = outOfHouse || veryHigh;
+                bool wantAllInners = !aboveGround || inHouseEntrance;
+
+                // Below the ground parts + everything above
+                if (5 == param)
+                {
+                    active = !skipInners && wantAllInners;
+                }
+                // Above the ground - condition flip for 5==param
+                if (6 == param)
+                {
+                    active = !skipInners && !wantAllInners;
+                }
+                // Above the ground but very far from house
+                if (11 == param)
+                {
+                    active = skipInners;
+                }
+
+                // XLU bulb
+                if (7 == param)
+                {
+                    active = aboveGround && inHouse && !inHouseEntrance;
+                }
                 break;
-            
+
             case 8:
                 active = (gMarioStates->pos[1] < 1764)
                       && (gMarioStates->pos[0] - gMarioStates->pos[2] > 8829);
