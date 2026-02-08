@@ -225,9 +225,11 @@ static struct Object *cur_obj_find_nearest_object_with_behavior_y_biased(const B
 #include "game/game_init.h"
 #include "engine/math_util.h"
 
+extern u16 gExtraGuides[2];
 void bhv_red_coin_radar_loop()
 {
-    if (configRedCoinRadar == 0)
+    int beingShotFromCannon = (gMarioStates->action == ACT_SHOT_FROM_CANNON || gMarioStates->action == ACT_IN_CANNON);
+    if (configRedCoinRadar == 0 || beingShotFromCannon || gExtraGuides[0] == 255/16)
     {
         cur_obj_hide();
         return;
