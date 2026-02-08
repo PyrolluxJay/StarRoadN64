@@ -47,7 +47,7 @@ def sr_tri_filter(timage, tri):
 # VTX_SUFFIX = 'opt'
 # TRI_FILTER = sr_tri_filter
 
-VTX_FILTER = lambda vtx: (vtx.pos.z > 0 and vtx.pos.y > -1405) or (vtx.pos.y < -3716)
+VTX_FILTER = lambda vtx: (vtx.pos.z > 0 and vtx.pos.y > -1405) or (vtx.pos.z > -1432 and vtx.pos.y < -1405) or (vtx.pos.y < -3716)
 VTX_SUFFIX = 'opt_b'
 TRI_FILTER = sr_tri_filter
 
