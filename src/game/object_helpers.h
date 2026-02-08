@@ -201,6 +201,9 @@ void cur_obj_set_pos_via_transform(void);
 void cur_obj_spawn_particles(struct SpawnParticlesInfo *info);
 s32 cur_obj_reflect_move_angle_off_wall(void);
 
+void cur_obj_setup_static_surface_cache();
+void cur_obj_update_floor_height_from_cache();
+
 #define WAYPOINT_FLAGS_END -1
 #define WAYPOINT_FLAGS_NONE 0
 #define WAYPOINT_FLAGS_INITIALIZED 0x8000

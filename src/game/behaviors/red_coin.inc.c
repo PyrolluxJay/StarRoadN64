@@ -35,6 +35,7 @@ void bhv_red_coin_init(void) {
     }
 
     obj_set_hitbox(o, &sRedCoinHitbox);
+    cur_obj_setup_static_surface_cache();
 }
 
 /**
@@ -42,6 +43,7 @@ void bhv_red_coin_init(void) {
  * the orange number counter.
  */
 void bhv_red_coin_loop(void) {
+    cur_obj_update_floor_height_from_cache();
     // If Mario interacted with the object...
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
         // ...and there is a red coin star in the level...

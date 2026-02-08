@@ -960,6 +960,17 @@ void cur_obj_update_floor_height(void) {
     o->oFloorHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, &o->oFloor);
 }
 
+void cur_obj_setup_static_surface_cache()
+{
+    gCollisionFlags |= COLLISION_FLAG_EXCLUDE_DYNAMIC;
+    o->oFloorStaticHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, &o->oFloorStaticCache);
+}
+
+void cur_obj_update_floor_height_from_cache()
+{
+    o->oFloorHeight = find_floor_or_cache(o->oPosX, o->oPosY, o->oPosZ, &o->oFloor, o->oFloorStaticCache, o->oFloorStaticHeight);
+}
+
 struct Surface *cur_obj_update_floor_height_and_get_floor(void) {
     o->oFloorHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, &o->oFloor);
     return o->oFloor;

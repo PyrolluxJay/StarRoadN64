@@ -54,7 +54,7 @@
 #define /*0x090*/ oDialogResponse             OBJECT_FIELD_S16(0x02, 0)
 #define /*0x092*/ oDialogState                OBJECT_FIELD_S16(0x02, 1)
 #define /*0x094*/ oUnk94                      OBJECT_FIELD_U32(0x03)
-// 0x98 unused/removed.
+#define oFloorStaticCache                     OBJECT_FIELD_SURFACE(0x04)
 #define /*0x09C*/ oIntangibleTimer            OBJECT_FIELD_S32(0x05)
 /* Position vector */
 #define /*0x0A0*/ O_POS_INDEX                 0x06
@@ -130,7 +130,7 @@
 #define /*0x140*/ oParentRelativePosZ                           OBJECT_FIELD_F32(O_PARENT_RELATIVE_POS_Z_INDEX)
 /* Common fields */
 #define /*0x144*/ oBehParams2ndByte                             OBJECT_FIELD_S32(0x2F)
-// 0x148 unused, possibly a third param byte.
+#define /*0x148*/ oFloorStaticHeight                            OBJECT_FIELD_F32(0x30)
 #define /*0x14C*/ oAction                                       OBJECT_FIELD_S32(0x31)
 #define /*0x150*/ oSubAction                                    OBJECT_FIELD_S32(0x32)
 #define /*0x154*/ oTimer                                        OBJECT_FIELD_S32(0x33)

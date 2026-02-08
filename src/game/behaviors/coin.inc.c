@@ -49,6 +49,7 @@ void bhv_yellow_coin_init(void) {
     cur_obj_set_behavior(bhvYellowCoin);
     obj_set_hitbox(o, &sYellowCoinHitbox);
     cur_obj_update_floor_height();
+    cur_obj_setup_static_surface_cache();
 
     if (500.0f < absf(o->oPosY - o->oFloorHeight)) {
         if (cur_obj_has_model(MODEL_YELLOW_COIN)) {
@@ -72,6 +73,7 @@ void bhv_yellow_coin_init(void) {
 void bhv_yellow_coin_loop(void) {
     bhv_coin_sparkles_init();
     o->oAnimState++;
+    cur_obj_update_floor_height_from_cache();
 }
 
 void bhv_temp_coin_loop(void) {
@@ -177,7 +179,9 @@ void bhv_coin_formation_spawned_coin_loop(void) {
                 cur_obj_set_model(MODEL_YELLOW_COIN_NO_SHADOW);
             }
         }
+        cur_obj_setup_static_surface_cache();
     } else {
+        cur_obj_update_floor_height_from_cache();
         if (bhv_coin_sparkles_init()) {
             o->parentObj->oCoinRespawnBits |= (1 << o->oBehParams2ndByte);
         }
