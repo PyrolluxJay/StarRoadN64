@@ -183,6 +183,9 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
 
 void bhv_red_coin_radar_init()
 {
+    if (gMarioStates->numStars >= 120)
+        return cur_obj_hide();
+
     int act = o->oBehParams >> 24;
     if (0 == act)
         return;
