@@ -224,7 +224,8 @@ void hoot_awake_loop(void) {
 void bhv_hoot_loop(void) {
     switch (o->oHootAvailability) {
         case HOOT_AVAIL_ASLEEP_IN_TREE:
-            if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 50)) {
+            int range = configFasterObjects ? 100 : 50;
+            if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, range)) {
                 o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
                 o->oHootAvailability = HOOT_AVAIL_WANTS_TO_TALK;
             }

@@ -6367,9 +6367,10 @@ const BehaviorScript bhvStarRoadVCCog[] = {
     LOAD_COLLISION_DATA(col_rr_geo_0007E8_0xfa72f1),
     SET_HOME(),
     BEGIN_LOOP(),
-    SET_INT(oAngleVelYaw,256),
-    ADD_INT(oMoveAngleYaw,256),
-    CALL_NATIVE( load_object_collision_model),
+        SET_INT(oAngleVelYaw,256),
+        ADD_INT(oMoveAngleYaw,256),
+        CALL_NATIVE( load_object_collision_model),
+        SET_FLOAT(oDrawingDistance, 20000),
     END_LOOP(),
 };
 
