@@ -15,11 +15,12 @@ VTX_SUFFIX = 'opt'
 # VTX_FILTER = lambda vtx: vtx.pos.y < -2316
 # VTX_SUFFIX = 'opt_l'
 
-VTX_FILTER = lambda vtx: vtx.pos.y < -2316
-VTX_SUFFIX = 'opt_l'
+#VTX_FILTER = lambda vtx: vtx.pos.y < -2316
+VTX_FILTER = lambda vtx: vtx.pos.z > 0 and vtx.pos.y > -1405
+VTX_SUFFIX = 'opt'
 def sr_tri_filter(timage, tri):
-    if timage == 'rr_1__texture_0E010010':
-        return True
+    #if timage == 'rr_1__texture_0E010010':
+    #    return True
 
     if timage in [ 'rr_1__texture_0E007410', 'rr_1__texture_0E00AC10' ]:
         want = [-1560 < v.pos.y and v.pos.y < 1380 for v in tri ]
@@ -34,7 +35,7 @@ def sr_tri_filter(timage, tri):
         if n.y == 0:
             return False
 
-        if n.y < 0:
+        if n.y > 0:
             return True
         else:
             return False

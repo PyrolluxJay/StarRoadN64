@@ -108,9 +108,13 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
                 f32 rhombusPlus  = gMarioStates->pos[0] + gMarioStates->pos[2];
                 f32 rhombusMinus = gMarioStates->pos[0] - gMarioStates->pos[2];
                 bool inDome = -3699.f < rhombusPlus  && rhombusPlus  < 3180.f
-                           && -1853.f < rhombusMinus && rhombusMinus < 11526.f
+                           &&  4486.f < rhombusMinus && rhombusMinus < 11526.f
                            && -1853.f < gMarioStates->pos[1] && gMarioStates->pos[1] < 1166.f
-                           && gMarioStates->ceilHeight < 607.f;
+                           && gMarioStates->ceilHeight < 1000.f;
+                bool inTube = -294.f  < gMarioStates->pos[0] && gMarioStates->pos[0] < 1775.f
+                           && -1705.f < gMarioStates->pos[1] && gMarioStates->pos[1] < -145.f
+                           && -5265.f < gMarioStates->pos[2] && gMarioStates->pos[2] < -5265.f
+                           && gMarioStates->ceilHeight < 100.f;
 
                 // Basic regions
                 bool aboveGround     = gMarioStates->pos[1] >= -1320;
@@ -123,16 +127,17 @@ Gfx *geo_star_road_cull(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
 
                 bool skipInners = outOfHouse || veryHigh;
                 bool wantAllInners = !aboveGround || inHouseEntrance;
+                bool inside = inDome || inTube || !aboveGround;
 
-                // Below the ground parts + everything above
+                // Below the ground parts + cut parts above
                 if (5 == param)
                 {
-                    active = !skipInners && wantAllInners;
+                    active = !skipInners && (inside && wantAllInners);
                 }
                 // Above the ground - condition flip for 5==param
                 if (6 == param)
                 {
-                    active = !skipInners && !wantAllInners;
+                    active = !skipInners && (!inside || !wantAllInners);
                 }
                 // Above the ground but very far from house
                 if (11 == param)
