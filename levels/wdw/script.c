@@ -126,6 +126,7 @@ const LevelScript level_wdw_entry[] = {
 		OBJECT_WITH_ACTS(0,-3034,2342,3419,0,0,0,0x0, bhvHidden1upInPoleSpawner,63),
 		OBJECT_WITH_ACTS(195,5067,3353,4259,0,0,0,0x0, bhvBobombBuddyOpensCannon,63),
 		OBJECT_WITH_ACTS(201,-26,1104,1022,0,0,0,0xbe0000, bhvCannonClosed,63),
+		OBJECT_WITH_ACTS(0,587,2004,1023,0,0,0,0xef0000, bhvFadingWarp,63),
 		OBJECT_WITH_ACTS(137,122,188,4903,0,0,0,0x50000, bhvExclamationBox,63),
 		OBJECT_WITH_ACTS(0,3137,3007,-3962,0,0,0,0x70000, bhvExclamationBox,63),
 		OBJECT_WITH_ACTS(102,4968,1105,2396,0,0,0,0x0, bhvDDDPole,63),
@@ -207,6 +208,7 @@ const LevelScript level_wdw_entry[] = {
 		WARP_NODE(4,9,1,10,0),
 		WARP_NODE(5,9,1,10,0),
 		WARP_NODE(6,9,1,10,0),
+		WARP_NODE(0xef,LEVEL_WDW,1,0xef,0),
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 	FREE_LEVEL_POOL(),

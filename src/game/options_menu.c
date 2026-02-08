@@ -119,7 +119,7 @@ static const char sViDeditherExplanation[]           = "Reduces color dither pat
                                                        "but adds more blur. Reduces performance.";
 static const char sFallDamageExplanation[]           = "Disables fall damage from\n"
                                                        "high falls.";
-static const char sFailWarpExplanation[]             = "Warps the player to the\n"
+static const char sFailWarpExplanation[]             = "Warps player to the\n"
                                                        "last safe spot on death.";
 static const char s45DegreeWallkicksExplanation[]    = "Allows wallkicks on\n"
                                                        "45 degree walls jumps.";
@@ -127,8 +127,8 @@ static const char sExtraWallkickFramesExplanation[]  = "Gives 3 extra frames to\
                                                        "perform wallkicks.";
 static const char sFastSwimmingExplanation[]         = "Increases swimming movement speed.\n"
                                                        "Hold A for fastest swim.";
-static const char sSteepSlopeJumpsExplanation[]      = "Fixes small movement issues.\n"
-                                                       "jumps on steep slopes and vines movement.";
+static const char sSteepSlopeJumpsExplanation[]      = "Fixes small movement issues:\n"
+                                                       "jumps on steep slopes, vines movement, slope physics, false ledgegrabs.";
 static const char sLivesExplanation[]                = "Disables lives system";
 static const char sAllowExitLevelExplanation[]       = "Adds extra pause option to exit\n"
                                                        "immediately outside the level or\n"
@@ -146,8 +146,7 @@ static const char sWideScreenExplanation[]           = "Squishes the game for wi
                                                        "Set display mode to stretched 16:9.";
 static const char sHardModeExplanation[]             = "Enables Hard Mode.\n"
                                                        "Any damage kills.";
-static const char sRedCoinRadarExplanation[]         = "Shows red coins radar\n"
-                                                       "during reds missing.\n"
+static const char sRedCoinRadarExplanation[]         = "Shows red coins radar during reds mission.\n"
                                                        "Toggleable with L trigger.";
 
 static struct Option optsAudio[] = {

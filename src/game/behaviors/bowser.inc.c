@@ -497,6 +497,11 @@ void bowser_act_walk_to_mario(void) {
         }
     }
 
+    if (configFasterObjects)
+    {
+        turnSpeed /= 1.5f;
+    }
+
     cur_obj_rotate_yaw_toward(o->oAngleToMario, turnSpeed);
 
     if (o->oSubAction == 0) {

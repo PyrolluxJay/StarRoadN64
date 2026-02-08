@@ -178,8 +178,11 @@ void bhv_cannon_base_init()
     o->oCannonBaseAngle = (s16)(o->oBehParams2ndByte << 8);
 }
 
+extern const char* gExtraTexts[2];
+extern u16 gExtraGuides[2];
+
 void bhv_cannon_base_loop(void) {
-    int canFastWarp = configFasterObjects && (gCurrLevelNum == LEVEL_BOB || gCurrLevelNum == LEVEL_JRB || gCurrLevelNum == LEVEL_RR);
+    int canFastWarp = configFasterObjects && (gCurrLevelNum == LEVEL_BOB || gCurrLevelNum == LEVEL_JRB || gCurrLevelNum == LEVEL_RR || gCurrLevelNum == LEVEL_WDW);
     if (canFastWarp)
     {
         if (o->oAction >= 4 || o->oAction == 1)
@@ -204,7 +207,8 @@ void bhv_cannon_base_loop(void) {
 
             if (o->oCannonQuickWarpActive)
             {
-                print_text_aligned(160, 40, "PRESS L TO WARP BACK", TEXT_ALIGN_CENTER);
+                gExtraTexts[0] = "Press L to warp back";
+                gExtraGuides[0] = 255/16;
                 if (gPlayer1Controller->buttonDown & L_TRIG)
                 {
                     gMarioObject->oIntangibleTimer = -1;
