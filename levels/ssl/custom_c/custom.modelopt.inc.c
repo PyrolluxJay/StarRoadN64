@@ -3373,6 +3373,8 @@ gsDPSetTileSize(0, 0, 0, 124, 124),
 	gsSPTriSnake(33, 29, 32, 31, G_SNAKE_RIGHT, 28, G_SNAKE_RIGHT, G_SNAKE_LAST | 30, G_SNAKE_RIGHT, -1, 0),
 	gsSPTriSnake(37, 51, 50, 34, G_SNAKE_LEFT, 36, G_SNAKE_LEFT, G_SNAKE_LAST | 35, G_SNAKE_RIGHT, -1, 0),
 gsSPTexture(65535, 65535, 0, 0, 0),
+gsDPPipeSync(),
+gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, SHADE,0, 0, 0, SHADE, 0, 0, 0, SHADE),
 gsSPEndDisplayList(),
 };
 
@@ -3490,7 +3492,7 @@ gsDPTileSync(),
 	gsSPContinueSnake(17, G_SNAKE_LEFT, 13, G_SNAKE_RIGHT, 14, G_SNAKE_RIGHT, 10, G_SNAKE_LEFT, 12, G_SNAKE_LEFT, 9, G_SNAKE_RIGHT, 8, G_SNAKE_RIGHT, G_SNAKE_LAST | 11, G_SNAKE_LEFT),
 gsSPTexture(65535, 65535, 0, 0, 0),
 gsDPPipeSync(),
-gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE,TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE),
+gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, SHADE,0, 0, 0, SHADE, 0, 0, 0, SHADE),
 gsSPEndDisplayList(),
 };
 
