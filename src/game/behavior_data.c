@@ -3517,6 +3517,16 @@ const BehaviorScript bhvYellowBall[] = {
     BREAK(),
 };
 
+extern void bhv_checkmark_loop();
+const BehaviorScript bhvCheckMark[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    BEGIN_LOOP(),
+        CALL_NATIVE( bhv_checkmark_loop ),
+    END_LOOP(),
+};
+
 UNUSED static const u64 behavior_data_unused_0 = 0;
 const BehaviorScript bhvMario[] = {
     BEGIN(OBJ_LIST_PLAYER),

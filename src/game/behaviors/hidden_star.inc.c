@@ -29,6 +29,7 @@ void bhv_hidden_star_loop(void) {
     }
 }
 
+extern const BehaviorScript bhvCheckMark[];
 void bhv_hidden_star_trigger_loop(void) {
     if (obj_check_if_collided_with_object(o, gMarioObject)) {
         struct Object *hiddenStar = cur_obj_nearest_object_with_behavior(bhvHiddenStar);
@@ -44,6 +45,14 @@ void bhv_hidden_star_trigger_loop(void) {
         }
 
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+        if (configFasterObjects)
+        {
+            if (gCurrLevelNum == LEVEL_VCUTM || gCurrLevelNum == LEVEL_RR || gCurrLevelNum == LEVEL_WDW)
+            {
+                struct Object* checkmark = spawn_object(o, MODEL_CHECKMARK, bhvCheckMark);
+                checkmark->oPosY += 150.f;
+            }
+        }
     }
 }
 

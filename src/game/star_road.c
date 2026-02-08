@@ -283,3 +283,8 @@ void ssl_star_road_fff_pillar_loop()
         load_object_collision_model();
     }
 }
+
+void bhv_checkmark_loop()
+{
+    o->oOpacity = CLAMP(o->oOpacity + 25, 0, 255);    
+}

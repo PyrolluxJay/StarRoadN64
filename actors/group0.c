@@ -31,3 +31,4 @@
 #include FONT_C_FILE
 #endif
 #include "red_coin_radar/model.inc.c"
+#include "checkmark/model.inc.c"

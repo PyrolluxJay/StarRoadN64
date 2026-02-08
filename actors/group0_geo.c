@@ -17,3 +17,4 @@
 #include "sparkle_animation/geo.inc.c"
 #include "mario/geo.inc.c"
 #include "red_coin_radar/geo.inc.c"
+#include "checkmark/geo.inc.c"
