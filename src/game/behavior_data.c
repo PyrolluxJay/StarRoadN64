@@ -1815,9 +1815,11 @@ const BehaviorScript bhvFloorSwitchHardcodedModel[] = {
     END_LOOP(),
 };
 
+extern void bhv_sl_purple_box_init();
 const BehaviorScript bhvFloorSwitchHiddenObjects[] = {
     BEGIN(OBJ_LIST_SURFACE),
     SET_INT(oBehParams2ndByte, PURPLE_SWITCH_BP_REVEAL_HIDDEN),
+    CALL_NATIVE(bhv_sl_purple_box_init),
     GOTO(bhvFloorSwitchHardcodedModel + 1),
 };
 

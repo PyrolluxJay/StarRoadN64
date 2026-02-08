@@ -288,3 +288,11 @@ void bhv_checkmark_loop()
 {
     o->oOpacity = CLAMP(o->oOpacity + 25, 0, 255);    
 }
+
+void bhv_sl_purple_box_init()
+{
+    if (gCurrLevelNum == LEVEL_SL && !configFasterObjects)
+    {
+        o->oPosY -= 100.f;
+    }
+}
