@@ -1644,7 +1644,8 @@ s32 cur_obj_follow_path_new(void) {
     o->oPathedTargetPitch = atan2s(sqrtf(sqr(objToNext[0]) + sqr(objToNext[2])), -objToNext[1]);
 
     // If dot(prevToNext, objToNext) <= 0 (i.e. reached other side of target waypoint)
-    if (vec3_dot(prevToNext, objToNext) <= 0.0f) {
+    int fixKoopaBug = o->behavior == bhvKoopa && (objToNext[0] == 0 && objToNext[2] == 0);
+    if (vec3_dot(prevToNext, objToNext) <= 0.0f || fixKoopaBug) {
         o->oPathedPrevWaypoint = targetWaypoint;
         if ((targetWaypoint + 1)->flags == WAYPOINT_FLAGS_END) {
             return PATH_REACHED_END;
