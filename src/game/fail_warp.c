@@ -53,7 +53,11 @@ void fail_warp_mario_set_safe_pos(struct MarioState *m, struct Surface *floor)
         return;
 
     s16 type = floor->type;
-    if (!SURFACE_IS_UNSAFE(type) && type != SURFACE_VERY_SLIPPERY && floor->normal.y >= 0.8f)
+    int maxAngle = 0.87f;
+    if (type == SURFACE_SLIPPERY || type == SURFACE_HARD_SLIPPERY || type == SURFACE_NOISE_SLIPPERY || type == SURFACE_NO_CAM_COL_SLIPPERY)
+        maxAngle = 0.94f;
+
+    if (!SURFACE_IS_UNSAFE(type) && type != SURFACE_VERY_SLIPPERY && type != SURFACE_ICE && type != SURFACE_SUPER_SLIPPERY && type != SURFACE_HARD_VERY_SLIPPERY && type != SURFACE_DEATH_PLANE && floor->normal.y >= maxAngle)
     {
         return fail_warp_set_safe_pos(m);
     }
