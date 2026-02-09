@@ -37,9 +37,11 @@ void bhv_collect_star_init(void) {
 
     o->header.gfx.sharedChild = gLoadedGraphNodes[model];
     obj_set_hitbox(o, &sCollectStarHitbox);
+    cur_obj_setup_static_surface_cache();
 }
 
 void bhv_collect_star_loop(void) {
+    cur_obj_update_floor_height_from_cache();
     o->oFaceAngleYaw += 0x800;
 
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
