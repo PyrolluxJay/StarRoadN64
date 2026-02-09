@@ -128,7 +128,8 @@ static const char sExtraWallkickFramesExplanation[]  = "Gives 3 extra frames to\
 static const char sFastSwimmingExplanation[]         = "Increases swimming movement speed.\n"
                                                        "Hold A for fastest swim.";
 static const char sSteepSlopeJumpsExplanation[]      = "Fixes small movement issues:\n"
-                                                       "jumps on steep slopes, vines movement, slope physics, false ledgegrabs.";
+                                                       "jumps on steep slopes, vines movement,\n"
+                                                       "slope physics, false ledgegrabs.";
 static const char sLivesExplanation[]                = "Disables lives system";
 static const char sAllowExitLevelExplanation[]       = "Adds extra pause option to exit\n"
                                                        "immediately outside the level or\n"
